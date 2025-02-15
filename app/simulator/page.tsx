@@ -18,7 +18,7 @@ const cursos = [
     titulo: "Practica un tema",
     tema: "Simulacro",
     imagen: "/images/curso2.jpg?height=200&width=400",
-    ref: "nosotros",
+    ref: "practica",
     progress: 25,
     show: false,
   },
@@ -34,7 +34,7 @@ const cursos = [
     titulo: "Genara tu primer simulacro ilimitado",
     tema: "Aprendizaje",
     imagen: "/images/curso4.jpeg?height=200&width=400",
-    ref: "nosotros",
+    ref: "simulacro",
     progress: 65,
     show: true,
   },
@@ -77,7 +77,7 @@ function Main() {
 
   return (
     <>
-      <section className="pt-3 md:pt-16 md:pb-14">
+      <section className="pt-3 md:pb-14">
         <div className="mx-auto px-3 max-w-[1202px]">
           <div className="flex flex-col min-h-screen">
             <main className="flex-grow bg-transparent">
@@ -119,7 +119,7 @@ function Main() {
                             <h3 className="text-lg font-bold text-green-700">{course.titulo}</h3>
                             <p className="text-gray-600">{course.tema}</p>
                             <Link
-                              href="#"
+                              href={`/${course.ref}`}
                               className="inline-block mt-4 px-4 py-2 bg-green-700 text-white rounded hover:bg-green-600 transition"
                             >
                               Inicia Ahora

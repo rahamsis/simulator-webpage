@@ -1,4 +1,5 @@
 import Link from "next/link";
+import React from "react";
 
 function CommonHero() {
     return (
@@ -11,7 +12,7 @@ function CommonHero() {
                                 <svg className="mr-1.5 -mt-1" width="15" height="15" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M13.1769 15.0588H10.3533V9.41178H5.64744V15.0588H2.82391V6.58825H1.88274V16H14.118V6.58825H13.1769V15.0588ZM6.58862 15.0588V10.353H9.41215V15.0588H6.58862ZM15.8084 6.09225L15.2512 6.85178L8.00038 1.52472L0.749559 6.8499L0.192383 6.09131L8.00038 0.357666L15.8084 6.09225Z" fill="black"></path>
                                 </svg>
-                                <Link href="/" className="text-sm leading-none text-orange-600 font-medium">Inicio</Link>
+                                <Link href="/simulator" className="text-sm leading-none text-orange-600 font-medium">Inicio</Link>
                             </div>
                         </li>
                         <li className="leading-none text-dark border">
@@ -35,35 +36,6 @@ function CommonHero() {
                         <a className="h-[52px] px-8 text-sm leading-9 relative rounded-[50px] border border-cyan-500 bg-transparent py-[7px] text-center capitalize text-gray-900 font-medium m-3 block min-w-[160px] sm:inline-block" href="/blog">Nuestro blog</a>
                     </div>
                 </div>
-                {/* <div className="counter mt-16">
-                    <div className="lg:flex lg:flex-wrap mt-0 mx-0 rounded-[20px] bg-white px-10 shadow-lg lg:py-10 items-center align-middle text-center">
-                        <div className="border-border px-10 py-10 text-center sm:w-1/2 lg:w-1/4 lg:border-r lg:py-0">
-                            <h2 className="text-[1.92rem] lg:text-[2.41rem] font-serif font-bold leading-tight text-gray-900">
-                                <span className="count">25M</span> <span className="text-[#A3A1FB]">+</span>
-                            </h2>
-                            <p>Customers</p>
-                        </div>
-                        <div className="border-border px-10 py-10 text-center sm:w-1/2 lg:w-1/4 lg:border-r lg:py-0">
-                            <h2 className="text-[1.92rem] lg:text-[2.41rem] font-serif font-bold leading-tight text-gray-900">
-                                <span className="count">440M</span>
-                                <span className="text-[#5EE2A0]">+</span>
-                            </h2>
-                            <p>Products sold</p>
-                        </div>
-                        <div className="border-border px-10 py-10 text-center sm:w-1/2 lg:w-1/4 lg:border-r lg:py-0">
-                            <h2 className="text-[1.92rem] lg:text-[2.41rem] font-serif font-bold leading-tight text-gray-900">
-                                <span className="count">50K</span> <span className="text-primary">+</span>
-                            </h2>
-                            <p>Online stores</p>
-                        </div>
-                        <div className="px-10 py-10 text-center sm:w-1/2 lg:w-1/4 lg:py-0">
-                            <h2 className="text-[1.92rem] lg:text-[2.41rem] font-serif font-bold leading-tight text-gray-900">
-                                <span className="count">20K</span> <span className="text-[#FEC163]">+</span>
-                            </h2>
-                            <p>Transactions</p>
-                        </div>
-                    </div>
-                </div> */}
             </div>
         </section>
     );
@@ -273,7 +245,7 @@ function Members() {
 
 export default function Nosotros() {
     return (
-        <>
+        <React.Fragment>
             <CommonHero />
 
             <Gallery />
@@ -281,6 +253,6 @@ export default function Nosotros() {
             <Work />
 
             <Members />
-        </>
+        </React.Fragment>
     );
 }

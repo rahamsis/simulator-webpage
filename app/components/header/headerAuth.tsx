@@ -2,22 +2,17 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
 import UserMenu from "../userMenu";
-import { useRouter } from "next/navigation";
-import { useUser } from "@/app/context/UserContext";
 
-import Cookies from "js-cookie";
 
-const Header = () => {
+const HeaderAuth = () => {
+
     const pathName = usePathname()
-    const route = useRouter();
-
-    const [menuOpen, setMenuOpen] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false)
     const [scrolled, setScrolled] = useState(false)
-    const { user, setUser } = useUser();
 
     // Toggle menu visibility
     const toggleMenu = () => { setMenuOpen(!menuOpen); };
@@ -25,9 +20,9 @@ const Header = () => {
     //controla el scroll para ocultar o mostrar el logo
     useEffect(() => {
         const handleScroll = () => {
-            setScrolled(window.scrollY > 500)            
+            setScrolled(window.scrollY > 500)
         }
-        
+
         window.addEventListener("scroll", handleScroll)
         return () => window.removeEventListener("scroll", handleScroll)
     }, [])
@@ -36,22 +31,16 @@ const Header = () => {
     //     console.log("menuOpen cambió:", menuOpen);
     // }, [menuOpen]);
 
-    // Manejo del logout
-    const handleLogout = () => {
-        // Cookies.remove("auth_token");
-        setUser(null);
-        route.push("./")
-    }
 
     return (
-        <>
+        <React.Fragment>
             <div className="fixed top-0 left-0 right-0 mx-auto px-4 lg:px-6 h-20 flex items-center justify-between bg-white z-50 ">
                 <nav className={`flex flex-wrap items-center justify-between  px-5 py-6 bg-white fixed top-0 left-0 w-full right-0 `}>
                     {/* <!-- logo --> */}
                     <div className={`order-[0] flex items-center pl-5 md:pl-0 ${menuOpen ? 'items-center mx-auto' : 'block'}`}>
                         <Link className="flex items-center justify-center" href="/simulator">
                             <div className="text-[32px] font-bold text-gray-800 " >
-                                <img src="assets/logo.png" height={20} width={50} alt="" />
+                                <Image src="/assets/logo.png" height={20} width={50} alt="Logo" priority/>
                             </div>
 
                             <div className="overflow-hidden ml-2 ">
@@ -72,7 +61,7 @@ const Header = () => {
                         </button>
                         {/* menu usuario */}
                         <div className="text-center ml-5 lg:hidden">
-                            <UserMenu onLogout={handleLogout} userName={user?.username || "undefined"} />
+                            <UserMenu />
                         </div>
                         {/* icono hamburguesa  */}
                         <button onClick={toggleMenu}>
@@ -92,7 +81,7 @@ const Header = () => {
                     </div>
 
 
-                    {/* <nav> */}
+                    {/* Menú de navegación */}
                     <ul id="nav-menu" className={`order-2 w-full flex-[0_0_100%] lg:order-1 lg:flex lg:w-auto lg:flex-auto lg:justify-center lg:space-x-5 ${menuOpen ? 'block' : 'hidden'}`}>
                         <li className="text-center">
                             <div className="lg:inline w-72 mx-auto">
@@ -132,22 +121,14 @@ const Header = () => {
                         </button>
                         {/* icono usuario */}
                         <div className="order-1 ml-auto items-center md:order-2 md:ml-5 lg:flex">
-                            <UserMenu onLogout={handleLogout} userName={user?.username || "undefined"} />
+                            <UserMenu />
                         </div>
                     </div>
                 </nav>
             </div>
-        </>
+        </React.Fragment>
 
     )
 }
 
-const Navbar = () => {
-    return (
-        <>
-            <Header />
-        </>
-    );
-};
-
-export default Navbar;
+export default HeaderAuth;

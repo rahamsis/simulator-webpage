@@ -3,25 +3,23 @@
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { createAccount } from '@/app/lib/actions';
-import { loginAccount } from "@/app/lib/actions";
 import { KeyIcon, UserCircleIcon, AtSymbolIcon, ExclamationCircleIcon, } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
-import { useUser } from "../context/UserContext";
+
+import { signIn } from "next-auth/react";
 
 interface AuthModalProps {
     onClose: () => void
-    onLogin: (user: { id: string; email: string; username: string; }) => void
+    onLogin: () => void
 }
 
 export default function AuthModal({ onClose, onLogin }: AuthModalProps) {
+    const router = useRouter();
+
     const [formData, setFormData] = useState({ username: '', email: '', password: '' });
     const [errors, setErrors] = useState<{ username?: string[]; email?: string[]; password?: string[] }>({});
     const [message, setMessage] = useState<string | null>(null);
     const [isLogin, setIsLogin] = useState(true)
-    const { user, setUser } = useUser();
-
-    const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -30,29 +28,22 @@ export default function AuthModal({ onClose, onLogin }: AuthModalProps) {
 
         if (isLogin) {
 
-            const form = new FormData();
-            form.append('email', formData.email)
-            form.append('password', formData.password)
+            const response = await signIn("credentials", {
+                email: formData.email,
+                password: formData.password,
+                redirect: false, // Evita redirección automática
+            });
 
-            const result = await loginAccount({}, form);
+            console.log("SignIn response:", response);
 
-            if (result?.errors) {
-                setErrors(result.errors);
+            if (!response?.ok) {
+                setMessage(response?.error!);
                 return;
             }
 
-            if (result?.message) {
-                setMessage(result.message);
-                return;
-            }
-
-            if('id' in result){
-                // Cookies.set("auth_token", "someAuthToken", { expires: 1 });
-                router.push("/simulator");
-                setUser({ id: result.id, email: result.email, username: result.name })
-                onLogin({ id: result.id, email: result.email, username: result.name })                
-                onClose();                
-            }
+            console.log('Login exitoso!');
+            onLogin();
+            router.push('/simulator');
 
         } else {
             const form = new FormData();
@@ -72,8 +63,6 @@ export default function AuthModal({ onClose, onLogin }: AuthModalProps) {
                 return;
             }
 
-            // onLogin({ id: "new_user", email: formData.email, username: formData.username })
-            // onClose()
             cleanForm();
             setIsLogin(true);
             router.push("/");
@@ -87,7 +76,6 @@ export default function AuthModal({ onClose, onLogin }: AuthModalProps) {
 
     const cleanForm = () => {
         setIsLogin(!isLogin)
-
         setFormData({ username: '', email: '', password: '' });
         setErrors({});
         setMessage(null);

@@ -6,18 +6,18 @@ type User = {
     id: string,
     email: string | null | undefined,
     name: string | null | undefined,
-    token: string | null | undefined
+    providerId: string | null | undefined
 }
 
 const authOptions: NextAuthOptions = {
-    
-    pages: {
-        // signIn: "/login",
-        // error: '/auth/auth/error',
-    },
-    session: {
-        strategy: 'jwt',
-    },
+    secret: process.env.NEXTAUTH_SECRET,
+    // pages: {
+    //     // signIn: "/login",
+    //     // error: '/auth/auth/error',
+    // },
+    // session: {
+    //     strategy: 'jwt',
+    // },
     providers: [
         CredentialsProvider({
             name: "Credentials",
@@ -25,39 +25,59 @@ const authOptions: NextAuthOptions = {
                 email: {},
                 password: {}
             },
-            authorize: async (credentials) => {
-                
-                const user = await getUser(credentials?.email as string, credentials?.password as string);
+            authorize: async (credentials: any) => {
+                console.log(credentials)
+
+                const { email, password } = credentials;
                 // console.log(user)
-                if (user) {
-                    return user;
+                try {
+                    const user = await getUser(email as string, password as string);
+                    
+                    return {
+                        id: user.id,
+                        name: user.name,
+                        email: email,
+                        providerId: "valor_unico_de_la_db",
+                        message: user.message
+                    } as User;
+                } catch (error) {
+                    const message = (error && (error as Error).message) as string || "Intente nuevamente.";
+                    throw new Error(message);
+
                 }
-                
-                throw new Error("Usuario o contraseña incorrectos");
             }
         })
-    ],
-    secret: process.env.NEXTAUTH_SECRET,
+    ],    
     callbacks: {
         // signIn: async ({ user, account, profile, email, credentials }) =>{
         //     console.log("signIn")
         //     return true;
         // },
-        jwt: async ({ token, user }) => {
+        async signIn({ user, account, profile }) {
+            console.log('----------signIn----------')
+            // Aquí puedes guardar el usuario en tu base de datos
+            console.log('Datos de usuario:', user)
+            return true
+        },
+        async jwt ({ token, user }) {
             if (user) {
-                token.id = user.id;
+                console.log('----------jwt----------')
+                token.userId = user.id;
                 token.email = user.email;
                 token.name = user.name;
+                token.providerId = user.providerId;
             }
             return token;
         },
-        session: async ({ session, token }) => {
-            if (token) {
+        async session ({ session, token }) {
+            if (session.user) {
+                console.log('----------session----------')
                 const user: User = {
-                    id: token.id as string,
+                    id: token.userId as string,
                     email: token.email,
                     name: token.name,
-                    token: ""
+
+                    providerId: token.providerId as string,
                 }
 
                 session.user = user;

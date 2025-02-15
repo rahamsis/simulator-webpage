@@ -22,19 +22,17 @@ export async function getUser(email: string, password: string): Promise<User> {
         const [user] = await sql.query<User[]>(`SELECT * FROM users WHERE email=?`, [email]);
 
         if (user.length === 0) {
-            user[0].message ='El email no es válido.';
-            return user[0];
+            throw new Error('El email no es válido.');
         }
 
         const passwordsMatch = await bcrypt.compare(password, user[0].password);
         if (!passwordsMatch) {
-            user[0].message = 'tu contraseña no es válida.';
-            return user[0];
+            throw new Error('tu contraseña no es válida.');
         }
 
         return user[0];
     } catch (error) {
-        throw new Error((error as any).sqlMessage || (error as any).message || 'Database Error');
+        throw error;
     } finally {
         sql?.end()
     }

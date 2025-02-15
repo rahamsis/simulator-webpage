@@ -1,15 +1,35 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { signOut, useSession } from "next-auth/react";
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 
-interface UserMenuProps {
-  onLogout: () => void
-  userName: string
-}
+export default function UserMenu() {
+  const {data: session, status} = useSession();
 
-export default function UserMenu({ onLogout, userName }: UserMenuProps) {
+  const router = useRouter();
+
   const [isOpen, setIsOpen] = useState(false)
-  const menuRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null); // Referencia al menú
+
+  // Cerrar el menú al hacer clic fuera
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsOpen(false); // Cierra el menú si el clic fue fuera
+      }
+    };
+
+    // Agregar el event listener cuando el menú está abierto
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    // Limpiar el event listener cuando el componente se desmonta o el menú se cierra
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]); // Solo se ejecuta cuando `isOpen` cambia
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,7 +41,7 @@ export default function UserMenu({ onLogout, userName }: UserMenuProps) {
   }, [])
 
   return (
-    <div className="relative ">
+    <div className="relative " ref={menuRef}>
       <div className="flex">
         <button onClick={() => setIsOpen(!isOpen)}
           className="flex items-center space-x-2 text-green-800 hover:text-green-600 transition-colors duration-200 ease-in-out"
@@ -43,15 +63,21 @@ export default function UserMenu({ onLogout, userName }: UserMenuProps) {
             </svg>
           </div>
           {/* nombre usuario */}
-          <div className=" items-center text-center font-bold text-2xl text-green-700">{userName}</div>
+          <div className=" items-center text-center font-bold text-2xl text-green-700">
+            {
+                status === "authenticated" && session!.user!.name
+            }
+          </div>
 
           <a href="#" className="block px-4 py-2 text-sm md:text-xl text-green-800 hover:bg-green-100 rounded-md transition-all duration-200 ease-in-out">
             Modificar perfil
           </a>
           <button
             onClick={() => {
-              onLogout();
+              signOut();
               setIsOpen(false);
+              // router.push("/");
+
             }}
             className="block w-full px-4 py-2 text-sm md:text-xl text-green-800 hover:bg-green-100 rounded-md transition-all duration-200 ease-in-out"
           >

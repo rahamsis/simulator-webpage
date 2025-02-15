@@ -1,21 +1,27 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { getToken } from 'next-auth/jwt';
 
-export function middleware(req: NextRequest) {
-    const token = req.cookies.get("auth_token")?.value; // Obtener token de autenticación
+export async function middleware(req: NextRequest) {
+    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
-    // Rutas que queremos proteger
-    const protectedRoutes = ["/simulator",];
+    const { pathname } = req.nextUrl;
 
-    // Si el usuario intenta acceder a una ruta protegida sin estar autenticado
-    if (protectedRoutes.includes(req.nextUrl.pathname) && !token) {
-        return NextResponse.redirect(new URL("/", req.url)); // Redirigir a login
+    // Allow the requests if the following is true...
+    // 1) It's a request for next-auth session & provider fetching
+    // 2) the token exists
+    if (pathname.includes('/api/auth') || token) {
+        return NextResponse.next();
     }
 
-    return NextResponse.next(); // Permitir la navegación si está autenticado
+    // Redirect them to login if they don't have token AND are requesting a protected route
+    if (!token && pathname !== '/') {
+        const url = req.nextUrl.clone();
+        url.pathname = '/';
+        return NextResponse.redirect(url);
+    }
 }
 
-// Configurar para qué rutas se aplica el middleware
 export const config = {
-    matcher: ["/simulator",], // Solo afecta estas rutas
+    matcher: ['/simulator', '/practica'],
 };

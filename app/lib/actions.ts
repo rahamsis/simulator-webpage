@@ -72,69 +72,69 @@ export async function createAccount(prevState: {
     // redirect('/login');
 }
 
-export async function loginAccount(prevState: {
-    errors?: {
-        email?: string[];
-        password?: string[];
-    };
-    message?: string | null;
-}, formData: FormData) {
+// export async function loginAccount(prevState: {
+//     errors?: {
+//         email?: string[];
+//         password?: string[];
+//     };
+//     message?: string | null;
+// }, formData: FormData) {
 
-    const schema = z.object({
-        email: z.string().trim().email().min(1, 'Email es requerido.'),
-        password: z.string().trim().min(6, 'Password es requerido')
-    })
+//     const schema = z.object({
+//         email: z.string().trim().email().min(1, 'Email es requerido.'),
+//         password: z.string().trim().min(6, 'Password es requerido')
+//     })
 
-    const validatedFields = schema.safeParse({
-        email: formData.get('email'),
-        password: formData.get('password'),
-    })
+//     const validatedFields = schema.safeParse({
+//         email: formData.get('email'),
+//         password: formData.get('password'),
+//     })
 
-    if (!validatedFields.success) {
-        return {
-            errors: validatedFields.error.flatten().fieldErrors,
-        };
-    }
+//     if (!validatedFields.success) {
+//         return {
+//             errors: validatedFields.error.flatten().fieldErrors,
+//         };
+//     }
 
-    type Form = z.infer<typeof schema>;
+//     type Form = z.infer<typeof schema>;
 
-    const { email, password }: Form = validatedFields.data;
+//     const { email, password }: Form = validatedFields.data;
 
-    let sql = null;
-    try {
+//     let sql = null;
+//     try {
 
-        // await new Promise((resolve) => setTimeout(resolve, 5000));
-        // await signIn("Credentials", {
-        //   email: email,
-        //   password: password,
-        //   callbackUrl: "/dashboard",
-        //   redirect: true,
-        // });
-        sql = await connection();
+//         // await new Promise((resolve) => setTimeout(resolve, 5000));
+//         // await signIn("Credentials", {
+//         //   email: email,
+//         //   password: password,
+//         //   callbackUrl: "/dashboard",
+//         //   redirect: true,
+//         // });
+//         sql = await connection();
 
-        const [user] = await sql.query<User[]>(`SELECT * FROM users WHERE email=?`, [email]);
+//         const [user] = await sql.query<User[]>(`SELECT * FROM users WHERE email=?`, [email]);
 
-        if (user.length === 0) {
-            // user[0].message = 'El email no es válido.';
-            // return user[0];
-            return { message: 'El email no es válido.' };
-        }
+//         if (user.length === 0) {
+//             // user[0].message = 'El email no es válido.';
+//             // return user[0];
+//             return { message: 'El email no es válido.' };
+//         }
 
-        const passwordsMatch = await bcrypt.compare(password, user[0].password);
-        if (!passwordsMatch) {
-            // user[0].message = 'tu contraseña no es válida.';
-            // return user[0];
-            return { message: 'tu contraseña no es válida.' };
-        }
+//         const passwordsMatch = await bcrypt.compare(password, user[0].password);
+//         if (!passwordsMatch) {
+//             // user[0].message = 'tu contraseña no es válida.';
+//             // return user[0];
+//             return { message: 'tu contraseña no es válida.' };
+//         }
 
-        return user[0] ;
+//         return user[0] ;
 
-    } catch (error) {
-        return {
-            message: (error as any).sqlMessage || 'Database Error: Fallo al validar las credenciales - loginAccount().',
-        }
-        // throw new Error((error as any).sqlMessage || (error as any).message || 'Database Error');
-    } finally {
-        sql?.end()
-    }
-}
+//     } catch (error) {
+//         return {
+//             message: (error as any).sqlMessage || 'Database Error: Fallo al validar las credenciales - loginAccount().',
+//         }
+//         // throw new Error((error as any).sqlMessage || (error as any).message || 'Database Error');
+//     } finally {
+//         sql?.end()
+//     }
+// }

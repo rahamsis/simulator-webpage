@@ -1,26 +1,16 @@
 'use client'
 
-import { Dialog } from "@headlessui/react";
-import { Bars3Icon, ChevronDownIcon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
-import styles from './header.module.css'
+import React, { useEffect, useState } from "react";
 
 import AuthModal from "../authModal";
-import UserMenu from "../userMenu";
-import { useRouter } from "next/navigation";
 import { useCallback } from "react";
 
-import Cookies from "js-cookie";
 
-const Header = () => {
-    
-    
+const HeaderLanding = () => {
     const [scrolled, setScrolled] = useState(false)
     const [showAuthModal, setShowAuthModal] = useState(false)
-    // const [user, setUser] = useState<{ id: string; email: string; username: string } | null>(null)
 
     const handleScroll = useCallback(() => {
         setScrolled(window.scrollY > 500);
@@ -33,19 +23,16 @@ const Header = () => {
 
     // Manejo del login
     const handleLogin = () => {
-        // console.log(user);
-        // setIsLoggedIn(true)
         setShowAuthModal(false)
-
     }
-
+    
     return (
-        <>
+        <React.Fragment>
             <div className="fixed top-0 left-0 right-0 mx-auto px-4 lg:px-6 h-20 flex items-center justify-between bg-white z-50">
                 <div>
                     <Link className="flex items-center justify-center" href="/">
                         <div className="text-[32px] font-bold text-gray-800 " >
-                            <Image src="/assets/logo.png" height={20} width={50} alt="Logo" />
+                            <Image src="/assets/logo.png" height={20} width={50} alt="Logo" priority/>
                         </div>
 
                         <div className="overflow-hidden ml-2">
@@ -69,16 +56,8 @@ const Header = () => {
                 </div>
                 {showAuthModal && <AuthModal onClose={() => setShowAuthModal(false)} onLogin={handleLogin} />}
             </div>
-        </>
+            </React.Fragment>
     )
 }
-
-const HeaderLanding = () => {
-    return (
-        <>
-            <Header />
-        </>
-    );
-};
 
 export default HeaderLanding;
