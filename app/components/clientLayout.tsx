@@ -1,14 +1,17 @@
 'use client';
 
+import { useEffect } from "react";
 import { Inter } from 'next/font/google';
 import Footer from './footer';
 import HeaderLanding from './header/headerLanding';
 import HeaderAuth from './header/headerAuth';
 import { usePathname } from "next/navigation"
 import Whatsapp from './whatsapp';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 
 const inter = Inter({ subsets: ['latin'] }); // Importa la fuente Inter con soporte para caracteres latinos
+
+const restrictedRoutes = ["/practica", "/nosotros", "/simulacro"];
 
 function Bubbles() {
   return (
@@ -23,34 +26,46 @@ function Bubbles() {
 // Componente de Spinner
 function LoadingSpinner() {
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-50 z-50">
       <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
     </div>
   );
 }
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
-  const pathName = usePathname(); // Obtiene la ruta actual
-  const isLandingPage = pathName === "/"; // Verifica si la página actual es la de inicio
+  const pathName = usePathname();
+  const isLandingPage = pathName === "/";
+  const { data: session, status } = useSession();
 
-  const { data: session, status } = useSession(); // Obtiene la sesión del usuario
+  useEffect(() => {
+    console.log("🔍 useEffect ejecutado");
+    console.log("📍 Ruta actual:", pathName);
+    console.log("🔐 Estado de sesión:", status);
+    console.log("🛠️ Datos de sesión:", session);
+
+    // Si la sesión está autenticada y la ruta es restringida
+    // if ( restrictedRoutes.includes(pathName)) {
+
+      // Si activeSession es falso o undefined, cerrar sesión
+      // if (session?.activeSession === false || !session) {
+      //   console.log("🚫 Sesión inactiva, cerrando sesión...");
+      //   signOut();
+      // }
+    // }
+  }, [pathName, status, session]);  
 
   if (status === "loading") {
-    return <LoadingSpinner />; // Muestra el spinner de carga
+    return <LoadingSpinner />;
   }
-
-
-  const isAuthenticated = !!session; // Verifica si hay una sesión activa
 
   return (
     <div className={inter.className}>
-      {isLandingPage ? <HeaderLanding /> : isAuthenticated ? <HeaderAuth /> : <HeaderLanding />}
-      <main className='pt-14'>
+      {isLandingPage ? <HeaderLanding /> : session ? <HeaderAuth /> : <HeaderLanding />}
+      <main className="pt-14">
         <Bubbles />
         {children}
       </main>
       <Footer />
-      {/* <Whatsapp /> */}
     </div>
   );
 }

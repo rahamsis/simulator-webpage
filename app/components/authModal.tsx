@@ -6,7 +6,7 @@ import { createAccount } from '@/app/lib/actions';
 import { KeyIcon, UserCircleIcon, AtSymbolIcon, ExclamationCircleIcon, } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 
 interface AuthModalProps {
     onClose: () => void
@@ -26,11 +26,31 @@ export default function AuthModal({ onClose, onLogin }: AuthModalProps) {
         setErrors({});
         setMessage(null);
 
+        // 📌 Obtener el User-Agent (dispositivo)
+        const device = navigator.userAgent;
+        // 📌 Obtener la IP pública desde una API externa
+        let ip = "Unknown";
+        try {
+            const res = await fetch("https://api64.ipify.org?format=json");
+            const data = await res.json();
+            ip = data.ip;
+        } catch (error) {
+            console.error("Error obteniendo la IP:", error);
+        }
+
         if (isLogin) {
+            // Cerrar sesión en todos los demás navegadores si la sesión anterior existe
+            await signOut({ redirect: false })
+
+            // Eliminar cookies manualmente si es necesario
+            document.cookie = "next-auth.session-token=; max-age=0; path=/; domain=localhost;";  // Esto elimina la cookie en el navegador
+
 
             const response = await signIn("credentials", {
                 email: formData.email,
                 password: formData.password,
+                device,  // Enviamos el dispositivo
+                ip,      // Enviamos la IP
                 redirect: false, // Evita redirección automática
             });
 

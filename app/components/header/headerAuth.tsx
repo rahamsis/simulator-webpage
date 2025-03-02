@@ -107,6 +107,14 @@ const HeaderAuth = () => {
                                 </Link>
                             </div>
                         </li>
+                        <li className="text-center">
+                            <div className="lg:inline w-72 mx-auto">
+                                <Link href="/libros" className={`block p-3 py-2 text-base text-gray-900 ${pathName === '/libros' ? 'border-b-2 border-green-500' : 'opacity-80'}`}
+                                    onClick={toggleMenu}>
+                                    Material Didactico
+                                </Link>
+                            </div>
+                        </li>
 
                     </ul>
                     {/* </nav> */}

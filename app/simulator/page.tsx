@@ -70,6 +70,14 @@ const cursos = [
     progress: 5,
     show: true,
   },
+  {
+    titulo: "Material didactico",
+    tema: "Aprendizaje",
+    imagen: "/images/curso6.png?height=200&width=400",
+    ref: "libros",
+    progress: 5,
+    show: true,
+  },
 ]
 
 function Main() {
@@ -181,4 +189,3 @@ export default function Simulator() {
     </>
   )
 }
-

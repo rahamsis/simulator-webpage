@@ -1,27 +1,29 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-import { getToken } from 'next-auth/jwt';
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { getToken } from "next-auth/jwt";
 
 export async function middleware(req: NextRequest) {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
-    const { pathname } = req.nextUrl;
+    if (!token) return NextResponse.redirect(new URL("/", req.url));
 
-    // Allow the requests if the following is true...
-    // 1) It's a request for next-auth session & provider fetching
-    // 2) the token exists
-    if (pathname.includes('/api/auth') || token) {
-        return NextResponse.next();
+    try {
+        const res = await fetch(`${process.env.NEXTAUTH_URL}/api/session?sessionToken=${token.sessionToken}`);
+        const data = await res.json();
+
+        if (!data.active) {
+            return NextResponse.redirect(new URL("/", req.url));
+        }
+
+    } catch (error) {
+        console.error("Error en el middleware:", error);
+        return NextResponse.redirect(new URL("/error", req.url));
     }
 
-    // Redirect them to login if they don't have token AND are requesting a protected route
-    if (!token && pathname !== '/') {
-        const url = req.nextUrl.clone();
-        url.pathname = '/';
-        return NextResponse.redirect(url);
-    }
+    return NextResponse.next();
 }
 
 export const config = {
-    matcher: ['/simulator', '/practica'],
+    runtime: "nodejs",
+    matcher: ['/simulator', '/practica', '/simulacro', '/libros'],
 };

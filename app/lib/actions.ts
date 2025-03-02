@@ -1,8 +1,8 @@
 'use server';
 
 import { z } from 'zod';
-import connection from './data';
-import bcrypt from 'bcrypt';
+import connection from './connection';
+import bcrypt from "bcryptjs";
 import { v4 as uuidv4 } from 'uuid';
 import { redirect } from 'next/navigation';
 import { signIn } from 'next-auth/react';
@@ -40,11 +40,9 @@ export async function createAccount(prevState: {
 
     const { username, email, password }: Form = validatedFields.data;
 
-    let sql = null;
     try {
-        sql = await connection();
 
-        const [existUser] = await sql.query<any[]>(`SELECT id FROM users WHERE email = ?`, [email]);
+        const [existUser] = await connection.query<any[]>(`SELECT userId FROM users WHERE email = ?`, [email]);
 
         if (existUser.length > 0) {
             return { message: "El email ya está en uso." };
@@ -52,8 +50,8 @@ export async function createAccount(prevState: {
 
         const hashedPassword = await bcrypt.hash(password, 10)
 
-        await sql.query(`
-        INSERT INTO users (id, name, email, password)
+        await connection.query(`
+        INSERT INTO users (userId, name, email, password)
         VALUES (?,?,?,?)
     `, [
             uuidv4(),
@@ -65,76 +63,121 @@ export async function createAccount(prevState: {
         return {
             message: (error as any).sqlMessage || 'Database Error: Fallo al crear el usuario - createAccount().',
         }
-    } finally {
-        sql?.end()
     }
 
     // redirect('/login');
 }
 
-// export async function loginAccount(prevState: {
-//     errors?: {
-//         email?: string[];
-//         password?: string[];
-//     };
-//     message?: string | null;
-// }, formData: FormData) {
 
-//     const schema = z.object({
-//         email: z.string().trim().email().min(1, 'Email es requerido.'),
-//         password: z.string().trim().min(6, 'Password es requerido')
-//     })
+export async function getQuestion(idTema: string) {
+    try {
+        const [questions] = await connection.query<User[]>(`SELECT p.idPregunta AS id, p.pregunta AS question, 
+            GROUP_CONCAT(CONCAT(a.idAlternativa,"-", a.alternativa) ORDER BY a.idAlternativa SEPARATOR '||') AS options, 
+            (SELECT a2.idAlternativa 
+                FROM alternativas a2 
+                WHERE a2.idPregunta = p.idPregunta AND a2.respuesta = 1 LIMIT 1
+            ) AS correctAnswer 
+            FROM preguntas p 
+            INNER JOIN alternativas a ON a.idPregunta = p.idPregunta 
+            WHERE p.idTema = ?
+            GROUP BY p.idPregunta`,[idTema]);
 
-//     const validatedFields = schema.safeParse({
-//         email: formData.get('email'),
-//         password: formData.get('password'),
-//     })
+        // return questions[0] || null;
+        return questions.map(row => ({
+            id: row.id,
+            question: row.question,
+            options: row.options.split("||"), // Convertir string a array
+            correctAnswer: row.correctAnswer
+        }));
+    
 
-//     if (!validatedFields.success) {
-//         return {
-//             errors: validatedFields.error.flatten().fieldErrors,
-//         };
-//     }
+    } catch (error) {
+        console.error("Error al obtener las preguntas: ", error);
+        throw new Error("Error al obtener las preguntas");
+    }
+}
 
-//     type Form = z.infer<typeof schema>;
+export async function getTemas() {
+    try {
+        const [temas] = await connection.query<User[]>(`SELECT * FROM temas`);
 
-//     const { email, password }: Form = validatedFields.data;
+        // return questions[0] || null;
+        return temas.map(row => ({
+            idTema: row.idTema,
+            tema: row.tema,
+        }));
+    
 
-//     let sql = null;
+    } catch (error) {
+        console.error("Error al obtener las preguntas: ", error);
+        throw new Error("Error al obtener las preguntas");
+    }
+}
+
+// export async function getQuestionSimulacro() {
 //     try {
+//         // Genera un "seed" aleatorio para evitar que los mismos 10 siempre aparezcan juntos
+//         const randomSeed = Math.floor(Math.random() * 1000); 
 
-//         // await new Promise((resolve) => setTimeout(resolve, 5000));
-//         // await signIn("Credentials", {
-//         //   email: email,
-//         //   password: password,
-//         //   callbackUrl: "/dashboard",
-//         //   redirect: true,
-//         // });
-//         sql = await connection();
+//         const [questions] = await connection.query<User[]>(`
+//             SELECT p.idPregunta AS id, p.pregunta AS question, 
+//             GROUP_CONCAT(CONCAT(a.idAlternativa, "-", a.alternativa) ORDER BY a.idAlternativa SEPARATOR '||') AS options, 
+//             (SELECT a2.idAlternativa 
+//                 FROM alternativas a2 
+//                 WHERE a2.idPregunta = p.idPregunta AND a2.respuesta = 1 LIMIT 1
+//             ) AS correctAnswer 
+//             FROM preguntas p 
+//             INNER JOIN alternativas a ON a.idPregunta = p.idPregunta
+//             GROUP BY p.idPregunta
+//             ORDER BY RAND(${randomSeed})
+//             LIMIT 10
+//         `);
 
-//         const [user] = await sql.query<User[]>(`SELECT * FROM users WHERE email=?`, [email]);
-
-//         if (user.length === 0) {
-//             // user[0].message = 'El email no es válido.';
-//             // return user[0];
-//             return { message: 'El email no es válido.' };
-//         }
-
-//         const passwordsMatch = await bcrypt.compare(password, user[0].password);
-//         if (!passwordsMatch) {
-//             // user[0].message = 'tu contraseña no es válida.';
-//             // return user[0];
-//             return { message: 'tu contraseña no es válida.' };
-//         }
-
-//         return user[0] ;
+//         return questions.map(row => ({
+//             id: row.id,
+//             question: row.question,
+//             options: row.options.split("||"), // Convertir string a array
+//             correctAnswer: row.correctAnswer
+//         }));
 
 //     } catch (error) {
-//         return {
-//             message: (error as any).sqlMessage || 'Database Error: Fallo al validar las credenciales - loginAccount().',
-//         }
-//         // throw new Error((error as any).sqlMessage || (error as any).message || 'Database Error');
-//     } finally {
-//         sql?.end()
+//         console.error("Error al obtener las preguntas: ", error);
+//         throw new Error("Error al obtener las preguntas");
 //     }
 // }
+
+export async function getQuestionSimulacro() {
+    try {
+        // Obtener 10 preguntas aleatorias de manera eficiente
+        const [randomQuestions] = await connection.query<any[]>(`
+            SELECT idPregunta FROM preguntas ORDER BY RAND() LIMIT 10;
+        `);
+
+        const questionIds = randomQuestions.map((q: { idPregunta: string }) => q.idPregunta);
+
+        // Traer los detalles de esas preguntas y sus respuestas
+        const [questions] = await connection.query<User[]>(`
+            SELECT p.idPregunta AS id, p.pregunta AS question, 
+            GROUP_CONCAT(CONCAT(a.idAlternativa, "-", a.alternativa) ORDER BY a.idAlternativa SEPARATOR '||') AS options, 
+            (SELECT a2.idAlternativa 
+                FROM alternativas a2 
+                WHERE a2.idPregunta = p.idPregunta AND a2.respuesta = 1 LIMIT 1
+            ) AS correctAnswer 
+            FROM preguntas p 
+            INNER JOIN alternativas a ON a.idPregunta = p.idPregunta
+            WHERE p.idPregunta IN (?)
+            GROUP BY p.idPregunta
+        `, [questionIds]);
+
+        return questions.map(row => ({
+            id: row.id,
+            question: row.question,
+            options: row.options.split("||"), // Convertir string a array
+            correctAnswer: row.correctAnswer
+        }));
+
+    } catch (error) {
+        console.error("Error al obtener las preguntas: ", error);
+        throw new Error("Error al obtener las preguntas");
+    }
+}

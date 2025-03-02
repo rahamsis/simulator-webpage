@@ -248,7 +248,7 @@ function Footer2() {
         <div className="flex flex-wrap mt-0 gx-5 pb-10 pt-[52px]">
           <div className="px-6 w-full mt-12 md:w-1/2 lg:w-1/4">
             <a href="index.html">
-              <img src="assets/logo.png" alt="" />
+              <Image src="/assets/logo.png" height={20} width={50} alt="Logo" priority/>
             </a>
             <p className="mt-6 text-sm text-gray-500">
               Expertos en pulir pisos para devolverles su brillo original. Transformamos
