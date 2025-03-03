@@ -27,18 +27,13 @@ const HeaderAuth = () => {
         return () => window.removeEventListener("scroll", handleScroll)
     }, [])
 
-    // useEffect(() => {
-    //     console.log("menuOpen cambió:", menuOpen);
-    // }, [menuOpen]);
-
-
     return (
         <React.Fragment>
             <div className="fixed top-0 left-0 right-0 mx-auto px-4 lg:px-6 h-20 flex items-center justify-between bg-white z-50 ">
                 <nav className={`flex flex-wrap items-center justify-between  px-5 py-6 bg-white fixed top-0 left-0 w-full right-0 `}>
                     {/* <!-- logo --> */}
                     <div className={`order-[0] flex items-center pl-5 md:pl-0 ${menuOpen ? 'items-center mx-auto' : 'block'}`}>
-                        <Link className="flex items-center justify-center" href="/simulator">
+                        <Link className="flex items-center justify-center" href="/cusros">
                             <div className="text-[32px] font-bold text-gray-800 " >
                                 <Image src="/assets/logo.png" height={20} width={50} alt="Logo" priority/>
                             </div>
@@ -83,9 +78,17 @@ const HeaderAuth = () => {
 
                     {/* Menú de navegación */}
                     <ul id="nav-menu" className={`order-2 w-full flex-[0_0_100%] lg:order-1 lg:flex lg:w-auto lg:flex-auto lg:justify-center lg:space-x-5 ${menuOpen ? 'block' : 'hidden'}`}>
+                    <li className="text-center">
+                            <div className="lg:inline w-72 mx-auto">
+                                <Link href="/main" className={`active block p-3 py-2 text-base text-gray-900 ${pathName === '/main' ? 'border-b-2 border-green-500' : 'opacity-80'}`}
+                                    onClick={toggleMenu}>
+                                    Principal
+                                </Link>
+                            </div>
+                        </li>
                         <li className="text-center">
                             <div className="lg:inline w-72 mx-auto">
-                                <Link href="/simulator" className={`active block p-3 py-2 text-base text-gray-900 ${pathName === '/simulator' ? 'border-b-2 border-green-500' : 'opacity-80'}`}
+                                <Link href="/cursos" className={`active block p-3 py-2 text-base text-gray-900 ${pathName === '/cursos' ? 'border-b-2 border-green-500' : 'opacity-80'}`}
                                     onClick={toggleMenu}>
                                     Cursos
                                 </Link>

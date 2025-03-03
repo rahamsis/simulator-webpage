@@ -11,7 +11,7 @@ import { useSession, signOut } from 'next-auth/react';
 
 const inter = Inter({ subsets: ['latin'] }); // Importa la fuente Inter con soporte para caracteres latinos
 
-const restrictedRoutes = ["/practica", "/nosotros", "/simulacro"];
+// const restrictedRoutes = ["/main","/practica", "/nosotros", "/simulacro"];
 
 function Bubbles() {
   return (

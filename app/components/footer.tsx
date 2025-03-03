@@ -16,7 +16,7 @@ function Footer3() {
             <h3 className="text-lg font-semibold mb-4">Enlaces Rápidos</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/simulator" className="text-gray-400 hover:text-white">
+                <Link href="/cursos" className="text-gray-400 hover:text-white">
                   Cursos
                 </Link>
               </li>

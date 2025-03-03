@@ -26,12 +26,12 @@ const cursos = [
     titulo: "Genera tu primera practica",
     tema: "Aprendizaje",
     imagen: "/images/curso3.jpg?height=200&width=400",
-    ref: "nosotros",
+    ref: "generador",
     progress: 10,
     show: false,
   },
   {
-    titulo: "Genara tu primer simulacro ilimitado",
+    titulo: "Genera tu primer simulacro ilimitado",
     tema: "Aprendizaje",
     imagen: "/images/curso4.jpeg?height=200&width=400",
     ref: "simulacro",
@@ -182,7 +182,7 @@ function Main() {
   )
 }
 
-export default function Simulator() {
+export default function Cursos() {
   return (
     <>
       <Main />
