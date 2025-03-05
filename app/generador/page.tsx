@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { RadioGroup } from "@headlessui/react";
-import SelectorOne from "../components/selectors/selectorOne";
-import { getQuestion } from "../lib/actions";
+import Options from "../components/options/page";
+import { getQuestionRamdonWithLimit } from "../lib/actions";
 import QuestionnaireVersionTwo from "../questionnaireVersionTwo/page";
 import Results from "../results/page";
 
@@ -14,7 +14,7 @@ type Question = {
     correctAnswer: string;
 };
 
-export default function Quiz() {
+export default function Generador() {
     const [questions, setQuestions] = useState<Question[]>([]);
 
     const [currentQuestion, setCurrentQuestion] = useState(1);
@@ -25,13 +25,12 @@ export default function Quiz() {
     const [showAlert, setShowAlert] = useState(false);
 
     // constantes de SelectorOne.tsx
-    const [selectedTheme, setSelectedTheme] = useState<string>('');
-    const [selectedCheckbox, setSelectedCheckbox] = useState<number>(0);
+    const [qantitySelect, setQuantitySelect] = useState<number>(0);
     const [isPracticeStarted, setIsPracticeStarted] = useState(false);
 
-    const getAllQuestions = async (idTema: string) => {
+    const getAllQuestions = async (quantity: number) => {
         try {
-            const data = await getQuestion(idTema);
+            const data = await getQuestionRamdonWithLimit(quantity);
             setQuestions(data);
         } catch (error) {
             console.error("Error obteniendo las preguntas:", error);
@@ -39,10 +38,9 @@ export default function Quiz() {
     }
 
     const handleStartPractice = async () => {
-        console.log("Pregunta actual:", currentQuestion);
 
-        if (selectedTheme.length != 0 && selectedCheckbox != null) {
-            await getAllQuestions(selectedTheme)
+        if (qantitySelect != 0) {
+            await getAllQuestions(qantitySelect)
             setIsPracticeStarted(true);
         } else {
             setShowAlert(true);
@@ -57,20 +55,18 @@ export default function Quiz() {
         setScore(correctAnswers);
     };
 
-
     const restartAll = () => {
         setQuestions([]);
         setCurrentQuestion(1);
         setAnswers({});
         setIsFinished(false);
         setScore(0);
-        setShowAlert(false);
-        setSelectedTheme('');
-        setSelectedCheckbox(0);
+        setShowAlert(false);     
+        setQuantitySelect(0);
         setIsPracticeStarted(false);
     }
 
-    if (isFinished) {
+    if (isFinished) {        
         return <Results score={score} questions={questions} selectedAnswers={answers} onRestart={restartAll} />
     }
 
@@ -79,14 +75,11 @@ export default function Quiz() {
         <div className="flex min-h-[80vh] p-4 md:p-8 mt-14 ">
             <div className="mx-auto md:w-5/6 ">
                 {!isPracticeStarted ? (
-                    <div className="">
-                        <SelectorOne
-                            onThemeSelect={setSelectedTheme}
-                            onCheckboxSelect={setSelectedCheckbox}
-                            onStartPractice={handleStartPractice} />
-                        {showAlert && <div className="text-red-500">Por favor selecciona un tema para poder continuar y una opción del checkbox.</div>}
-
+                    <div className="bg-gray-200 py-5 text-center">
+                        <Options onQuantitySelect={setQuantitySelect} onStartPractice={handleStartPractice} />
+                        {showAlert && <div className="text-red-500">Por favor selecciona una cantidad correcta de preguntas.</div>}
                     </div>
+
                 ) : (
                     <QuestionnaireVersionTwo
                         questions={questions}
@@ -98,6 +91,6 @@ export default function Quiz() {
                     />
                 )}
             </div>
-        </div >
+        </div>
     );
 }

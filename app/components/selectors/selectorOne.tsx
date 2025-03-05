@@ -28,7 +28,6 @@ function SelectorOne({ onThemeSelect, onCheckboxSelect, onStartPractice }: Selec
     const [query, setQuery] = useState("")
     const [result, setResult] = useState<SearchResult | null>(null)
     const [isFocused, setIsFocused] = useState(false)
-    // const [isTyping, setIsTyping] = useState(false)
     const [selectedTema, setSelectedTema] = useState<Tema | null>(null)
     const debouncedQuery = useDebounce(query, 0)
 
@@ -67,8 +66,13 @@ function SelectorOne({ onThemeSelect, onCheckboxSelect, onStartPractice }: Selec
     }, [debouncedQuery, isFocused, temas])
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setQuery(e.target.value)
-        // setIsTyping(true)
+        const value = e.target.value
+        setQuery(value)
+
+        if (value === "") {
+            setSelectedTema(null); // Reinicia el tema seleccionado
+            setResult({ actions: temas }); // Vuelve a mostrar todos los temas
+        }
     }
 
     const container = {
@@ -220,8 +224,8 @@ function SelectorOne({ onThemeSelect, onCheckboxSelect, onStartPractice }: Selec
             {/* Checkbox */}
             <div className="pt-5 flex items-center justify-center">
                 <Checkbox
-                    option1={{id:0, name:"Todas las preguntas"}}
-                    option2={{id:1, name:"Preguntas fallidas"}}
+                    option1={{id:50, name:"50 preguntas"}}
+                    option2={{id:100, name:"100 Preguntas"}}
                     // onChange={(selected) => console.log("Opción seleccionada:", selected)}
                     onChange={onCheckboxSelect}
                 />

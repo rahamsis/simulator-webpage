@@ -92,8 +92,8 @@ export async function getQuestion(idTema: string) {
     
 
     } catch (error) {
-        console.error("Error al obtener las preguntas: ", error);
-        throw new Error("Error al obtener las preguntas");
+        console.error("Error al obtener las preguntas (getQuestion): ", error);
+        throw new Error("Error al obtener las preguntas (getQuestion)");
     }
 }
 
@@ -116,9 +116,14 @@ export async function getTemas() {
 
 // export async function getQuestionSimulacro() {
 //     try {
-//         // Genera un "seed" aleatorio para evitar que los mismos 10 siempre aparezcan juntos
-//         const randomSeed = Math.floor(Math.random() * 1000); 
+//         // Obtener 10 preguntas aleatorias de manera eficiente
+//         const [randomQuestions] = await connection.query<any[]>(`
+//             SELECT idPregunta FROM preguntas ORDER BY RAND() LIMIT 10;
+//         `);
 
+//         const questionIds = randomQuestions.map((q: { idPregunta: string }) => q.idPregunta);
+
+//         // Traer los detalles de esas preguntas y sus respuestas
 //         const [questions] = await connection.query<User[]>(`
 //             SELECT p.idPregunta AS id, p.pregunta AS question, 
 //             GROUP_CONCAT(CONCAT(a.idAlternativa, "-", a.alternativa) ORDER BY a.idAlternativa SEPARATOR '||') AS options, 
@@ -128,10 +133,9 @@ export async function getTemas() {
 //             ) AS correctAnswer 
 //             FROM preguntas p 
 //             INNER JOIN alternativas a ON a.idPregunta = p.idPregunta
+//             WHERE p.idPregunta IN (?)
 //             GROUP BY p.idPregunta
-//             ORDER BY RAND(${randomSeed})
-//             LIMIT 10
-//         `);
+//         `, [questionIds]);
 
 //         return questions.map(row => ({
 //             id: row.id,
@@ -141,17 +145,17 @@ export async function getTemas() {
 //         }));
 
 //     } catch (error) {
-//         console.error("Error al obtener las preguntas: ", error);
-//         throw new Error("Error al obtener las preguntas");
+//         console.error("Error al obtener las preguntas (getQuestionSimulacro): ", error);
+//         throw new Error("Error al obtener las preguntas (getQuestionSimulacro)");
 //     }
 // }
 
-export async function getQuestionSimulacro() {
+export async function getQuestionRamdonWithLimit(limit: number) {
     try {
-        // Obtener 10 preguntas aleatorias de manera eficiente
+        // Obtener preguntas aleatorias de manera eficiente, según la cantidad solicitada
         const [randomQuestions] = await connection.query<any[]>(`
-            SELECT idPregunta FROM preguntas ORDER BY RAND() LIMIT 10;
-        `);
+            SELECT idPregunta FROM preguntas ORDER BY RAND() LIMIT ?;
+        `,[limit]);
 
         const questionIds = randomQuestions.map((q: { idPregunta: string }) => q.idPregunta);
 
@@ -175,9 +179,8 @@ export async function getQuestionSimulacro() {
             options: row.options.split("||"), // Convertir string a array
             correctAnswer: row.correctAnswer
         }));
-
     } catch (error) {
-        console.error("Error al obtener las preguntas: ", error);
-        throw new Error("Error al obtener las preguntas");
+        console.error("Error al obtener las preguntas (getQuestionRamdonWithLimit): ", error);
+        throw new Error("Error al obtener las preguntas (getQuestionRamdonWithLimit");
     }
 }

@@ -63,7 +63,7 @@ export default function AuthModal({ onClose, onLogin }: AuthModalProps) {
 
             console.log('Login exitoso!');
             onLogin();
-            router.push('/simulator');
+            router.push('/main');
 
         } else {
             const form = new FormData();
