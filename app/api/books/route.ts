@@ -6,6 +6,7 @@ const R2_SECRET_ACCESS_KEY = process.env.R2_SECRET_ACCESS_KEY;
 const R2_BUCKET_NAME = process.env.R2_BUCKET_NAME;
 const R2_ENDPOINT = process.env.R2_ENDPOINT;
 
+// Configurar el cliente S3 para Cloudflare R2
 const s3 = new S3Client({
   region: "auto",
   endpoint: R2_ENDPOINT,
@@ -15,8 +16,8 @@ const s3 = new S3Client({
   },
 });
 
+// Handler para la petición GET
 export async function GET() {
-  console.log("R2_ACCESS_KEY_ID3",R2_ACCESS_KEY_ID)
   try {
     const command = new ListObjectsV2Command({
       Bucket: R2_BUCKET_NAME,
