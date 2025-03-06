@@ -42,7 +42,7 @@ const cursos = [
     titulo: "Examenes no repetidos",
     tema: "Aprendizaje",
     imagen: "/images/curso5.png?height=200&width=400",
-    ref: "nosotros",
+    ref: "examenes",
     progress: 100,
     show: true,
   },

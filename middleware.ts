@@ -25,5 +25,5 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
     runtime: "nodejs",
-    matcher: ['/main', '/cursos', '/practica', '/generador', '/simulacro', '/libros'],
+    matcher: ['/main', '/simulator', '/cursos', '/practica', '/generador', '/simulacro', '/examenes', '/libros'],
 };
