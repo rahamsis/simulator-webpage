@@ -58,7 +58,7 @@ const cursos = [
     titulo: "Temario",
     tema: "Aprendizaje",
     imagen: "/images/curso7.jpg?height=200&width=400",
-    ref: "nosotros",
+    ref: "temario",
     progress: 27,
     show: false,
   },

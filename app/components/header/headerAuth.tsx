@@ -33,14 +33,20 @@ const HeaderAuth = () => {
                 <nav className={`flex flex-wrap items-center justify-between  px-5 py-6 bg-white fixed top-0 left-0 w-full right-0 `}>
                     {/* <!-- logo --> */}
                     <div className={`order-[0] flex items-center pl-5 md:pl-0 ${menuOpen ? 'items-center mx-auto' : 'block'}`}>
-                        <Link className="flex items-center justify-center" href="/cusros">
+                        <Link className="flex items-center justify-center" href="/cursos">
                             <div className="text-[32px] font-bold text-gray-800 " >
-                                <Image src="/assets/logo.png" height={20} width={50} alt="Logo" priority/>
+                                <Image src="/assets/logo.png" height={20} width={50} alt="Logo" priority />
                             </div>
 
                             <div className="overflow-hidden ml-2 ">
                                 <span className={`font-bold text-2xl md:text-4xl text-green-800 font-sans inline-block transition-transform duration-300 ease-in-out ${scrolled && !menuOpen ? "-translate-x-full" : "translate-x-0"}`} >
-                                    Ponte100
+                                    <div className="flex">PONTE100
+                                        <span className=" top-0  text-base">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-r-circle" viewBox="0 0 16 16">
+                                                <path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.5 4.002h3.11c1.71 0 2.741.973 2.741 2.46 0 1.138-.667 1.94-1.495 2.24L11.5 12H9.98L8.52 8.924H6.836V12H5.5zm1.335 1.09v2.777h1.549c.995 0 1.573-.463 1.573-1.36 0-.913-.596-1.417-1.537-1.417z" />
+                                            </svg>
+                                        </span>
+                                    </div>
                                 </span>
                             </div>
                         </Link>
@@ -78,7 +84,7 @@ const HeaderAuth = () => {
 
                     {/* Menú de navegación */}
                     <ul id="nav-menu" className={`order-2 w-full flex-[0_0_100%] lg:order-1 lg:flex lg:w-auto lg:flex-auto lg:justify-center lg:space-x-5 ${menuOpen ? 'block' : 'hidden'}`}>
-                    <li className="text-center">
+                        <li className="text-center">
                             <div className="lg:inline w-72 mx-auto">
                                 <Link href="/main" className={`active block p-3 py-2 text-base text-gray-900 ${pathName === '/main' ? 'border-b-2 border-green-500' : 'opacity-80'}`}
                                     onClick={toggleMenu}>

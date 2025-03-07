@@ -114,47 +114,11 @@ export async function getTemas() {
     }
 }
 
-// export async function getQuestionSimulacro() {
-//     try {
-//         // Obtener 10 preguntas aleatorias de manera eficiente
-//         const [randomQuestions] = await connection.query<any[]>(`
-//             SELECT idPregunta FROM preguntas ORDER BY RAND() LIMIT 10;
-//         `);
-
-//         const questionIds = randomQuestions.map((q: { idPregunta: string }) => q.idPregunta);
-
-//         // Traer los detalles de esas preguntas y sus respuestas
-//         const [questions] = await connection.query<User[]>(`
-//             SELECT p.idPregunta AS id, p.pregunta AS question, 
-//             GROUP_CONCAT(CONCAT(a.idAlternativa, "-", a.alternativa) ORDER BY a.idAlternativa SEPARATOR '||') AS options, 
-//             (SELECT a2.idAlternativa 
-//                 FROM alternativas a2 
-//                 WHERE a2.idPregunta = p.idPregunta AND a2.respuesta = 1 LIMIT 1
-//             ) AS correctAnswer 
-//             FROM preguntas p 
-//             INNER JOIN alternativas a ON a.idPregunta = p.idPregunta
-//             WHERE p.idPregunta IN (?)
-//             GROUP BY p.idPregunta
-//         `, [questionIds]);
-
-//         return questions.map(row => ({
-//             id: row.id,
-//             question: row.question,
-//             options: row.options.split("||"), // Convertir string a array
-//             correctAnswer: row.correctAnswer
-//         }));
-
-//     } catch (error) {
-//         console.error("Error al obtener las preguntas (getQuestionSimulacro): ", error);
-//         throw new Error("Error al obtener las preguntas (getQuestionSimulacro)");
-//     }
-// }
-
 export async function getQuestionRamdonWithLimit(limit: number) {
     try {
         // Obtener preguntas aleatorias de manera eficiente, según la cantidad solicitada
         const [randomQuestions] = await connection.query<any[]>(`
-            SELECT idPregunta FROM preguntas ORDER BY RAND() LIMIT ?;
+            SELECT idPregunta FROM preguntas ORDER BY RAND() LIMIT 100;
         `,[limit]);
 
         const questionIds = randomQuestions.map((q: { idPregunta: string }) => q.idPregunta);
@@ -182,5 +146,23 @@ export async function getQuestionRamdonWithLimit(limit: number) {
     } catch (error) {
         console.error("Error al obtener las preguntas (getQuestionRamdonWithLimit): ", error);
         throw new Error("Error al obtener las preguntas (getQuestionRamdonWithLimit");
+    }
+}
+
+export async function getTableExams() {
+    try {
+        const [questions] = await connection.query<User[]>(`
+            SELECT * from examenes
+        `, []);
+
+        return questions.map(row => ({
+            id: row.idExamen,
+            titulo: row.titulo,
+            descripcion: row.descripcion
+        }));
+
+    } catch (error) {
+        console.error("Error al obtener los examenes (getTableExams): ", error);
+        throw new Error("Error al obtener los examenes (getTableExams)");
     }
 }

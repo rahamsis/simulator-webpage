@@ -92,7 +92,7 @@ export default function Quiz() {
     }
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-4">
+        <div className="flex bg-white w-full flex-col items-center justify-center min-h-screen bg-trans p-4 border-2 border-green-500">
             {!isPracticeStarted ? (
                 <div className="mx-auto md:w-5/6 bg-gray-200 py-5 text-center">
                     <Versioner onVersionSelect={setSelectedVersion} onCheckboxSelect={setSelectedLimit} onStartPractice={handleStartPractice} />

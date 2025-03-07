@@ -20,11 +20,13 @@ export default function AuthModal({ onClose, onLogin }: AuthModalProps) {
     const [errors, setErrors] = useState<{ username?: string[]; email?: string[]; password?: string[] }>({});
     const [message, setMessage] = useState<string | null>(null);
     const [isLogin, setIsLogin] = useState(true)
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setErrors({});
         setMessage(null);
+        setIsLoading(true);
 
         // 📌 Obtener el User-Agent (dispositivo)
         const device = navigator.userAgent;
@@ -87,6 +89,8 @@ export default function AuthModal({ onClose, onLogin }: AuthModalProps) {
             setIsLogin(true);
             router.push("/");
         }
+
+        setIsLoading(false);
     }
 
     // Manejo de cambios en los inputs
@@ -197,8 +201,18 @@ export default function AuthModal({ onClose, onLogin }: AuthModalProps) {
                         }
                     </div>
 
-                    <Button type="submit" className="w-full bg-green-700 text-white py-2 rounded hover:bg-green-600">
-                        {isLogin ? "Iniciar sesión" : "Registrarse"}
+                    <Button type="submit" className="w-full bg-green-700 justify-center text-white py-2 rounded hover:bg-green-600">
+                        {isLoading ? (
+                            <div className="flex items-center">
+                                <svg className="animate-spin h-5 w-5 mr-2 text-white" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l4-4-4-4v4a8 8 0 00-8 8H4z"></path>
+                                </svg>
+                                Cargando...
+                            </div>
+                        ) : (
+                            isLogin ? "Iniciar sesión" : "Registrarse"
+                        )}
                     </Button>
                 </form>
 

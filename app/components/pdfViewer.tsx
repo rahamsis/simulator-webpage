@@ -1,8 +1,12 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import { getDocument, PDFDocumentProxy } from "pdfjs-dist";
+import { getDocument, PDFDocumentProxy, GlobalWorkerOptions } from "pdfjs-dist";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "../ui/pdf/sheet";
+
+
+GlobalWorkerOptions.workerSrc =
+  "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
 interface PDFViewerProps {
   fileUrl: string;
@@ -14,10 +18,9 @@ const MyPDFViewer: React.FC<PDFViewerProps> = ({ fileUrl, onClose }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [scale, setScale] = useState(1);
   const [isLoading, setIsLoading] = useState(true); // Estado para el spinner
-  const renderTaskRef = useRef<any>(null); // Guardar la tarea de renderización actual
-
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const pdfRef = useRef<PDFDocumentProxy | null>(null);
+  const renderTaskRef = useRef<any>(null); // Guardar la tarea de renderización actual
 
   // Cargar el PDF y obtener el número de páginas
   useEffect(() => {
@@ -44,25 +47,21 @@ const MyPDFViewer: React.FC<PDFViewerProps> = ({ fileUrl, onClose }) => {
     if (!pdfRef.current || !canvasRef.current) return;
 
     const pdf = pdfRef.current;
-    const canvas = canvasRef.current
-    const context = canvas.getContext("2d");
-    if (!context) return;
-
-    const page = await pdf.getPage(pageNum)
+    const canvas = canvasRef.current;
+    const page = await pdf.getPage(pageNum);
     const viewport = page.getViewport({ scale });
 
-    // Configurar el canvas
-    canvas.width = viewport.width;
-    canvas.height = viewport.height;
-
-    await page.render({ canvasContext: context, viewport }).promise;
+    const context = canvas.getContext("2d");
+    if (!context) return;
 
     // Cancelar cualquier renderización en curso antes de iniciar una nueva
     if (renderTaskRef.current) {
       renderTaskRef.current.cancel();
     }
 
-    
+    // Configurar el canvas
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
 
     const renderContext = {
       canvasContext: context,
@@ -72,29 +71,56 @@ const MyPDFViewer: React.FC<PDFViewerProps> = ({ fileUrl, onClose }) => {
     // Guardar la tarea de renderizado actual
     renderTaskRef.current = page.render(renderContext);
 
-  };
-
-  const changePage = (newPage: number) => {
-    setCurrentPage(newPage);
-    renderPage(newPage, scale);
-  };
-
-  const zoom = (factor: number) => {
-    const newScale = Math.max(0.5, Math.min(scale + factor, 2));
-    setScale(newScale);
-    renderPage(currentPage, newScale);
-  };
-
-  const toggleFullscreen = () => {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen().then(() => setIsFullscreen(true));
-    } else {
-      document.exitFullscreen().then(() => setIsFullscreen(false));
+    try {
+      await renderTaskRef.current.promise; // Esperar a que termine la renderización
+    } catch (error: any) {
+      if (error.name === "RenderingCancelledException") {
+        console.log("Renderización cancelada.");
+      } else {
+        console.error("Error al renderizar la página:", error);
+      }
     }
   };
 
   const [isFullscreen, setIsFullscreen] = useState(false)
 
+  // Cambio de página
+  const previousPage = useCallback(() => {
+    if (currentPage > 1) {
+      const newPage = currentPage - 1;
+      setCurrentPage(newPage);
+      renderPage(newPage, scale);
+    }
+  }, [currentPage, scale]);
+
+  const nextPage = useCallback(() => {
+    if (currentPage < numPages) {
+      const newPage = currentPage + 1;
+      setCurrentPage(newPage);
+      renderPage(newPage, scale);
+    }
+  }, [currentPage, scale, numPages]);
+
+  // Zoom
+  const zoomIn = () => {
+    const newScale = Math.min(scale + 0.1, 2);
+    setScale(newScale);
+    renderPage(currentPage, newScale);
+  };
+
+  const zoomOut = () => {
+    const newScale = Math.max(scale - 0.1, 0.5);
+    setScale(newScale);
+    renderPage(currentPage, newScale);
+  };
+
+  const toggleFullscreen = useCallback(() => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().then(() => setIsFullscreen(true))
+    } else {
+      document.exitFullscreen().then(() => setIsFullscreen(false))
+    }
+  }, [])
 
   const handleClose = useCallback(() => {
     // Salir del modo de pantalla completa si está activado
@@ -148,7 +174,7 @@ const MyPDFViewer: React.FC<PDFViewerProps> = ({ fileUrl, onClose }) => {
               </SheetContent>
             </Sheet>
             <div className="flex items-center gap-4">
-              <button onClick={() => changePage(currentPage - 1)} className="border-2 border-gray-300 p-3 rounded-lg font-semibold">
+              <button onClick={previousPage} disabled={currentPage === 1} className="border-2 border-gray-300 p-3 rounded-lg font-semibold">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-chevron-left" viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
                 </svg>
@@ -156,7 +182,7 @@ const MyPDFViewer: React.FC<PDFViewerProps> = ({ fileUrl, onClose }) => {
               <div className="min-w-[60px] text-center text-2xl">
                 {currentPage} / {numPages}
               </div>
-              <button onClick={() => changePage(currentPage + 1)} disabled={currentPage === numPages - 1} className="border-2 border-gray-300 p-3 rounded-lg font-semibold">
+              <button onClick={nextPage} disabled={currentPage === numPages - 1} className="border-2 border-gray-300 p-3 rounded-lg font-semibold">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
                 </svg>
@@ -165,7 +191,7 @@ const MyPDFViewer: React.FC<PDFViewerProps> = ({ fileUrl, onClose }) => {
           </div>
           {/* Controles de zoom */}
           <div className="flex items-center gap-4">
-            <button onClick={() => zoom(-0.1)} className="border-2 border-gray-300 p-3 rounded-lg font-semibold">
+            <button onClick={zoomOut} className="border-2 border-gray-300 p-3 rounded-lg font-semibold">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-zoom-out" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11M13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0" />
                 <path d="M10.344 11.742q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1 6.5 6.5 0 0 1-1.398 1.4z" />
@@ -173,7 +199,7 @@ const MyPDFViewer: React.FC<PDFViewerProps> = ({ fileUrl, onClose }) => {
               </svg>
             </button>
             <div className="min-w-[60px] text-center text-2xl">{(scale * 100).toFixed(0)}%</div>
-            <button onClick={() => zoom(0.1)} className="border-2 border-gray-300 p-3 rounded-lg font-semibold">
+            <button onClick={zoomIn} className="border-2 border-gray-300 p-3 rounded-lg font-semibold">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-zoom-in" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11M13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0" />
                 <path d="M10.344 11.742q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1 6.5 6.5 0 0 1-1.398 1.4z" />

@@ -2,14 +2,22 @@ import Link from "next/link"
 import Image from "next/image";
 
 function Footer3() {
-  
+
 
   return (
     <footer className="bg-gray-800 text-white">
       <div className="container mx-auto py-8 px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="text-lg font-semibold mb-4">Ponte 100</h3>
+            <h3 className="text-lg font-semibold mb-4">
+              <div className="flex text-2xl">PONTE100
+                <span className=" top-0  text-base">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-r-circle" viewBox="0 0 16 16">
+                    <path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.5 4.002h3.11c1.71 0 2.741.973 2.741 2.46 0 1.138-.667 1.94-1.495 2.24L11.5 12H9.98L8.52 8.924H6.836V12H5.5zm1.335 1.09v2.777h1.549c.995 0 1.573-.463 1.573-1.36 0-.913-.596-1.417-1.537-1.417z" />
+                  </svg>
+                </span>
+              </div>
+            </h3>
             <p className="text-gray-400">Educación de calidad para todos.</p>
           </div>
           <div>
@@ -248,7 +256,7 @@ function Footer2() {
         <div className="flex flex-wrap mt-0 gx-5 pb-10 pt-[52px]">
           <div className="px-6 w-full mt-12 md:w-1/2 lg:w-1/4">
             <a href="index.html">
-              <Image src="/assets/logo.png" height={20} width={50} alt="Logo" priority/>
+              <Image src="/assets/logo.png" height={20} width={50} alt="Logo" priority />
             </a>
             <p className="mt-6 text-sm text-gray-500">
               Expertos en pulir pisos para devolverles su brillo original. Transformamos

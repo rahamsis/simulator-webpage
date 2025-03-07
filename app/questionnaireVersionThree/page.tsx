@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { RadioGroup } from "@headlessui/react";
+import { useSession } from 'next-auth/react';
 
 interface Question {
     id: string;
@@ -38,6 +39,8 @@ const QuestionnaireVersionThree: React.FC<QuestionnaireProps> = ({
     timer,
 }) => {
     const [answeredQuestions, setAnsweredQuestions] = useState<{ question: number; letter: string }[]>([]);
+    const columns = Math.ceil(questions.length / 20);
+    const { data: session, status } = useSession();
 
     const handleAnswer = (value: string) => {
         const optionIndex = questions[currentQuestion - 1].options.findIndex((opt) => opt.startsWith(value));
@@ -71,37 +74,66 @@ const QuestionnaireVersionThree: React.FC<QuestionnaireProps> = ({
     }
 
     return (
-        <div className="flex min-h-[80vh] p-4 md:p-8 mt-14 ">
-            <div className="mx-auto md:w-5/6 ">
-                <div className={`flex`}>
-                    <div className="hidden w-2/6 md:block">
+        <div className="relative w-full min-h-[80vh] p-4 md:p-8 mt-1 ">
+            <div className="w-full border-t-2 border-blue-600 py-4 text-right">
+                Usuario: {session ? session.user?.name : ""}
+            </div>
+            <div className="w-full border-t-2 border-blue-600">
+                <div className={`flex mt-4 `}>
+                    <div className=" w-3/12 md:block ">
                         <div className="rounded-lg border border-black p-6 shadow-sm">
                             <h3 className="mb-6 text-center text-lg font-medium">Tabla de Preguntas</h3>
-                            <div className="grid grid-cols-5 gap-4 ">
+                            {/* <div className="grid grid-cols-5 gap-0 ">
                                 {questions.map((question, index) => (
                                     <button
                                         key={index + 1}
                                         onClick={() => setCurrentQuestion(index + 1)}
-                                        className={`relative flex h-12 w-12 items-center justify-center rounded-lg text-base font-medium 
+                                        className={`relative flex h-7 w-12 items-center justify-center rounded-lg text-base font-medium 
+
                                         transition-all ${currentQuestion === index + 1 && "border-primary"}                                     
                                         `}
                                     >
-                                        {/* Círculo externo */}
-                                        <div className="relative flex items-center justify-center w-5 h-5 rounded-full border-2 border-black flex-shrink-0">
-                                            {/* Círculo interno (se pinta de negro si está seleccionado) */}
-                                            <div className={`w-3 h-3 rounded-full ${currentQuestion === index + 1 ? "bg-black" : "bg-white"}`}></div>
+                                        <div className="relative flex items-center justify-center w-[15px] h-[15px] rounded-full border-2 border-black flex-shrink-0">
+                                            <div className={`w-[6px] h-[6px] rounded-full ${currentQuestion === index + 1 ? "bg-black" : "bg-white"}`}></div>
                                         </div>
                                         <span
-                                            className={`ml-2 w-6 text-center ${selectedAnswers[index + 1] !== undefined ? "bg-red-500 text-white" : ""}`}
+                                            className={` w-6 text-center ${selectedAnswers[index + 1] !== undefined ? "bg-red-500 text-white" : ""}`}
                                         >{index + 1}</span>
                                     </button>
                                 ))}
+                            </div> */}
+                            <div className="grid grid-cols-5 gap-1 ">
+                                {Array.from({ length: columns }).map((_, colIndex) => (
+                                    <div key={colIndex} className="flex flex-col gap-0">
+                                        {questions.slice(colIndex * 20, (colIndex + 1) * 20).map((question, index) => {
+                                            const questionNumber = colIndex * 20 + index + 1;
+                                            return (
+                                                <button
+                                                    key={questionNumber}
+                                                    onClick={() => setCurrentQuestion(questionNumber)}
+                                                    className="flex w-12 h-7 items-center gap-1"
+                                                >
+                                                    {/* Círculo */}
+                                                    <div className="w-4 h-4 border-2 border-black rounded-full flex items-center justify-center">
+                                                        <div className={`w-2 h-2 rounded-full ${currentQuestion === questionNumber ? "bg-black" : "bg-white"}`}></div>
+                                                    </div>
+                                                    {/* Número */}
+                                                    <span className={`text-sm ${selectedAnswers[questionNumber] ? "text-red-500" : ""}`}>
+                                                        {questionNumber}
+                                                    </span>
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                                ))}
                             </div>
+
+
                         </div>
                     </div>
 
-                    <div className="w-4/6">
-                        <div className="mx-auto max-w-4xl rounded-lg px-6 shadow-sm">
+                    <div className="w-9/12 ">
+                        <div className="mx-auto w-full rounded-lg px-6 shadow-sm">
                             <div className="flex items-center  mb-4">
                                 <div className="text-blue-800 font-semibold"> {formatTime(timer)} <span className="text-blue-600 font-semibold">| Constitución Política del Perú</span></div>
                                 <button className={`py-3 px-3 rounded-xl text-black border-2 border-gray-300 text-base ml-auto`}
@@ -110,7 +142,7 @@ const QuestionnaireVersionThree: React.FC<QuestionnaireProps> = ({
                                     Finalizar Simulacro
                                 </button>
                             </div>
-                            <h3 className="pt-3 mb-6 text-sm md:text-lg border-y-2 border-blue-600">{currentQuestion}. {questions[currentQuestion - 1].question}</h3>
+                            <h3 className="pt-3 mb-6 text-sm md:text-base border-y-2 border-blue-600">{currentQuestion}. {questions[currentQuestion - 1].question}</h3>
                             <RadioGroup value={selectedAnswers[currentQuestion] ?? null} onChange={handleAnswer} className="space-y-4">
                                 {questions[currentQuestion - 1].options.map((option, index) => {
 
@@ -127,7 +159,7 @@ const QuestionnaireVersionThree: React.FC<QuestionnaireProps> = ({
                                                         {/* Círculo interno (se pinta de negro si está seleccionado) */}
                                                         <div className={`w-3 h-3 rounded-full ${checked ? "bg-black" : "bg-white"}`}></div>
                                                     </div>
-                                                    <span className="ml-3 text-sm md:text-base cursor-default">{letter}. {optionText}</span>
+                                                    <span className="ml-3 text-xs md:text-sm cursor-default">{letter}. {optionText}</span>
                                                 </div>
                                             )}
                                         </RadioGroup.Option>

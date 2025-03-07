@@ -3,7 +3,7 @@ import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
 
 const R2_ACCESS_KEY_ID = process.env.R2_ACCESS_KEY_ID!;
 const R2_SECRET_ACCESS_KEY = process.env.R2_SECRET_ACCESS_KEY!;
-const R2_BUCKET_NAME = process.env.R2_BUCKET_NAME!;
+// const R2_BUCKET_NAME = process.env.R2_BUCKET_NAME!;
 const R2_ENDPOINT = process.env.R2_ENDPOINT!;
 
 const s3 = new S3Client({
@@ -19,6 +19,11 @@ export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
     const fileName = searchParams.get("file");
+    const R2_BUCKET_NAME = searchParams.get("bucket");
+
+    if (!R2_BUCKET_NAME) {
+      return NextResponse.json({ error: "El parámetro 'bucket' es requerido" }, { status: 400 });
+    }
 
     if (!fileName) {
       return NextResponse.json({ error: "Falta el parámetro file" }, { status: 400 });
