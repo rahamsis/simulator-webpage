@@ -32,7 +32,6 @@ export async function GET(req: Request) {
     });
 
     const { Contents } = await s3.send(command);
-    console.log(Contents)
 
     if (!Contents) {
       return NextResponse.json({ books: [] });

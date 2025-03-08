@@ -5,7 +5,7 @@ import Image from "next/image";
 import PDFViewer from "../components/pdfViewer";
 
 export default function Library() {
-  const [books, setBooks] = useState<{ name: string; url: string }[]>([]);
+  const [books, setBooks] = useState<{ name: string; url: string; imageUrl: string }[]>([]);
   const [selectedBook, setSelectedBook] = useState<string>("");
   const [isPdfViewerOpen, setIsPdfViewerOpen] = useState(false);
 
@@ -13,7 +13,31 @@ export default function Library() {
     async function fetchBooks() {
       const res = await fetch("/api/books?bucket=archivosponte100");
       const data = await res.json();
-      setBooks(data.books);
+      
+      const booksWithImages = await Promise.all(
+        data.books.map(async (book: { name: string; url: string }) => {
+
+          const localImagePath = `/images/covers/${book.name.replace(".pdf", "")}.jpg`;
+          console.log("imagen existe", book.name)
+          // Verifica si la imagen existe localmente
+          const imageExists = await fetch(localImagePath, { method: "HEAD" })
+            .then((res) => res.ok)
+            .catch(() => false);
+
+          if (imageExists) {
+            return { ...book, imageUrl: localImagePath };
+          }
+
+          const imageRes = await fetch(`/api/covers?bucket=coversponte100&file=${book.name}.jpg`);
+          const imageData = await imageRes.json();
+          return {
+            ...book,
+            imageUrl: imageData.filePath || "/images/librodefault.jpg", // Usa una imagen por defecto si falla
+          };
+        })
+      );
+
+      setBooks(booksWithImages);
     }
     fetchBooks();
   }, []);
@@ -27,8 +51,7 @@ export default function Library() {
             <div className="flex justify-center">
               <div className="h-1/2 w-1/2 pt-3">
                 <Image
-                //   src={`/images/book${i + 1}.jpg`}
-                src={`/images/libros/libro${i + 1}.jpg`}
+                src={book.imageUrl}
                 alt={book.name}
                 width={400}
                 height={600}
@@ -53,11 +76,11 @@ export default function Library() {
         ))}
       </div>
 
-      {isPdfViewerOpen  && (
-        <PDFViewer 
-        fileUrl={selectedBook} 
-        onClose={() => setIsPdfViewerOpen(false)} />
-        )}
+      {isPdfViewerOpen && (
+        <PDFViewer
+          fileUrl={selectedBook}
+          onClose={() => setIsPdfViewerOpen(false)} />
+      )}
     </div>
   );
 }

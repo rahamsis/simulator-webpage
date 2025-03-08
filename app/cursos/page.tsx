@@ -10,7 +10,7 @@ const cursos = [
     titulo: "Zona de Estudio",
     tema: "Aprendizaje",
     imagen: "/images/curso1.jpeg?height=200&width=400",
-    ref: "nosotros",
+    ref: "zona",
     progress: 50,
     show: true,
   },
