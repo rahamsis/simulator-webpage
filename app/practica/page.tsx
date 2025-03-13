@@ -39,8 +39,6 @@ export default function Quiz() {
     }
 
     const handleStartPractice = async () => {
-        console.log("Pregunta actual:", currentQuestion);
-
         if (selectedTheme.length != 0 && selectedCheckbox != null) {
             await getAllQuestions(selectedTheme)
             setIsPracticeStarted(true);

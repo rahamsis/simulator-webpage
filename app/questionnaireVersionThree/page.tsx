@@ -7,6 +7,7 @@ import { useSession } from 'next-auth/react';
 interface Question {
     id: string;
     question: string;
+    tema: string;
     options: string[];
     correctAnswer: string;
 };
@@ -74,124 +75,160 @@ const QuestionnaireVersionThree: React.FC<QuestionnaireProps> = ({
     }
 
     return (
-        <div className="relative w-full min-h-[80vh] p-4 md:p-8 mt-1 ">
-            <div className="w-full border-t-2 border-blue-600 py-4 text-right">
-                Usuario: {session ? session.user?.name : ""}
+        <div className="relative w-full min-h-[80vh] p-4 md:p-8 mt-1">
+            <div className="bg-[#087bb4] text-center text-white py-5 top-0 ">
+                <div className="text-2xl font-extrabold">POLICÍA NACIONAL DEL PERÚ</div>
+                <div>Sistema de Evaluación del Conocimiento Policial - SIECOPOL</div>
+                <div>Módulo de Examen Virtual</div>
+                <div className="text-xs">SIMULADOR DEL PROCESO DE SUBOFICIALES DE ARMAS 2025 - PROMOCIÓN 2026</div>
             </div>
-            <div className="w-full border-t-2 border-blue-600">
-                <div className={`flex mt-4 `}>
-                    <div className=" w-3/12 md:block ">
-                        <div className="rounded-lg border border-black p-6 shadow-sm">
-                            <h3 className="mb-6 text-center text-lg font-medium">Tabla de Preguntas</h3>
-                            {/* <div className="grid grid-cols-5 gap-0 ">
-                                {questions.map((question, index) => (
-                                    <button
-                                        key={index + 1}
-                                        onClick={() => setCurrentQuestion(index + 1)}
-                                        className={`relative flex h-7 w-12 items-center justify-center rounded-lg text-base font-medium 
 
-                                        transition-all ${currentQuestion === index + 1 && "border-primary"}                                     
-                                        `}
-                                    >
-                                        <div className="relative flex items-center justify-center w-[15px] h-[15px] rounded-full border-2 border-black flex-shrink-0">
-                                            <div className={`w-[6px] h-[6px] rounded-full ${currentQuestion === index + 1 ? "bg-black" : "bg-white"}`}></div>
-                                        </div>
-                                        <span
-                                            className={` w-6 text-center ${selectedAnswers[index + 1] !== undefined ? "bg-red-500 text-white" : ""}`}
-                                        >{index + 1}</span>
-                                    </button>
-                                ))}
-                            </div> */}
-                            <div className="grid grid-cols-5 gap-1 ">
-                                {Array.from({ length: columns }).map((_, colIndex) => (
-                                    <div key={colIndex} className="flex flex-col gap-0">
-                                        {questions.slice(colIndex * 20, (colIndex + 1) * 20).map((question, index) => {
-                                            const questionNumber = colIndex * 20 + index + 1;
-                                            return (
-                                                <button
-                                                    key={questionNumber}
-                                                    onClick={() => setCurrentQuestion(questionNumber)}
-                                                    className="flex w-12 h-7 items-center gap-1"
-                                                >
-                                                    {/* Círculo */}
-                                                    <div className="w-4 h-4 border-2 border-black rounded-full flex items-center justify-center">
-                                                        <div className={`w-2 h-2 rounded-full ${currentQuestion === questionNumber ? "bg-black" : "bg-white"}`}></div>
-                                                    </div>
-                                                    {/* Número */}
-                                                    <span className={`text-sm ${selectedAnswers[questionNumber] ? "text-red-500" : ""}`}>
-                                                        {questionNumber}
-                                                    </span>
-                                                </button>
-                                            );
-                                        })}
-                                    </div>
-                                ))}
-                            </div>
-
-
-                        </div>
+            {/* <div className="flex justify-center my-3">
+                <div className="w-3/12">
+                    <div className="flex gap-2 my-2">
+                        <div className="bg-[#087bb4] w-1/3 flex items-center justify-center border border-blue-500 text-white font-bold">CIP:</div>
+                        <input
+                            type="text"
+                            id="CIP"
+                            name="CIP"
+                            className="w-full px-2 py-1 border rounded pl-10 outline-none"
+                            inputMode="numeric"
+                            pattern="[0-9]*"
+                            maxLength={8}
+                            onInput={(e) => {
+                                (e.target as HTMLInputElement).value = (e.target as HTMLInputElement).value.replace(/\D/g, ""); // Remueve letras y caracteres no numéricos
+                            }}
+                        />
                     </div>
 
-                    <div className="w-9/12 ">
-                        <div className="mx-auto w-full rounded-lg px-6 shadow-sm">
-                            <div className="flex items-center  mb-4">
-                                <div className="text-blue-800 font-semibold"> {formatTime(timer)} <span className="text-blue-600 font-semibold">| Constitución Política del Perú</span></div>
-                                <button className={`py-3 px-3 rounded-xl text-black border-2 border-gray-300 text-base ml-auto`}
-                                    onClick={handleFinish}
-                                >
-                                    Finalizar Simulacro
-                                </button>
+                    <div className="flex gap-2">
+                        <div className="bg-[#087bb4] w-1/3 flex items-center justify-center border border-blue-500 text-white font-bold">DNI:</div>
+                        <input
+                            type="text"
+                            id="DNI"
+                            name="DNI"
+                            className="w-full px-2 py-1 border rounded pl-10 outline-none"
+                            inputMode="numeric"
+                            pattern="[0-9]*"
+                            maxLength={8}
+                            onInput={(e) => {
+                                (e.target as HTMLInputElement).value = (e.target as HTMLInputElement).value.replace(/\D/g, ""); // Remueve letras y caracteres no numéricos
+                            }}
+                        />
+
+
+
+                    </div>
+
+                    <div className="my-2  text-center">
+                        <button className="bg-gray-300 w-1/2  py-1 border border-gray-600">
+                            INGRESAR
+                        </button>
+                    </div>
+
+                </div>
+            </div> */}
+
+            <div className="">
+                <div className="w-full border-t-2 border-blue-600 py-4 text-right">
+                    Usuario: {session ? session.user?.name : ""}
+                </div>
+                <div className="w-full border-t-2 border-blue-600 ">
+                    <div className={`flex mt-4 `}>
+                        <div className=" w-3/12 md:block ">
+                            <div className="rounded-lg border border-black p-6 shadow-sm">
+                                <h3 className="mb-6 text-center text-lg font-medium">Tabla de Preguntas</h3>
+                                <div className="grid grid-cols-5 gap-1 ">
+                                    {Array.from({ length: columns }).map((_, colIndex) => (
+                                        <div key={colIndex} className="flex flex-col gap-0">
+                                            {questions.slice(colIndex * 20, (colIndex + 1) * 20).map((question, index) => {
+                                                const questionNumber = colIndex * 20 + index + 1;
+                                                return (
+                                                    <button
+                                                        key={questionNumber}
+                                                        onClick={() => setCurrentQuestion(questionNumber)}
+                                                        className="flex w-12 h-7 items-center gap-1"
+                                                    >
+                                                        {/* Círculo */}
+                                                        <div className="w-4 h-4 border-2 border-black rounded-full flex items-center justify-center">
+                                                            <div className={`w-2 h-2 rounded-full ${currentQuestion === questionNumber ? "bg-black" : "bg-white"}`}></div>
+                                                        </div>
+                                                        {/* Número */}
+                                                        <span className={`text-sm ${selectedAnswers[questionNumber] ? "text-red-500" : ""}`}>
+                                                            {questionNumber}
+                                                        </span>
+                                                    </button>
+                                                );
+                                            })}
+                                        </div>
+                                    ))}
+                                </div>
+
+
                             </div>
-                            <h3 className="pt-3 mb-6 text-sm md:text-base border-y-2 border-blue-600">{currentQuestion}. {questions[currentQuestion - 1].question}</h3>
-                            <RadioGroup value={selectedAnswers[currentQuestion] ?? null} onChange={handleAnswer} className="space-y-4">
-                                {questions[currentQuestion - 1].options.map((option, index) => {
+                        </div>
 
-                                    const [optionId, optionText] = option.split("-")
-                                    // Convertir índice numérico a letra (A, B, C, D...)
-                                    const letter = String.fromCharCode(65 + index);
+                        <div className="w-9/12 ">
+                            <div className="mx-auto w-full rounded-lg px-6 shadow-sm">
+                                <div className="flex items-center  mb-4">
+                                    <div className="text-blue-800 font-semibold"> {formatTime(timer)} <span className="text-blue-600 font-semibold">| {questions[currentQuestion - 1].tema}</span></div>
+                                    <button className={`py-3 px-3 rounded-xl text-black border-2 border-gray-300 text-base ml-auto`}
+                                        onClick={handleFinish}
+                                    >
+                                        Finalizar Simulacro
+                                    </button>
+                                </div>
+                                <h3 className="pt-3 mb-6 text-sm md:text-base border-y-2 border-blue-600">{currentQuestion}. {questions[currentQuestion - 1].question}</h3>
+                                <RadioGroup value={selectedAnswers[currentQuestion] ?? null} onChange={handleAnswer} className="space-y-4">
+                                    {questions[currentQuestion - 1].options.map((option, index) => {
 
-                                    return (
-                                        <RadioGroup.Option key={optionId} value={optionId}>
-                                            {({ checked }) => (
-                                                <div className={`flex items-center`}>
-                                                    {/* Círculo externo */}
-                                                    <div className={`relative flex items-center justify-center h-5 w-5 rounded-full border-2 border-black`} >
-                                                        {/* Círculo interno (se pinta de negro si está seleccionado) */}
-                                                        <div className={`w-3 h-3 rounded-full ${checked ? "bg-black" : "bg-white"}`}></div>
+                                        const [optionId, optionText] = option.split("-")
+                                        // Convertir índice numérico a letra (A, B, C, D...)
+                                        const letter = String.fromCharCode(65 + index);
+
+                                        return (
+                                            <RadioGroup.Option key={optionId} value={optionId}>
+                                                {({ checked }) => (
+                                                    <div className={`flex items-center`}>
+                                                        {/* Círculo externo */}
+                                                        <div className={`relative flex items-center justify-center h-5 w-5 rounded-full border-2 border-black`} >
+                                                            {/* Círculo interno (se pinta de negro si está seleccionado) */}
+                                                            <div className={`w-3 h-3 rounded-full ${checked ? "bg-black" : "bg-white"}`}></div>
+                                                        </div>
+                                                        <span className="ml-3 text-xs md:text-sm cursor-default">{letter}. {optionText}</span>
                                                     </div>
-                                                    <span className="ml-3 text-xs md:text-sm cursor-default">{letter}. {optionText}</span>
-                                                </div>
-                                            )}
-                                        </RadioGroup.Option>
-                                    )
-                                })}
-                            </RadioGroup>
+                                                )}
+                                            </RadioGroup.Option>
+                                        )
+                                    })}
+                                </RadioGroup>
 
-                            <div className="pt-7">
-                                <button
-                                    className="px-4 py-2 bg-gray-200 border border-black font-bold"
-                                    onClick={deleteAnswer}>
-                                    Borrar Respuesta
-                                </button>
-                            </div>
+                                <div className="pt-7">
+                                    <button
+                                        className="px-4 py-2 bg-gray-200 border border-black font-bold"
+                                        onClick={deleteAnswer}>
+                                        Borrar Respuesta
+                                    </button>
+                                </div>
 
-                            <div className="pt-7 font-semibold">
-                                <span>CÓDIGO DE PREGUNTA - {questions[currentQuestion - 1].id}</span>
-                            </div>
+                                <div className="pt-7 font-semibold">
+                                    <span>CÓDIGO DE PREGUNTA - {questions[currentQuestion - 1].id}</span>
+                                </div>
 
-                            <div className="border-b-2 border-blue-600 pb-6" />
+                                <div className="border-b-2 border-blue-600 pb-6" />
 
-                            <div className="text-blue-600 font-semibold my-4">
-                                <span>Preguntas Contestadas: {Object.keys(selectedAnswers).length} | Preguntas sin Contestar {questions.length - Object.keys(selectedAnswers).length}</span>
-                            </div>
+                                <div className="text-blue-600 font-semibold my-4">
+                                    <span>Preguntas Contestadas: {Object.keys(selectedAnswers).length} | Preguntas sin Contestar {questions.length - Object.keys(selectedAnswers).length}</span>
+                                </div>
 
-                            <div className="text-blue-600 font-semibold my-4 flex gap-1">
-                                <span>
-                                    {answeredQuestions
-                                        .sort((a, b) => Number(a.question) - Number(b.question)) // Ordenar por número de pregunta
-                                        .map(({ question, letter }) => `${question}${letter}`)
-                                        .join(", ")}
-                                </span>
+                                <div className="text-blue-600 font-semibold my-4 flex gap-1">
+                                    <span>
+                                        {answeredQuestions
+                                            .sort((a, b) => Number(a.question) - Number(b.question)) // Ordenar por número de pregunta
+                                            .map(({ question, letter }) => `${question}${letter}`)
+                                            .join(", ")}
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>

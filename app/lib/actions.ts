@@ -80,7 +80,7 @@ export async function getQuestion(idTema: string) {
             FROM preguntas p 
             INNER JOIN alternativas a ON a.idPregunta = p.idPregunta 
             WHERE p.idTema = ?
-            GROUP BY p.idPregunta`,[idTema]);
+            GROUP BY p.idPregunta`, [idTema]);
 
         // return questions[0] || null;
         return questions.map(row => ({
@@ -89,7 +89,7 @@ export async function getQuestion(idTema: string) {
             options: row.options.split("||"), // Convertir string a array
             correctAnswer: row.correctAnswer
         }));
-    
+
 
     } catch (error) {
         console.error("Error al obtener las preguntas (getQuestion): ", error);
@@ -106,7 +106,7 @@ export async function getTemas() {
             idTema: row.idTema,
             tema: row.tema,
         }));
-    
+
 
     } catch (error) {
         console.error("Error al obtener las preguntas: ", error);
@@ -114,18 +114,55 @@ export async function getTemas() {
     }
 }
 
-export async function getQuestionRamdonWithLimit(limit: number) {
+export async function getQuestionRamdonWithLimit(limite: number) {
     try {
-        // Obtener preguntas aleatorias de manera eficiente, según la cantidad solicitada
-        const [randomQuestions] = await connection.query<any[]>(`
-            SELECT idPregunta FROM preguntas ORDER BY RAND() LIMIT 100;
-        `,[limit]);
+        let questionIds
+        if (limite === 100 || limite === 50) {
+            const temas = [
+                { idTema: 'T00001', limit: (limite === 100) ? 8 : 4 },
+                { idTema: 'T00002', limit: (limite === 100) ? 4 : 2 },
+                { idTema: 'T00003', limit: (limite === 100) ? 8 : 4 },
+                { idTema: 'T00004', limit: (limite === 100) ? 8 : 4 },
+                { idTema: 'T00005', limit: (limite === 100) ? 6 : 3 },
+                { idTema: 'T00006', limit: (limite === 100) ? 3 : 2 },
+                { idTema: 'T00007', limit: (limite === 100) ? 8 : 4 },
+                { idTema: 'T00008', limit: (limite === 100) ? 3 : 2 },
+                { idTema: 'T00009', limit: (limite === 100) ? 4 : 2 },
+                { idTema: 'T00010', limit: (limite === 100) ? 4 : 2 },
+                { idTema: 'T00011', limit: (limite === 100) ? 3 : 2 },
+                { idTema: 'T00012', limit: (limite === 100) ? 3 : 2 },
+                { idTema: 'T00013', limit: (limite === 100) ? 12 : 5 },
+                { idTema: 'T00014', limit: (limite === 100) ? 14 : 6 },
+                { idTema: 'T00015', limit: (limite === 100) ? 2 : 1 },
+                { idTema: 'T00016', limit: (limite === 100) ? 3 : 2 },
+                { idTema: 'T00017', limit: (limite === 100) ? 5 : 2 },
+                { idTema: 'T00018', limit: (limite === 100) ? 2 : 1 },
+            ];
+    
+            // Ejecutar todas las consultas en paralelo
+            const queries = temas.map(({ idTema, limit }) =>
+                connection.query<any[]>(`SELECT idPregunta FROM preguntas WHERE idTema = ? 
+                    ORDER BY RAND() LIMIT ?`, [idTema, limit])
+            );
+    
+            // Esperar a que todas las consultas terminen
+            const results = await Promise.all(queries);
+    
+            // Extraer los IDs de todas las preguntas seleccionadas
+            questionIds = results.flatMap(([rows]) =>
+                rows.map((q: { idPregunta: string }) => q.idPregunta));
+        } else {
+            // Obtener preguntas aleatorias de manera eficiente, según la cantidad solicitada
+            const [randomQuestions] = await connection.query<any[]>(`
+            SELECT idPregunta FROM preguntas ORDER BY RAND() LIMIT ?;
+        `, [limite]);
 
-        const questionIds = randomQuestions.map((q: { idPregunta: string }) => q.idPregunta);
+            questionIds = randomQuestions.map((q: { idPregunta: string }) => q.idPregunta);
+        }
 
         // Traer los detalles de esas preguntas y sus respuestas
         const [questions] = await connection.query<User[]>(`
-            SELECT p.idPregunta AS id, p.pregunta AS question, 
+            SELECT p.idPregunta AS id, p.pregunta AS question, p.idTema, t.tema,
             GROUP_CONCAT(CONCAT(a.idAlternativa, "-", a.alternativa) ORDER BY a.idAlternativa SEPARATOR '||') AS options, 
             (SELECT a2.idAlternativa 
                 FROM alternativas a2 
@@ -133,19 +170,86 @@ export async function getQuestionRamdonWithLimit(limit: number) {
             ) AS correctAnswer 
             FROM preguntas p 
             INNER JOIN alternativas a ON a.idPregunta = p.idPregunta
+            INNER JOIN temas t ON t.idTema = p.idTema
             WHERE p.idPregunta IN (?)
             GROUP BY p.idPregunta
+            ORDER BY p.idTema
         `, [questionIds]);
 
         return questions.map(row => ({
             id: row.id,
             question: row.question,
+            tema: row.tema,
             options: row.options.split("||"), // Convertir string a array
             correctAnswer: row.correctAnswer
         }));
     } catch (error) {
         console.error("Error al obtener las preguntas (getQuestionRamdonWithLimit): ", error);
         throw new Error("Error al obtener las preguntas (getQuestionRamdonWithLimit");
+    }
+}
+
+export async function getQuestionSiecopol(limite: number) {
+    try {
+        const temas = [
+            { idTema: 'T00001', limit: (limite === 100) ? 8 : 4 },
+            { idTema: 'T00002', limit: (limite === 100) ? 4 : 2 },
+            { idTema: 'T00003', limit: (limite === 100) ? 8 : 4 },
+            { idTema: 'T00004', limit: (limite === 100) ? 8 : 4 },
+            { idTema: 'T00005', limit: (limite === 100) ? 6 : 3 },
+            { idTema: 'T00006', limit: (limite === 100) ? 3 : 2 },
+            { idTema: 'T00007', limit: (limite === 100) ? 8 : 4 },
+            { idTema: 'T00008', limit: (limite === 100) ? 3 : 2 },
+            { idTema: 'T00009', limit: (limite === 100) ? 4 : 2 },
+            { idTema: 'T00010', limit: (limite === 100) ? 4 : 2 },
+            { idTema: 'T00011', limit: (limite === 100) ? 3 : 2 },
+            { idTema: 'T00012', limit: (limite === 100) ? 3 : 2 },
+            { idTema: 'T00013', limit: (limite === 100) ? 12 : 5 },
+            { idTema: 'T00014', limit: (limite === 100) ? 14 : 6 },
+            { idTema: 'T00015', limit: (limite === 100) ? 2 : 1 },
+            { idTema: 'T00016', limit: (limite === 100) ? 3 : 2 },
+            { idTema: 'T00017', limit: (limite === 100) ? 5 : 2 },
+            { idTema: 'T00018', limit: (limite === 100) ? 2 : 1 },
+        ];
+
+        // Ejecutar todas las consultas en paralelo
+        const queries = temas.map(({ idTema, limit }) =>
+            connection.query<any[]>(`SELECT idPregunta FROM preguntas WHERE idTema = ? 
+                ORDER BY RAND() LIMIT ?`, [idTema, limit])
+        );
+
+        // Esperar a que todas las consultas terminen
+        const results = await Promise.all(queries);
+
+        // Extraer los IDs de todas las preguntas seleccionadas
+        const questionIds = results.flatMap(([rows]) =>
+            rows.map((q: { idPregunta: string }) => q.idPregunta));
+
+        // Traer los detalles de esas preguntas y sus respuestas
+        const [questions] = await connection.query<User[]>(`
+            SELECT p.idPregunta AS id, p.pregunta AS question, p.idTema, t.tema,
+            GROUP_CONCAT(CONCAT(a.idAlternativa, "-", a.alternativa) ORDER BY a.idAlternativa SEPARATOR '||') AS options, 
+            (SELECT a2.idAlternativa 
+                FROM alternativas a2 
+                WHERE a2.idPregunta = p.idPregunta AND a2.respuesta = 1 LIMIT 1
+            ) AS correctAnswer 
+            FROM preguntas p 
+            INNER JOIN alternativas a ON a.idPregunta = p.idPregunta
+            INNER JOIN temas t ON t.idTema = p.idTema
+            WHERE p.idPregunta IN (?)
+            GROUP BY p.idPregunta
+            ORDER BY  p.idTema`, [questionIds]);
+
+        return questions.map(row => ({
+            id: row.id,
+            question: row.question,
+            tema: row.tema,
+            options: row.options.split("||"), // Convertir string a array
+            correctAnswer: row.correctAnswer
+        }));
+    } catch (error) {
+        console.error("Error al obtener las preguntas (getQuestionSiecopol100): ", error);
+        throw new Error("Error al obtener las preguntas (getQuestionSiecopol100");
     }
 }
 

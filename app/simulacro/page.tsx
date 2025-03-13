@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { getQuestionRamdonWithLimit } from "../lib/actions";
+import { getQuestionSiecopol } from "../lib/actions";
 import Versioner from "../components/versioner/versioner";
 import Version1 from "../questionnaireVersionOne/page"
 import Version2 from "../questionnaireVersionTwo/page"
@@ -11,6 +11,7 @@ import Results from "../results/page";
 interface Question {
     id: string;
     question: string;
+    tema: string;
     options: string[];
     correctAnswer: string;
 }
@@ -30,9 +31,9 @@ export default function Quiz() {
 
     const getAllQuestionWithLimit = async (limit: number) => {
         try {
-            const data = await getQuestionRamdonWithLimit(limit);
+            const data = await getQuestionSiecopol(limit);
             setQuestions(data);
-            setTimer(data.length * 75); //tiempo oficial
+            setTimer(data.length * 72); //tiempo oficial
             // setTimer(data.length * 10);
         } catch (error) {
             console.error("Error obteniendo las preguntas:", error);
@@ -119,19 +120,75 @@ export default function Quiz() {
                                 selectedAnswers={selectedAnswers}
                                 setSelectedAnswers={setSelectedAnswers}
                                 currentQuestion={currentQuestion}
-                                setCurrentQuestion={setCurrentQuestion}                                
+                                setCurrentQuestion={setCurrentQuestion}
                                 handleFinish={handleFinish}
                             />
                         ) : (
-                            <Version3
-                                questions={questions}
-                                selectedAnswers={selectedAnswers}
-                                setSelectedAnswers={setSelectedAnswers}
-                                currentQuestion={currentQuestion}
-                                setCurrentQuestion={setCurrentQuestion}                                
-                                handleFinish={handleFinish}
-                                timer={timer}
-                            />
+                            <>
+                                <div>
+                                    <div className="bg-[#087bb4] text-center text-white py-5 top-0 ">
+                                        <div className="text-2xl font-extrabold">POLICÍA NACIONAL DEL PERÚ</div>
+                                        <div>Sistema de Evaluación del Conocimiento Policial - SIECOPOL</div>
+                                        <div>Módulo de Examen Virtual</div>
+                                        <div className="text-xs">SIMULADOR DEL PROCESO DE SUBOFICIALES DE ARMAS 2025 - PROMOCIÓN 2026</div>
+                                    </div>
+                                    <div className="flex justify-center my-3">
+                                        <div className="w-3/12">
+                                            <div className="flex gap-2 my-2">
+                                                <div className="bg-[#087bb4] w-1/3 flex items-center justify-center border border-blue-500 text-white font-bold">CIP:</div>
+                                                <input
+                                                    type="text"
+                                                    id="CIP"
+                                                    name="CIP"
+                                                    className="w-full px-2 py-1 border rounded pl-10 outline-none"
+                                                    inputMode="numeric"
+                                                    pattern="[0-9]*"
+                                                    maxLength={8}
+                                                    onInput={(e) => {
+                                                        (e.target as HTMLInputElement).value = (e.target as HTMLInputElement).value.replace(/\D/g, ""); // Remueve letras y caracteres no numéricos
+                                                    }}
+                                                />
+                                            </div>
+
+                                            <div className="flex gap-2">
+                                                <div className="bg-[#087bb4] w-1/3 flex items-center justify-center border border-blue-500 text-white font-bold">DNI:</div>
+                                                <input
+                                                    type="text"
+                                                    id="DNI"
+                                                    name="DNI"
+                                                    className="w-full px-2 py-1 border rounded pl-10 outline-none"
+                                                    inputMode="numeric"
+                                                    pattern="[0-9]*"
+                                                    maxLength={8}
+                                                    onInput={(e) => {
+                                                        (e.target as HTMLInputElement).value = (e.target as HTMLInputElement).value.replace(/\D/g, ""); // Remueve letras y caracteres no numéricos
+                                                    }}
+                                                />
+
+
+
+                                            </div>
+
+                                            <div className="my-2  text-center">
+                                                <button className="bg-gray-300 w-1/2  py-1 border border-gray-600">
+                                                    INGRESAR
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <Version3
+                                    questions={questions}
+                                    selectedAnswers={selectedAnswers}
+                                    setSelectedAnswers={setSelectedAnswers}
+                                    currentQuestion={currentQuestion}
+                                    setCurrentQuestion={setCurrentQuestion}
+                                    handleFinish={handleFinish}
+                                    timer={timer}
+                                />
+                            </>
+
                         )
                     }
                 </>

@@ -14,6 +14,7 @@ import QuestionnaireVersionThree from "../questionnaireVersionThree/page";
 type Question = {
     id: string;
     question: string;
+    tema:string;
     options: string[];
     correctAnswer: string;
 };
