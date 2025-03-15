@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { RadioGroup } from "@headlessui/react";
 import Options from "../components/options/page";
-import { getQuestionRamdonWithLimit } from "../lib/actions";
+import { getQuestionSiecopolWhitOffset } from "../lib/actions";
 import QuestionnaireVersionTwo from "../questionnaireVersionTwo/page";
 import Results from "../results/page";
 import { Button } from "../ui/button";
@@ -14,7 +14,7 @@ import QuestionnaireVersionThree from "../questionnaireVersionThree/page";
 type Question = {
     id: string;
     question: string;
-    tema:string;
+    tema: string;
     options: string[];
     correctAnswer: string;
 };
@@ -62,21 +62,15 @@ export default function Examenes() {
         fetchData();
     }, []);
 
-    useEffect(() => {
-        if (qantitySelect > 0) {
-            handleStartPractice();
-        }
-    }, [qantitySelect]);
-
-    const handleStartPractice = async () => {
+    const handleStartPractice = async (index:number) => {
         console.log("se dio click")
-        if (qantitySelect === 0) {
+        if (index === undefined) {
             console.warn("⚠ No se ha seleccionado una cantidad válida");
             return;
         }
 
         try {
-            const data = await getQuestionRamdonWithLimit(qantitySelect);
+            const data = await getQuestionSiecopolWhitOffset(index);
             setQuestions(data);
             setExamStarted(true);
         } catch (error) {
@@ -93,7 +87,7 @@ export default function Examenes() {
     };
 
     useEffect(() => {
-        if (!isExamStarted || isFinished ) return;
+        if (!isExamStarted || isFinished) return;
 
         const countdown = setInterval(() => {
             setTimer((prev) => {
@@ -125,25 +119,12 @@ export default function Examenes() {
         return <Results score={score} questions={questions} selectedAnswers={answers} onRestart={restartAll} />
     }
 
-    // const addRow = () => {
-    //     const newId = rows.length > 0 ? Math.max(...rows.map((row) => row.id)) + 1 : 1
-    //     setRows([
-    //         ...rows,
-    //         {
-    //             id: newId,
-    //             name: `Producto ${newId}`,
-    //             price: `$${Math.floor(Math.random() * 300) + 50}`,
-    //             stock: Math.floor(Math.random() * 50) + 5,
-    //         },
-    //     ])
-    // }
-
     if (tablaExam.length === 0) {
         return <p className="text-center text-gray-500 pt-10">Cargando Examenes...</p>;
     }
 
     return (
-        <div className="bg-white flex w-full min-h-[80vh] py-4 md:py8 ">
+        <div className="bg-white flex w-full min-h-[80vh] py-4 md:py-8 ">
             <div className=" mx-auto w-full">
                 {!isExamStarted ? (
                     <div className="mx-auto md:w-5/6 h-auto bg-gray-200 py-5 text-center px-10">
@@ -185,13 +166,13 @@ export default function Examenes() {
                                                     <button
                                                         className="flex gap-2 bg-green-700 text-white px-3 py-2 rounded-lg"
                                                         onClick={() => {
-                                                            setQuantitySelect(20)
+                                                            handleStartPractice(index)
                                                         }}>
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pencil-square" viewBox="0 0 16 16">
                                                             <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                                                             <path fillRule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
                                                         </svg>
-                                                        <span>Ingresar Aqui</span>
+                                                        <span>Ingresar Aqui </span>
                                                     </button>
                                                 </td>
                                             </tr>

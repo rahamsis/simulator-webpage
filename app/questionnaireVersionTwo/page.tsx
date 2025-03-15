@@ -67,7 +67,7 @@ const QuestionnaireVersionTwo: React.FC<QuestionnaireProps> = ({
                             <RadioGroup value={selectedAnswers[currentQuestion] ?? null} onChange={handleAnswer} className="space-y-4">
                                 {questions[currentQuestion - 1].options.map((option, index) => {
 
-                                    const [optionId, optionText] = option.split("-")
+                                    const [optionId, optionText] = option.split("@")
                                     return (
                                         <RadioGroup.Option key={optionId} value={optionId}>
                                             {({ checked }) => (

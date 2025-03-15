@@ -138,16 +138,16 @@ export async function getQuestionRamdonWithLimit(limite: number) {
                 { idTema: 'T00017', limit: (limite === 100) ? 5 : 2 },
                 { idTema: 'T00018', limit: (limite === 100) ? 2 : 1 },
             ];
-    
+
             // Ejecutar todas las consultas en paralelo
             const queries = temas.map(({ idTema, limit }) =>
                 connection.query<any[]>(`SELECT idPregunta FROM preguntas WHERE idTema = ? 
                     ORDER BY RAND() LIMIT ?`, [idTema, limit])
             );
-    
+
             // Esperar a que todas las consultas terminen
             const results = await Promise.all(queries);
-    
+
             // Extraer los IDs de todas las preguntas seleccionadas
             questionIds = results.flatMap(([rows]) =>
                 rows.map((q: { idPregunta: string }) => q.idPregunta));
@@ -248,8 +248,8 @@ export async function getQuestionSiecopol(limite: number) {
             correctAnswer: row.correctAnswer
         }));
     } catch (error) {
-        console.error("Error al obtener las preguntas (getQuestionSiecopol100): ", error);
-        throw new Error("Error al obtener las preguntas (getQuestionSiecopol100");
+        console.error("Error al obtener las preguntas (getQuestionSiecopol): ", error);
+        throw new Error("Error al obtener las preguntas (getQuestionSiecopol");
     }
 }
 
@@ -268,5 +268,111 @@ export async function getTableExams() {
     } catch (error) {
         console.error("Error al obtener los examenes (getTableExams): ", error);
         throw new Error("Error al obtener los examenes (getTableExams)");
+    }
+}
+
+export async function validatePersonByCipAndDni(email: any, cip: string, dni: string) {
+    try {
+        if (email === null || email === undefined) {
+            return false
+        }
+
+        const [person] = await connection.query<User[]>(`
+            SELECT * FROM users WHERE email = ? AND cip = ? AND dni = ?
+        `, [email, cip, dni]);
+
+        if (person.length === 0) {
+            return false;
+        }
+
+        return person.map(row => ({
+            userId: row.userId,
+        }));
+
+    } catch (error) {
+        console.error("Error al validar persona por CIP y DNI: ", error);
+        throw new Error("Error al validar persona por CIP y DNI (validatePersonByCipAndDni)");
+    }
+}
+
+export async function getQuestionSiecopolWhitOffset(index: number) {
+    try {
+        const temas = [
+            { idTema: 'T00001', limit: 9, offset: 9 * index },
+            { idTema: 'T00002', limit: 5, offset: 5 * index },
+            { idTema: 'T00003', limit: 9, offset: 9 * index },
+            { idTema: 'T00004', limit: 10, offset: 10 * index },
+            { idTema: 'T00005', limit: 6, offset: 6 * index },
+            { idTema: 'T00006', limit: 2, offset: 2 * index },
+            index === 24 ? { idTema: 'T00007', limit: 12, offset: (10 * index) }
+                : index >= 25 ? { idTema: 'T00007', limit: 12, offset: (10 * index) + 2 }
+                    : { idTema: 'T00007', limit: 10, offset: 10 * index },
+            { idTema: 'T00008', limit: 5, offset: 5 * index },
+            { idTema: 'T00009', limit: 6, offset: 6 * index },
+            { idTema: 'T00010', limit: 14, offset: 14 * index },
+            { idTema: 'T00011', limit: 3, offset: 3 * index },
+            { idTema: 'T00012', limit: 5, offset: 5 * index },
+            { idTema: 'T00013', limit: 4, offset: 4 * index },
+            index === 24 ? { idTema: 'T00014', limit: 17, offset: (2 * index) }
+                : index >= 25 ? { idTema: 'T00014', limit: 17, offset: (2 * index) + 42 }
+                    : { idTema: 'T00014', limit: 2, offset: 2 * index },
+            index >= 25 ? { idTema: 'T00015', limit: 8, offset: 5 * index }
+                : { idTema: 'T00015', limit: 5, offset: 5 * index },
+            { idTema: 'T00016', limit: 3, offset: 3 * index },
+            index === 22 ? { idTema: 'T00017', limit: 5, offset: 1 * index }
+                : index === 23 ? { idTema: 'T00017', limit: 14, offset: (1 * index) + 4 }
+                    : index === 24 ? { idTema: 'T00017', limit: 19, offset: (1 * index) + 17 }
+                        : index >= 25 ? { idTema: 'T00017', limit: 19, offset: (1 * index) + 36 }
+                            : { idTema: 'T00017', limit: 1, offset: 1 * index },
+            index === 21 ? { idTema: 'T00018', limit: 3, offset: 1 * index }
+                : index === 22 ? { idTema: 'T00018', limit: 3, offset: (1 * index) + 2 }
+                    : index === 23 ? { idTema: 'T00018', limit: 3, offset: (1 * index) + 4 }
+                        : index === 24 ? { idTema: 'T00018', limit: 3, offset: (1 * index) + 6 }
+                            : index >= 25 ? { idTema: 'T00018', limit: 5, offset: (1 * index) + 8 }
+                                : { idTema: 'T00018', limit: 1, offset: 1 * index },
+        ];
+
+        console.log(index)
+
+        // Ejecutar todas las consultas en paralelo
+        const queries = temas.map(({ idTema, limit, offset }) =>
+            connection.query<any[]>(`SELECT idPregunta FROM preguntas 
+                WHERE idTema = ? order by CAST(idPregunta AS UNSIGNED) LIMIT ? OFFSET ?`, [idTema, limit, offset])
+        );
+
+        // Esperar a que todas las consultas terminen
+        const results = await Promise.all(queries);
+
+        // Extraer los IDs de todas las preguntas seleccionadas
+        const questionIds = results.flatMap(([rows]) =>
+            rows.map((q: { idPregunta: string }) => q.idPregunta));
+
+        console.log(questionIds)
+
+        // Traer los detalles de esas preguntas y sus respuestas
+        const [questions] = await connection.query<User[]>(`
+            SELECT p.idPregunta AS id, p.pregunta AS question, p.idTema, t.tema,
+            GROUP_CONCAT(CONCAT(a.idAlternativa, "@", a.alternativa) ORDER BY a.idAlternativa SEPARATOR '||') AS options, 
+            (SELECT a2.idAlternativa 
+                FROM alternativas a2 
+                WHERE a2.idPregunta = p.idPregunta AND a2.respuesta = 1 LIMIT 1
+            ) AS correctAnswer 
+            FROM preguntas p 
+            INNER JOIN alternativas a ON a.idPregunta = p.idPregunta
+            INNER JOIN temas t ON t.idTema = p.idTema
+            WHERE p.idPregunta IN (?)
+            GROUP BY p.idPregunta
+            ORDER BY p.idTema, CAST(p.idPregunta AS UNSIGNED) `, [questionIds]);
+
+        return questions.map(row => ({
+            id: row.id,
+            question: row.question,
+            tema: row.tema,
+            options: row.options.split("||"), // Convertir string a array
+            correctAnswer: row.correctAnswer
+        }));
+    } catch (error) {
+        console.error("Error al obtener las preguntas (getQuestionSiecopolWhitOffset): ", error);
+        throw new Error("Error al obtener las preguntas (getQuestionSiecopolWhitOffset");
     }
 }
