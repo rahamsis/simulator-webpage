@@ -3,7 +3,9 @@
 import { useState, useEffect } from "react";
 import { RadioGroup } from "@headlessui/react";
 import Options from "../components/options/page";
-import { getQuestionRamdonWithLimit } from "../lib/actions";
+// import { getQuestionRamdonWithLimit } from "../lib/actions";
+import { fetchQuestionRamdonWithLimit, fetchSaveIncorrectQuestions } from "../lib/actions";
+// import { saveIncorrectQuestions } from "../lib/actions";
 import QuestionnaireVersionTwo from "../questionnaireVersionTwo/page";
 import Results from "../results/page";
 
@@ -28,9 +30,12 @@ export default function Generador() {
     const [qantitySelect, setQuantitySelect] = useState<number>(0);
     const [isPracticeStarted, setIsPracticeStarted] = useState(false);
 
+    const [incorrectQuestions, setIncorrectQuestions] = useState<String[]>([]);
+
     const getAllQuestions = async (quantity: number) => {
         try {
-            const data = await getQuestionRamdonWithLimit(quantity);
+            // const data = await getQuestionRamdonWithLimit(quantity);
+            const data =  await fetchQuestionRamdonWithLimit(quantity)
             setQuestions(data);
         } catch (error) {
             console.error("Error obteniendo las preguntas:", error);
@@ -47,12 +52,27 @@ export default function Generador() {
         }
     };
 
-    const handleFinish = () => {
+
+    const handleFinish = async () => {
         setIsFinished(true);
-        const correctAnswers = questions.reduce((acc, question, index) => (
-            acc + (answers[index + 1] === question.correctAnswer ? 1 : 0)
-        ), 0);
+
+        const incorrectIds: string[] = [];
+
+        const correctAnswers = questions.reduce((acc, question, index) => {
+            const isCorrect = answers[index + 1] === question.correctAnswer;
+
+            if (!isCorrect) {
+                incorrectIds.push(question.id);
+            }
+
+            return acc + (isCorrect ? 1 : 0);
+        }, 0);
+
         setScore(correctAnswers);
+        setIncorrectQuestions(incorrectIds);
+
+        // await saveIncorrectQuestions(incorrectIds)
+        await fetchSaveIncorrectQuestions(incorrectIds)
     };
 
     const restartAll = () => {
@@ -61,12 +81,13 @@ export default function Generador() {
         setAnswers({});
         setIsFinished(false);
         setScore(0);
-        setShowAlert(false);     
+        setShowAlert(false);
         setQuantitySelect(0);
         setIsPracticeStarted(false);
+        setIncorrectQuestions([]);
     }
 
-    if (isFinished) {        
+    if (isFinished) {
         return <Results score={score} questions={questions} selectedAnswers={answers} onRestart={restartAll} />
     }
 
@@ -76,6 +97,7 @@ export default function Generador() {
             <div className="mx-auto md:w-5/6 ">
                 {!isPracticeStarted ? (
                     <div className="bg-gray-200 py-5 text-center">
+                        <h2 className="text-xl mt-4">Realiza una práctica con todas las preguntas según la cantidad que escojas.</h2>
                         <Options onQuantitySelect={setQuantitySelect} onStartPractice={handleStartPractice} />
                         {showAlert && <div className="text-red-500">Por favor selecciona una cantidad correcta de preguntas.</div>}
                     </div>

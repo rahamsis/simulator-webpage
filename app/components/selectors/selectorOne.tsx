@@ -6,7 +6,8 @@ import { motion, AnimatePresence } from "framer-motion"
 // import { Search, Send, BarChart2, Globe, Video, PlaneTakeoff, AudioLines } from "lucide-react"
 import useDebounce from "@/app/lib/use-debounce"
 import Checkbox from "@/app/ui/checkbox"
-import { getTemas } from "@/app/lib/actions"
+// import { getTemas } from "@/app/lib/actions"
+import { fetchTemas } from "@/app/lib/actions"
 
 interface SearchResult {
     actions: Tema[]
@@ -35,9 +36,9 @@ function SelectorOne({ onThemeSelect, onCheckboxSelect, onStartPractice }: Selec
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await getTemas();
+                // const data = await getTemas();
+                const data = await fetchTemas();
 
-                console.log(data)
                 setTemas(data);
             } catch (error) {
                 console.error("Error obteniendo las preguntas:", error);

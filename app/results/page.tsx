@@ -48,7 +48,7 @@ const Results = ({score, questions, selectedAnswers, onRestart }: ResultsProps) 
                             <p className="text-gray-500">
                                 Tu respuesta: <span className="text-xs">
                                     {question.options.map((option) => {
-                                        const [optionId, optionText] = option.split("-");
+                                        const [optionId, optionText] = option.split("@");
                                         return selectedAnswers[index + 1] === optionId ? optionText : "";
                                     })}
                                 </span>
@@ -56,7 +56,7 @@ const Results = ({score, questions, selectedAnswers, onRestart }: ResultsProps) 
                             <p className="text-gray-700 font-semibold">
                                 Respuesta correcta: <span className="text-xs">
                                     {question.options.map((option) => {
-                                        const [optionId, optionText] = option.split("-");
+                                        const [optionId, optionText] = option.split("@");
                                         return question.correctAnswer === optionId ? optionText : "";
                                     })}
                                 </span>

@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import { RadioGroup } from "@headlessui/react";
 import SelectorOne from "../components/selectors/selectorOne";
-import { getQuestion } from "../lib/actions";
+// import { getQuestion } from "../lib/actions";
+import { fetchQuestionByIdTema } from "../lib/actions";
 import QuestionnaireVersionTwo from "../questionnaireVersionTwo/page";
 import Results from "../results/page";
 
@@ -31,7 +32,8 @@ export default function Quiz() {
 
     const getAllQuestions = async (idTema: string) => {
         try {
-            const data = await getQuestion(idTema);
+            // const data = await getQuestion(idTema);
+            const data = await fetchQuestionByIdTema(idTema);
             setQuestions(data);
         } catch (error) {
             console.error("Error obteniendo las preguntas:", error);

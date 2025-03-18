@@ -5,7 +5,6 @@ import Input from "@/app/ui/input"
 import { motion, AnimatePresence } from "framer-motion"
 import useDebounce from "@/app/lib/use-debounce"
 import Checkbox from "@/app/ui/checkbox"
-import { getTemas } from "@/app/lib/actions"
 
 interface OptionsProps {
     onQuantitySelect: (quantity: number) => void,
@@ -24,10 +23,10 @@ function Options({ onQuantitySelect, onStartPractice }: OptionsProps) {
     };
 
     return (
-        <div className="w-full my-4">
+        <div className="w-full mb-4">
             <div className="relative flex flex-col justify-start items-center">
-                <h2 className="text-xl">Realiza una práctica con todas las preguntas según la cantidad que escojas.</h2>
-                <div className="w-full sticky top-0 z-10 pt-4 pb-4 text-center">
+                {/* <h2 className="text-xl">Realiza una práctica con todas las preguntas según la cantidad que escojas.</h2> */}
+                <div className="w-full sticky top-0 z-10 pb-4 text-center">
                     <div className="grid grid-cols-5 gap-4 mx-10 my-10">
                     {options.map((option, index) => (
                             <button

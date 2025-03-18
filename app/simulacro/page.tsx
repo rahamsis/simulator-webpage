@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { getQuestionSiecopol } from "../lib/actions";
-import { validatePersonByCipAndDni } from "../lib/actions";
+// import { getQuestionSiecopol } from "../lib/actions";
+import { fetchQuestionSiecopol } from "../lib/actions";
+// import { validatePersonByCipAndDni } from "../lib/actions";
+import { fetchValidatePersonByCipAndDni } from "../lib/actions";
 import Versioner from "../components/versioner/versioner";
 import Version1 from "../questionnaireVersionOne/page";
 import Version2 from "../questionnaireVersionTwo/page";
@@ -41,7 +43,8 @@ export default function Quiz() {
 
   const getAllQuestionWithLimit = async (limit: number) => {
     try {
-      const data = await getQuestionSiecopol(limit);
+      // const data = await getQuestionSiecopol(limit);
+      const data = await fetchQuestionSiecopol(limit);
       setQuestions(data);
       setTimer(data.length * 72); //tiempo oficial
       // setTimer(data.length * 10);
@@ -59,10 +62,15 @@ export default function Quiz() {
     }
   };
 
-  const handlVerifyPerson = async (e: React.FormEvent) => {
+  const handleVerifyPerson = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    const data = await validatePersonByCipAndDni(
+    // const data = await validatePersonByCipAndDni(
+    //   session?.user?.email,
+    //   formData.cip,
+    //   formData.dni
+    // );
+    const data = await fetchValidatePersonByCipAndDni(
       session?.user?.email,
       formData.cip,
       formData.dni
@@ -70,6 +78,7 @@ export default function Quiz() {
     if (data) {
       setVerifiedPerson(true);
     } else {
+      setVerifiedPerson(false);
       setShowAlertUser(true);
     }
   };
@@ -145,6 +154,7 @@ export default function Quiz() {
     setIsPracticeStarted(false);
     setVerifiedPerson(false);
     setShowAlertUser(false);
+    setVerifiedPerson(false);
     setFormData({ cip: "", dni: "" });
   };
 
@@ -200,7 +210,7 @@ export default function Quiz() {
               handleFinish={handleFinish}
             />
           ) : selectedVersion === 3 && !isVerifiedPerson ? (
-            <form onSubmit={handlVerifyPerson} className="relative w-full  p-4 md:p-8 mt-1">
+            <form onSubmit={handleVerifyPerson} className="relative w-full  p-4 md:p-8 mt-1">
               <div className="bg-[#087bb4] text-center text-white py-5 top-0">
                 <div className="text-2xl font-extrabold">
                   POLICÍA NACIONAL DEL PERÚ

@@ -1,6 +1,7 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import { NextAuthOptions, Session } from "next-auth";
-import { getUser, createSession, getActiveSession } from "./data";
+// import { getUser, createSession, getActiveSession } from "./data";
+import { fetchUser, fetchCreateSession, fetchActiveSession } from "./data";
 import { v4 as uuidv4 } from 'uuid';
 
 type User = {
@@ -33,8 +34,11 @@ const authOptions: NextAuthOptions = {
                 const { email, password, device, ip } = credentials;
 
                 try {
-                    const user = await getUser(email as string, password as string);
-                    if (!user) return null;
+                    const user = await fetchUser(email as string, password as string);
+                    if (!user || user?.message) {
+                        // return null;
+                        throw new Error(user?.message || "Invalid credentials xd")
+                    };
 
                     // Verificar que `device` e `ip` existen
                     if (!device || !ip) {
@@ -44,12 +48,15 @@ const authOptions: NextAuthOptions = {
                     const sessionToken = uuidv4(); // Token seguro
                     const expires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 días
 
-                    await createSession(user.userId, device, ip, sessionToken, expires);
+                    await fetchCreateSession(user.userId, device, ip, sessionToken, expires);
 
                     return { ...user, sessionToken }; // Pasar el token en el usuario
                 } catch (error) {
-                    console.error("Authorization error:", error);
-                    throw new Error("Invalid credentials.");
+                    if (error instanceof Error) {
+                        throw new Error(error.message || "Invalid credentials.");
+                    } else {
+                        throw new Error("Invalid credentials.");
+                    }
                 }
             },
         }),
@@ -63,9 +70,8 @@ const authOptions: NextAuthOptions = {
                 token.sessionToken = (user as User).sessionToken; // Guardar token en el JWT
             }
 
-            // Verificar en la BD si la sesión sigue activa usando sessionToken
             const activeSession = token.sessionToken
-                ? await getActiveSession(token.sessionToken as string)
+                ? await fetchActiveSession(token.sessionToken as string)
                 : null;
 
             token.activeSession = !!activeSession;

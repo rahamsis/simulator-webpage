@@ -50,7 +50,7 @@ const cursos = [
     titulo: "Examen preguntas falladas",
     tema: "Aprendizaje",
     imagen: "/images/curso6.jpg?height=200&width=400",
-    ref: "nosotros",
+    ref: "fallidas",
     progress: 48,
     show: false,
   },

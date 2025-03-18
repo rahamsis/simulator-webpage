@@ -3,12 +3,13 @@
 import { useState, useEffect } from "react";
 import { RadioGroup } from "@headlessui/react";
 import Options from "../components/options/page";
-import { getQuestionSiecopolWhitOffset } from "../lib/actions";
+// import { getQuestionSiecopolWhitOffset } from "../lib/actions";
 import QuestionnaireVersionTwo from "../questionnaireVersionTwo/page";
 import Results from "../results/page";
 import { Button } from "../ui/button";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
-import { getTableExams } from "../lib/actions";
+// import { getTableExams } from "../lib/actions";
+import {fetchTableExams, fetchQuestionSiecopolWhitOffset} from "../lib/actions";
 import QuestionnaireVersionThree from "../questionnaireVersionThree/page";
 
 type Question = {
@@ -52,7 +53,8 @@ export default function Examenes() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await getTableExams();
+                // const data = await getTableExams();
+                const data = await fetchTableExams();
                 setTimer(data.length * 75);
                 setTablaExam(data);
             } catch (error) {
@@ -70,7 +72,8 @@ export default function Examenes() {
         }
 
         try {
-            const data = await getQuestionSiecopolWhitOffset(index);
+            // const data = await getQuestionSiecopolWhitOffset(index);
+            const data = await fetchQuestionSiecopolWhitOffset(index);
             setQuestions(data);
             setExamStarted(true);
         } catch (error) {
