@@ -63,7 +63,7 @@ export default function Whatsapp() {
 
         // Limpia el temporizador cuando el componente se desmonta o cuando el efecto se ejecuta nuevamente
         return () => clearTimeout(timeoutId);
-    }, []);
+    }, [toggleChating]);
 
     //   Función para manejar cambios en el input
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

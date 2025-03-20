@@ -40,7 +40,7 @@ const MyPDFViewer: React.FC<PDFViewerProps> = ({ fileUrl, onClose }) => {
     };
 
     loadPDF();
-  }, [fileUrl]);
+  }, [fileUrl, scale]);
 
   // Función para renderizar una página específica
   const renderPage = async (pageNum: number, scale: number) => {

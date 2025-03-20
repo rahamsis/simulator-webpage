@@ -143,7 +143,7 @@ function Content() {
                                 </div>
                                 <h3 className="h4 text-2xl mb-4 font-serif font-bold text-gray-900">
                                     <a href="blog-single.html">
-                                        Keep on Top of your With Felix's Slick New
+                                        Keep on Top of your With Felix&apos;s Slick New
                                     </a>
                                 </h3>
                                 <p className="text-gray-500">

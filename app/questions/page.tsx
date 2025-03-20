@@ -294,7 +294,7 @@ function Questions() {
                                 <div className="max-h-0 overflow-hidden py-0 px-4 pl-6">
                                     <p>
                                         The Service is provided for free during this pilot project, and
-                                        is provided &quot;as is"&quot; with is not committed to any level of
+                                        is provided &quot;as is&quot; with is not committed to any level of
                                         service or availability of the Service.
                                     </p>
                                     <p>
