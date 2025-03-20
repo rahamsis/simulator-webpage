@@ -1,3 +1,5 @@
+"use client"
+
 import { useState, useEffect } from "react";
 import { RadioGroup } from "@headlessui/react";
 
