@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 function CommonHero() {
     return (
@@ -41,7 +42,7 @@ function Content() {
                 <div className="featured-posts flex flex-wrap">
                     <div className="mb-8 md:w-1/2 px-3">
                         <div className="lg:flex items-center relative h-full rounded-xl bg-white p-5">
-                            <img className="card-img" width="235" height="304" src="assets/posts/post1.png" alt="" />
+                            <Image className="card-img" width="235" height="304" src="assets/posts/post1.png" alt="" />
                             <div className="pt-6 pb-5 pl-6">
                                 <div className="relative left-0 top-0 right-10 z-[1] mb-6">
                                     <a className="inline-block h-8 rounded-3xl border border-cyan-600 bg-btn-featured-post text-cyan-600 px-[0.875rem] py-2 text-sm leading-1" href="#">Development</a>
@@ -71,7 +72,7 @@ function Content() {
                     </div>
                     <div className="mb-8 md:w-1/2 px-3">
                         <div className="lg:flex items-center relative h-full rounded-xl bg-white p-5">
-                            <img className="card-img" width="235" height="304" src="assets/posts/post2.png" alt="" />
+                            <Image className="card-img" width="235" height="304" src="assets/posts/post2.png" alt="" />
                             <div className="pt-6 pb-5 pl-6">
                                 <div className="relative left-0 top-0 right-10 z-[1] mb-6">
                                     <a className="inline-block h-8 rounded-3xl border border-cyan-600 bg-btn-featured-post text-cyan-600 px-[0.875rem] py-2 text-sm leading-1" href="#">Development</a>
@@ -103,7 +104,7 @@ function Content() {
                     </div>
                     <div className="mb-8 md:w-1/2 px-3">
                         <div className="lg:flex items-center relative h-full rounded-xl bg-white p-5">
-                            <img className="card-img" width="235" height="304" src="assets/posts/post3.png" alt="" />
+                            <Image className="card-img" width="235" height="304" src="assets/posts/post3.png" alt="" />
                             <div className="pt-6 pb-5 pl-6">
                                 <div className="relative left-0 top-0 right-10 z-[1] mb-6">
                                     <a className="inline-block h-8 rounded-3xl border border-cyan-600 bg-btn-featured-post text-cyan-600 px-[0.875rem] py-2 text-sm leading-1" href="#">Development</a>
@@ -135,7 +136,7 @@ function Content() {
                     </div>
                     <div className="mb-8 md:w-1/2 px-3">
                         <div className="lg:flex items-center relative h-full rounded-xl bg-white p-5">
-                            <img className="card-img" width="235" height="304" src="assets/posts/post4.png" alt="" />
+                            <Image className="card-img" width="235" height="304" src="assets/posts/post4.png" alt="" />
                             <div className="pt-6 pb-5 pl-6">
                                 <div className="relative left-0 top-0 right-10 z-[1] mb-6">
                                     <a className="inline-block h-8 rounded-3xl border border-cyan-600 bg-btn-featured-post text-cyan-600 px-[0.875rem] py-2 text-sm leading-1" href="#">Development</a>
@@ -191,7 +192,7 @@ function Content() {
                 <div className="flex flex-wrap lg:-mx-2">
                     <div className="mb-8 md:w-1/2 lg:w-[33.33%] px-4">
                         <div className="relative h-full rounded-xl bg-white p-5 shadow-lg">
-                            <img className="card-img" width="335" height="210" src="assets/posts/post5.png" alt="" />
+                            <Image className="card-img" width="335" height="210" src="assets/posts/post5.png" alt="" />
                             <div className="pt-6">
                                 <div className="absolute right-10 top-10 z-[1] mb-6">
                                     <a className="inline-block h-8 rounded-3xl border border-cyan-600 bg-btn-featured-post text-cyan-600 px-[0.875rem] py-2 text-sm leading-1" href="#">Development</a>
@@ -223,7 +224,7 @@ function Content() {
                     </div>
                     <div className="mb-8 md:w-1/2 lg:w-[33.33%] px-4">
                         <div className="relative h-full rounded-xl bg-white p-5 shadow-lg">
-                            <img className="card-img" width="335" height="210" src="assets/posts/post6.png" alt="" />
+                            <Image className="card-img" width="335" height="210" src="assets/posts/post6.png" alt="" />
                             <div className="pt-6">
                                 <div className="absolute right-10 top-10 z-[1] mb-6">
                                     <a className="inline-block h-8 rounded-3xl border border-cyan-600 bg-btn-featured-post text-cyan-600 px-[0.875rem] py-2 text-sm leading-1" href="#">Development</a>
@@ -255,7 +256,7 @@ function Content() {
                     </div>
                     <div className="mb-8 md:w-1/2 lg:w-[33.33%] px-4">
                         <div className="relative h-full rounded-xl bg-white p-5 shadow-lg">
-                            <img className="card-img" width="335" height="210" src="assets/posts/post7.png" alt="" />
+                            <Image className="card-img" width="335" height="210" src="assets/posts/post7.png" alt="" />
                             <div className="pt-6">
                                 <div className="absolute right-10 top-10 z-[1] mb-6">
                                     <a className="inline-block h-8 rounded-3xl border border-cyan-600 bg-btn-featured-post text-cyan-600 px-[0.875rem] py-2 text-sm leading-1" href="#">Development</a>
@@ -287,7 +288,7 @@ function Content() {
                     </div>
                     <div className="mb-8 md:w-1/2 lg:w-[33.33%] px-2">
                         <div className="relative h-full rounded-xl bg-white p-5 shadow-lg">
-                            <img className="card-img" width="335" height="210" src="assets/posts/post-8.png" alt="" />
+                            <Image className="card-img" width="335" height="210" src="assets/posts/post-8.png" alt="" />
                             <div className="pt-6">
                                 <div className="absolute right-10 top-10 z-[1] mb-6">
                                     <a className="inline-block h-8 rounded-3xl border border-cyan-600 bg-btn-featured-post text-cyan-600 px-[0.875rem] py-2 text-sm leading-1" href="#">Development</a>
@@ -319,7 +320,7 @@ function Content() {
                     </div>
                     <div className="mb-8 md:w-1/2 lg:w-[33.33%] px-2">
                         <div className="relative h-full rounded-xl bg-white p-5 shadow-lg">
-                            <img className="card-img" width="335" height="210" src="assets/posts/post-9.png" alt="" />
+                            <Image className="card-img" width="335" height="210" src="assets/posts/post-9.png" alt="" />
                             <div className="pt-6">
                                 <div className="absolute right-10 top-10 z-[1] mb-6">
                                     <a className="inline-block h-8 rounded-3xl border border-cyan-600 bg-btn-featured-post text-cyan-600 px-[0.875rem] py-2 text-sm leading-1" href="#">Development</a>
@@ -351,7 +352,7 @@ function Content() {
                     </div>
                     <div className="mb-8 md:w-1/2 lg:w-[33.33%] px-2">
                         <div className="relative h-full rounded-xl bg-white p-5 shadow-lg">
-                            <img className="card-img" width="335" height="210" src="assets/posts/post-10.png" alt="" />
+                            <Image className="card-img" width="335" height="210" src="assets/posts/post-10.png" alt="" />
                             <div className="pt-6">
                                 <div className="absolute right-10 top-10 z-[1] mb-6">
                                     <a className="inline-block h-8 rounded-3xl border border-cyan-600 bg-btn-featured-post text-cyan-600 px-[0.875rem] py-2 text-sm leading-1" href="#">Development</a>
@@ -383,7 +384,7 @@ function Content() {
                     </div>
                     <div className="mb-8 md:w-1/2 lg:w-[33.33%] px-2">
                         <div className="relative h-full rounded-xl bg-white p-5 shadow-lg">
-                            <img className="card-img" width="335" height="210" src="assets/posts/post-11.png" alt="" />
+                            <Image className="card-img" width="335" height="210" src="assets/posts/post-11.png" alt="" />
                             <div className="pt-6">
                                 <div className="absolute right-10 top-10 z-[1] mb-6">
                                     <a className="inline-block h-8 rounded-3xl border border-cyan-600 bg-btn-featured-post text-cyan-600 px-[0.875rem] py-2 text-sm leading-1" href="#">Development</a>
@@ -415,7 +416,7 @@ function Content() {
                     </div>
                     <div className="mb-8 md:w-1/2 lg:w-[33.33%] px-2">
                         <div className="relative h-full rounded-xl bg-white p-5 shadow-lg">
-                            <img className="card-img" width="335" height="210" src="assets/posts/post-12.png" alt="" />
+                            <Image className="card-img" width="335" height="210" src="assets/posts/post-12.png" alt="" />
                             <div className="pt-6">
                                 <div className="absolute right-10 top-10 z-[1] mb-6">
                                     <a className="inline-block h-8 rounded-3xl border border-cyan-600 bg-btn-featured-post text-cyan-600 px-[0.875rem] py-2 text-sm leading-1" href="#">Development</a>
@@ -447,7 +448,7 @@ function Content() {
                     </div>
                     <div className="mb-8 md:w-1/2 lg:w-[33.33%] px-2">
                         <div className="relative h-full rounded-xl bg-white p-5 shadow-lg">
-                            <img className="card-img" width="335" height="210" src="assets/posts/post-13.png" alt="" />
+                            <Image className="card-img" width="335" height="210" src="assets/posts/post-13.png" alt="" />
                             <div className="pt-6">
                                 <div className="absolute right-10 top-10 z-[1] mb-6">
                                     <a className="inline-block h-8 rounded-3xl border border-cyan-600 bg-btn-featured-post text-cyan-600 px-[0.875rem] py-2 text-sm leading-1" href="#">Development</a>

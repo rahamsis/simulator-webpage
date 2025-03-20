@@ -1,5 +1,6 @@
 'use client'
 import { useRef, useState } from "react";
+import Image from "next/image";
 
 function Content() {
     return (
@@ -20,7 +21,7 @@ function Content() {
                 </ul>
                 <div className="flex flex-wrap ">
                     <div className="lg:w-1/2 lg:order-2">
-                        <img className="mx-auto" src="assets/features-banner-img.png" width="412" height="483" alt="" />
+                        <Image className="mx-auto" src="assets/features-banner-img.png" width="412" height="483" alt="" />
                     </div>
                     <div className="mt-10 lg:w-1/2 lg:order-1 lg:mt-0">
                         <ul className="breadcrumb mb-8 hidden h-8 items-center justify-center space-x-2 rounded-3xl bg-theme-light px-4 py-2 lg:inline-flex">
@@ -79,7 +80,7 @@ function ContentSecondary() {
                                 <div className="flex flex-wrap">
                                     <div className="w-1/2 mb-6 px-4">
                                         <div className="flex flex-col items-center justify-center rounded-xl bg-white p-5 shadow-sm">
-                                            <img src="assets/avatar-1.png" alt="" />
+                                            <Image src="assets/avatar-1.png" alt="" />
                                             <svg className="mt-2.5" width="112" height="25" viewBox="0 0 112 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <rect x="16" width="80" height="10" rx="5" fill="#ECECEC"></rect>
                                                 <rect y="18" width="112" height="7" rx="3.5" fill="#ECECEC"></rect>
@@ -88,7 +89,7 @@ function ContentSecondary() {
                                     </div>
                                     <div className="w-1/2 mb-6 px-4">
                                         <div className="flex flex-col items-center justify-center rounded-xl bg-white p-5 shadow-sm">
-                                            <img src="assets/avatar-2.png" alt="" />
+                                            <Image src="assets/avatar-2.png" alt="" />
                                             <svg className="mt-2.5" width="112" height="25" viewBox="0 0 112 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <rect x="16" width="80" height="10" rx="5" fill="#ECECEC"></rect>
                                                 <rect y="18" width="112" height="7" rx="3.5" fill="#ECECEC"></rect>
@@ -97,7 +98,7 @@ function ContentSecondary() {
                                     </div>
                                     <div className="w-1/2 mb-6 px-4">
                                         <div className="flex flex-col items-center justify-center rounded-xl bg-white p-5 shadow-sm">
-                                            <img src="assets/avatar-3.png" alt="" />
+                                            <Image src="assets/avatar-3.png" alt="" />
                                             <svg className="mt-2.5" width="112" height="25" viewBox="0 0 112 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <rect x="16" width="80" height="10" rx="5" fill="#ECECEC"></rect>
                                                 <rect y="18" width="112" height="7" rx="3.5" fill="#ECECEC"></rect>
@@ -106,7 +107,7 @@ function ContentSecondary() {
                                     </div>
                                     <div className="w-1/2 mb-6 px-4">
                                         <div className="flex flex-col items-center justify-center rounded-xl bg-white p-5 shadow-sm">
-                                            <img src="assets/avatar-4.png" alt="" />
+                                            <Image src="assets/avatar-4.png" alt="" />
                                             <svg className="mt-2.5" width="112" height="25" viewBox="0 0 112 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <rect x="16" width="80" height="10" rx="5" fill="#ECECEC"></rect>
                                                 <rect y="18" width="112" height="7" rx="3.5" fill="#ECECEC"></rect>
@@ -120,7 +121,7 @@ function ContentSecondary() {
                         <div className="mt-10 lg:w-1/2 px-4 lg:mt-0">
                             <div className="mb-6 flex items-center space-x-4 rounded-lg bg-[#fafafa] px-6 py-8">
                                 <div className="relative inline-flex h-24 w-24 items-center justify-center p-3">
-                                    <img src="assets/icons/feature-icon-1.svg" alt="" />
+                                    <Image src="assets/icons/feature-icon-1.svg" alt="" />
                                     <svg className="absolute left-0 top-0 h-full w-full" width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path opacity="0.1" fillRule="evenodd" clip-rule="evenodd" d="M42.8833 0.00928958C63.2143 -0.38584 82.2759 11.853 88.3264 31.1979C94.1797 49.9121 84.027 68.9907 68.0244 80.3913C52.4387 91.4948 31.5679 93.9094 16.0849 82.6642C0.66775 71.4667 -3.27813 50.9537 2.58684 32.8642C8.48561 14.6704 23.699 0.382132 42.8833 0.00928958Z" fill="#FFCC99"></path>
                                     </svg>
@@ -135,7 +136,7 @@ function ContentSecondary() {
                             </div>
                             <div className="mb-6 flex items-center space-x-4 rounded-lg bg-[#fafafa] px-6 py-8">
                                 <div className="relative inline-flex h-24 w-24 items-center justify-center p-3">
-                                    <img src="assets/icons/feature-icon-8.svg" alt="" />
+                                    <Image src="assets/icons/feature-icon-8.svg" alt="" />
                                     <svg className="absolute left-0 top-0 h-full w-full" width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path opacity="0.1" fillRule="evenodd" clip-rule="evenodd" d="M42.8833 0.00928958C63.2143 -0.38584 82.2759 11.853 88.3264 31.1979C94.1797 49.9121 84.027 68.9907 68.0244 80.3913C52.4387 91.4948 31.5679 93.9094 16.0849 82.6642C0.66775 71.4667 -3.27813 50.9537 2.58684 32.8642C8.48561 14.6704 23.699 0.382132 42.8833 0.00928958Z" fill="#FFCC99"></path>
                                     </svg>
@@ -150,7 +151,7 @@ function ContentSecondary() {
                             </div>
                             <div className="flex items-center space-x-4 rounded-lg bg-[#fafafa] px-6 py-8">
                                 <div className="relative inline-flex h-24 w-24 items-center justify-center p-3">
-                                    <img src="assets/icons/feature-icon-9.svg" alt="" />
+                                    <Image src="assets/icons/feature-icon-9.svg" alt="" />
                                     <svg className="absolute left-0 top-0 h-full w-full" width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path opacity="0.1" fillRule="evenodd" clip-rule="evenodd" d="M42.8833 0.00928958C63.2143 -0.38584 82.2759 11.853 88.3264 31.1979C94.1797 49.9121 84.027 68.9907 68.0244 80.3913C52.4387 91.4948 31.5679 93.9094 16.0849 82.6642C0.66775 71.4667 -3.27813 50.9537 2.58684 32.8642C8.48561 14.6704 23.699 0.382132 42.8833 0.00928958Z" fill="#FFCC99"></path>
                                     </svg>
@@ -170,7 +171,7 @@ function ContentSecondary() {
                 <div className="flex flex-wrap gx-5 mt-16 items-center">
                     <div className="lg:w-1/2 lg:order-2">
                         <div className="relative">
-                            <img className="w-full object-contain" src="assets/features/feature-img-1.png" />
+                            <Image className="w-full object-contain" alt="" src="assets/features/feature-img-1.png" />
                         </div>
                     </div>
                     <div className="mt-6 lg:w-1/2 lg:order-1 lg:mt-0">
@@ -185,15 +186,15 @@ function ContentSecondary() {
                             </p>
                             <ul className="mt-6 text-dark lg:-ml-4">
                                 <li className="mb-2 flex items-center rounded px-4">
-                                    <img className="mr-3" src="assets/icons/checkmark-circle.svg" alt="" />
+                                    <Image className="mr-3" src="assets/icons/checkmark-circle.svg" alt="" />
                                     Supporting more than 119 country world
                                 </li>
                                 <li className="mb-2 flex items-center rounded px-4">
-                                    <img className="mr-3" src="assets/icons/checkmark-circle.svg" alt="" />
+                                    <Image className="mr-3" src="assets/icons/checkmark-circle.svg" alt="" />
                                     Open transaction with more than currencies
                                 </li>
                                 <li className="flex items-center rounded px-4">
-                                    <img className="mr-3" src="assets/icons/checkmark-circle.svg" alt="" />
+                                    <Image className="mr-3" src="assets/icons/checkmark-circle.svg" alt="" />
                                     Customer Service with 79 languages
                                 </li>
                             </ul>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import Image from "next/image";
 
 function CommonHero() {
     return (
@@ -53,17 +54,17 @@ function Gallery() {
                 <div className="flex flex-wrap mt-2.5">
                     <div className="md:w-1/2 px-4">
                         <div className="relative mt-8">
-                            <img className="w-full object-cover" width="480" height="328" src="assets/nosotros/img1.png" alt="" />
+                            <Image className="w-full object-cover" width="480" height="328" src="assets/nosotros/img1.png" alt="" />
                         </div>
                         <div className="relative mt-8">
-                            <img className="w-full object-cover" width="480" height="274" src="assets/nosotros/img2.png" alt="" />
-                            <img className="absolute -bottom-5 -left-5 -z-[1] h-16 w-16" src="assets/shape-2.png" alt="" />
+                            <Image className="w-full object-cover" width="480" height="274" src="assets/nosotros/img2.png" alt="" />
+                            <Image className="absolute -bottom-5 -left-5 -z-[1] h-16 w-16" src="assets/shape-2.png" alt="" />
                         </div>
                     </div>
                     <div className="md:w-1/2 px-4">
                         <div className="relative mt-8">
-                            <img className="w-full object-cover" width="480" height="540" src="assets/nosotros/img3.png" alt="" />
-                            <img className="absolute -bottom-4 -right-5 -z-[1] h-16 w-16" src="assets/shape.png" alt="" />
+                            <Image className="w-full object-cover" width="480" height="540" src="assets/nosotros/img3.png" alt="" />
+                            <Image className="absolute -bottom-4 -right-5 -z-[1] h-16 w-16" src="assets/shape.png" alt="" />
                         </div>
                     </div>
                 </div>
@@ -92,7 +93,7 @@ function Work() {
                         <div className="rounded-xl bg-white p-6 shadow-lg lg:p-8">
                             <div className="gradient-number relative inline-block">
                                 <span className="bg-clip-text font-sans text-4xl font-bold leading-none text-transparent bg-gradient-to-t from-start to-end absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">01</span>
-                                <img src="assets/gradient-number-bg.png" height={90} width={90} alt="" />
+                                <Image src="assets/gradient-number-bg.png" height={90} width={90} alt="" />
                             </div>
                             <h4 className="my-6 text-2xl font-bold leading-tight text-gray-900">Experiencia</h4>
                             <p className="text-gray-500">
@@ -104,7 +105,7 @@ function Work() {
                         <div className="rounded-xl bg-white p-6 shadow-lg lg:p-8">
                             <div className="gradient-number relative inline-block">
                                 <span className="bg-clip-text font-sans text-4xl font-bold leading-none text-transparent bg-gradient-to-t from-start to-end absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">02</span>
-                                <img src="assets/gradient-number-bg.png" height={90} width={90} alt="" />
+                                <Image src="assets/gradient-number-bg.png" height={90} width={90} alt="" />
                             </div>
                             <h4 className="my-6 text-2xl font-bold leading-tight text-gray-900">Equipamento</h4>
                             <p className="text-gray-500">
@@ -116,7 +117,7 @@ function Work() {
                         <div className="rounded-xl bg-white p-6 shadow-lg lg:p-8">
                             <div className="gradient-number relative inline-block">
                                 <span className="bg-clip-text font-sans text-4xl font-bold leading-none text-transparent bg-gradient-to-t from-start to-end absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">03</span>
-                                <img src="assets/gradient-number-bg.png" height={90} width={90} alt="" />
+                                <Image src="assets/gradient-number-bg.png" height={90} width={90} alt="" />
                             </div>
                             <h4 className="my-6 text-2xl font-bold leading-tight text-gray-900">Innovacion</h4>
                             <p className="text-gray-500">
@@ -128,7 +129,7 @@ function Work() {
                         <div className="rounded-xl bg-white p-6 shadow-lg lg:p-8">
                             <div className="gradient-number relative inline-block">
                                 <span className="bg-clip-text font-sans text-4xl font-bold leading-none text-transparent bg-gradient-to-t from-start to-end absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">04</span>
-                                <img src="assets/gradient-number-bg.png" height={90} width={90} alt="" />
+                                <Image src="assets/gradient-number-bg.png" height={90} width={90} alt="" />
                             </div>
                             <h4 className="my-6 text-2xl font-bold leading-tight text-gray-900">Excelencia</h4>
                             <p className="text-gray-500">
@@ -140,7 +141,7 @@ function Work() {
                         <div className="rounded-xl bg-white p-6 shadow-lg lg:p-8">
                             <div className="gradient-number relative inline-block">
                                 <span className="bg-clip-text font-sans text-4xl font-bold leading-none text-transparent bg-gradient-to-t from-start to-end absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">05</span>
-                                <img src="assets/gradient-number-bg.png" height={90} width={90} alt="" />
+                                <Image src="assets/gradient-number-bg.png" height={90} width={90} alt="" />
                             </div>
                             <h4 className="my-6 text-2xl font-bold leading-tight text-gray-900">Buen Servicio</h4>
                             <p className="text-gray-500">
@@ -152,7 +153,7 @@ function Work() {
                         <div className="rounded-xl bg-white p-6 shadow-lg lg:p-8">
                             <div className="gradient-number relative inline-block">
                                 <span className="bg-clip-text font-sans text-4xl font-bold leading-none text-transparent bg-gradient-to-t from-start to-end absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">06</span>
-                                <img src="assets/gradient-number-bg.png" height={90} width={90} alt="" />
+                                <Image src="assets/gradient-number-bg.png" height={90} width={90} alt="" />
                             </div>
                             <h4 className="my-6 text-2xl font-bold leading-tight text-gray-900">Responsbilidad</h4>
                             <p className="text-gray-500">
@@ -183,7 +184,7 @@ function Members() {
                         <div className="lg:flex lg:flex-wrap">
                             <div className="mb-6 flex flex-col px-6 text-center sm:w-1/2 lg:w-[33.33%] sm:items-center">
                                 <div className="member-avatar inline-flex justify-center">
-                                    <img className="rounded-full h-28 w-28" src="assets/users/user-1.png" alt="" />
+                                    <Image className="rounded-full h-28 w-28" src="assets/users/user-1.png" alt="" />
                                 </div>
                                 <div className="mt-6 w-full flex-1 rounded-xl bg-white py-8 px-4 shadow-lg">
                                     <h5 className="font-sans text-xl font-bold leading-tight text-gray-900">Eleanor Pena</h5>
@@ -192,7 +193,7 @@ function Members() {
                             </div>
                             <div className="mb-6 flex flex-col px-6 text-center sm:w-1/2 lg:w-[33.33%] sm:items-center">
                                 <div className="member-avatar inline-flex justify-center">
-                                    <img className="rounded-full h-28 w-28" src="assets/users/user-2.png" alt="" />
+                                    <Image className="rounded-full h-28 w-28" src="assets/users/user-2.png" alt="" />
                                 </div>
                                 <div className="mt-6 w-full flex-1 rounded-xl bg-white py-8 px-4 shadow-lg">
                                     <h5 className="font-sans text-xl font-bold leading-tight text-gray-900">Savannah Nguyen</h5>
@@ -201,7 +202,7 @@ function Members() {
                             </div>
                             <div className="mb-6 flex flex-col px-6 text-center sm:w-1/2 lg:w-[33.33%] sm:items-center">
                                 <div className="member-avatar inline-flex justify-center">
-                                    <img className="rounded-full h-28 w-28" src="assets/users/user-3.png" alt="" />
+                                    <Image className="rounded-full h-28 w-28" src="assets/users/user-3.png" alt="" />
                                 </div>
                                 <div className="mt-6 w-full flex-1 rounded-xl bg-white py-8 px-4 shadow-lg">
                                     <h5 className="font-sans text-xl font-bold leading-tight text-gray-900">Courtney Henry</h5>
@@ -210,7 +211,7 @@ function Members() {
                             </div>
                             <div className="mb-6 flex flex-col px-6 text-center sm:w-1/2 lg:w-[33.33%] sm:items-center">
                                 <div className="member-avatar inline-flex justify-center">
-                                    <img className="rounded-full h-28 w-28" src="assets/users/user-4.png" alt="" />
+                                    <Image className="rounded-full h-28 w-28" src="assets/users/user-4.png" alt="" />
                                 </div>
                                 <div className="mt-6 w-full flex-1 rounded-xl bg-white py-8 px-4 shadow-lg">
                                     <h5 className="font-sans text-xl font-bold leading-tight text-gray-900">Floyd Miles</h5>
@@ -219,7 +220,7 @@ function Members() {
                             </div>
                             <div className="mb-6 flex flex-col px-6 text-center sm:w-1/2 lg:w-[33.33%] sm:items-center">
                                 <div className="member-avatar inline-flex justify-center">
-                                    <img className="rounded-full h-28 w-28" src="assets/users/user-5.png" alt="" />
+                                    <Image className="rounded-full h-28 w-28" src="assets/users/user-5.png" alt="" />
                                 </div>
                                 <div className="mt-6 w-full flex-1 rounded-xl bg-white py-8 px-4 shadow-lg">
                                     <h5 className="font-sans text-xl font-bold leading-tight text-gray-900">Robert Fox</h5>
@@ -228,7 +229,7 @@ function Members() {
                             </div>
                             <div className="mb-6 flex flex-col px-6 text-center sm:w-1/2 lg:w-[33.33%] sm:items-center">
                                 <div className="member-avatar inline-flex justify-center">
-                                    <img className="rounded-full h-28 w-28" src="assets/users/user-6.png" alt="" />
+                                    <Image className="rounded-full h-28 w-28" src="assets/users/user-6.png" alt="" />
                                 </div>
                                 <div className="mt-6 w-full flex-1 rounded-xl bg-white py-8 px-4 shadow-lg">
                                     <h5 className="font-sans text-xl font-bold leading-tight text-gray-900">Darrell Steward</h5>

@@ -1,5 +1,6 @@
 'use client'
 import { useRef, useState } from "react";
+import Image from "next/image";
 
 function CommomHero() {
     return (
@@ -30,12 +31,12 @@ function CommomHero() {
                     </div>
                     <div className="mt-14 flex justify-center">
                         <div className="relative">
-                            <img src="assets/services/services-one/career-hero-img-1.png" alt="" />
-                            <img className="absolute -left-[8%] bottom-[12%] z-[-1] h-20 w-20 -rotate-90 lg:-left-8 lg:bottom-4 lg:h-[150px] lg:w-[150px]" src="assets/shape.svg" alt="" />
+                            <Image src="assets/services/services-one/career-hero-img-1.png" alt="" />
+                            <Image className="absolute -left-[8%] bottom-[12%] z-[-1] h-20 w-20 -rotate-90 lg:-left-8 lg:bottom-4 lg:h-[150px] lg:w-[150px]" src="assets/shape.svg" alt="" />
                         </div>
                         <div className="relative -ml-[10%] mt-[10%] lg:-ml-[6%] lg:mt-[6%]">
-                            <img src="assets/services/services-one/career-hero-img-2.png" alt="" />
-                            <img className="absolute -right-4 -bottom-4 z-[-1] h-16 w-16 -rotate-90" src="assets/shape.svg" alt="" />
+                            <Image src="assets/services/services-one/career-hero-img-2.png" alt="" />
+                            <Image className="absolute -right-4 -bottom-4 z-[-1] h-16 w-16 -rotate-90" src="assets/shape.svg" alt="" />
                         </div>
                     </div>
                 </div>
@@ -60,7 +61,7 @@ function Content() {
                 </div>
                 <div className="flex flex-wrap mt-14 text-center">
                     <div className="mb-10 sm:w-1/2 lg:w-[33.33%]">
-                        <img className="mx-auto" src="assets/services/icon-1.png" width="100" height="90" alt="" />
+                        <Image className="mx-auto" src="assets/services/icon-1.png" width="100" height="90" alt="" />
                         <h3 className="h4 mt-8 mb-4">Competitive salary</h3>
                         <p>
                             Nulla porttitor acmsan tinci dunt. posuere cubilia Cudfrae Donec velit
@@ -68,7 +69,7 @@ function Content() {
                         </p>
                     </div>
                     <div className="mb-10 sm:w-1/2 lg:w-[33.33%]">
-                        <img className="mx-auto" src="assets/services/icon-2.png" width="100" height="90" alt="" />
+                        <Image className="mx-auto" src="assets/services/icon-2.png" width="100" height="90" alt="" />
                         <h3 className="h4 mt-8 mb-4">100% remote</h3>
                         <p>
                             Nulla porttitor acmsan tinci dunt. posuere cubilia Cudfrae Donec velit
@@ -76,7 +77,7 @@ function Content() {
                         </p>
                     </div>
                     <div className="mb-10 sm:w-1/2 lg:w-[33.33%]">
-                        <img className="mx-auto" src="assets/services/icon-3.png" width="100" height="90" alt="" />
+                        <Image className="mx-auto" src="assets/services/icon-3.png" width="100" height="90" alt="" />
                         <h3 className="h4 mt-8 mb-4">Unlimited PTO</h3>
                         <p>
                             Nulla porttitor acmsan tinci dunt. posuere cubilia Cudfrae Donec velit
@@ -84,7 +85,7 @@ function Content() {
                         </p>
                     </div>
                     <div className="mb-10 sm:w-1/2 lg:w-[33.33%]">
-                        <img className="mx-auto" src="assets/services/icon-4.png" width="100" height="90" alt="" />
+                        <Image className="mx-auto" src="assets/services/icon-4.png" width="100" height="90" alt="" />
                         <h3 className="h4 mt-8 mb-4">Flexible hours</h3>
                         <p>
                             Nulla porttitor acmsan tinci dunt. posuere cubilia Cudfrae Donec velit
@@ -92,7 +93,7 @@ function Content() {
                         </p>
                     </div>
                     <div className="mb-10 sm:w-1/2 lg:w-[33.33%]">
-                        <img className="mx-auto" src="assets/services/icon-5.png" width="100" height="90" alt="" />
+                        <Image className="mx-auto" src="assets/services/icon-5.png" width="100" height="90" alt="" />
                         <h3 className="h4 mt-8 mb-4">Medical insurance</h3>
                         <p>
                             Nulla porttitor acmsan tinci dunt. posuere cubilia Cudfrae Donec velit
@@ -100,7 +101,7 @@ function Content() {
                         </p>
                     </div>
                     <div className="mb-10 sm:w-1/2 lg:w-[33.33%]">
-                        <img className="mx-auto" src="assets/services/icon-6.png" width="100" height="90" alt="" />
+                        <Image className="mx-auto" src="assets/services/icon-6.png" width="100" height="90" alt="" />
                         <h3 className="h4 mt-8 mb-4">Career growth</h3>
                         <p>
                             Nulla porttitor acmsan tinci dunt. posuere cubilia Cudfrae Donec velit
@@ -139,13 +140,13 @@ function Pictures(){
                     </div>
                     <div className="lg:w-1/2" data-tab-content="">
                         <div className={`block relative active ${divToShow == 1 ? 'block' : 'hidden' }`}>
-                            <img className="w-full object-contain" src="assets/features/feature-img-2.png" />
+                            <Image className="w-full object-contain" alt="" src="assets/features/feature-img-2.png" />
                         </div>
                         <div className={`features-tab-penel relative ${divToShow == 2 ? 'block' : 'hidden' }`}>
-                            <img className="w-full object-contain" src="assets/features/feature-img-1.png" />
+                            <Image className="w-full object-contain" alt="" src="assets/features/feature-img-1.png" />
                         </div>
                         <div className={`features-tab-penel relative ${divToShow == 3 ? 'block' : 'hidden' }`}>
-                            <img className="w-full object-contain" src="assets/features/feature-img-2.png" />
+                            <Image className="w-full object-contain" alt="" src="assets/features/feature-img-2.png" />
                         </div>
                     </div>
                     <div className="mt-6 lg:w-1/2 lg:mt-0">
