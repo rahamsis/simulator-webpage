@@ -275,7 +275,7 @@ const Main = () => {
                                     <span className="text-sm md:text-2xl">EN EL METODO DE ESTUDIO PONTE 100</span>
                                 </h2>
                                 <p className="text-sm md:text-xl text-gray-600 text-center mb-10">
-                                    El PNL (Programación Neurolingüística) puede influir de manera significativa en el método de estudio "Ponte 100",
+                                    El PNL (Programación Neurolingüística) puede influir de manera significativa en el método de estudio &quot;Ponte 100&quot;,
                                     que se centra en la motivación, la gestión del tiempo y la eficacia en el aprendizaje. A continuación, se
                                     presentan algunas maneras en que el PNL puede complementar y mejorar este método de estudio:
                                 </p>
@@ -304,7 +304,7 @@ const Main = () => {
                                     ))}
                                 </div>
                                 <p className="text-sm md:text-xl text-gray-600 text-center mt-10">
-                                    Integrar técnicas de PNL en el método de estudio "Ponte 100" puede potenciar la efectividad del aprendizaje,
+                                    Integrar técnicas de PNL en el método de estudio &quot;Ponte 100&quot; puede potenciar la efectividad del aprendizaje,
                                     aumentar la motivación y mejorar el rendimiento general de los estudiantes.
                                 </p>
                             </div>
