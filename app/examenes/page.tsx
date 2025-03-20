@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { RadioGroup } from "@headlessui/react";
-import Options from "../components/options/page";
+import Options from "../components/options/options";
 // import { getQuestionSiecopolWhitOffset } from "../lib/actions";
 import QuestionnaireVersionTwo from "../questionnaireVersionTwo/page";
 import Results from "../results/page";

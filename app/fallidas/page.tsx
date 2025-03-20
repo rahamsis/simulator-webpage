@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import QuestionnaireVersionTwo from "../questionnaireVersionTwo/page";
-import Options from "../components/options/page";
+import Options from "../components/options/options";
 import { fetchIncorrectQuestions, fetchQuantityQuestions } from "../lib/actions";
 import Results from "../results/page";
 

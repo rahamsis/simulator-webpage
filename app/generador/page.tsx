@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { RadioGroup } from "@headlessui/react";
-import Options from "../components/options/page";
+import Options from "../components/options/options";
 // import { getQuestionRamdonWithLimit } from "../lib/actions";
 import { fetchQuestionRamdonWithLimit, fetchSaveIncorrectQuestions } from "../lib/actions";
 // import { saveIncorrectQuestions } from "../lib/actions";
