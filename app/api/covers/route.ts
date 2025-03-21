@@ -5,6 +5,8 @@ import path from "path";
 import { pipeline } from "stream";
 import { promisify } from "util";
 
+export const dynamic = "force-dynamic";
+
 const pipelineAsync = promisify(pipeline);
 
 const R2_ACCESS_KEY_ID = process.env.R2_ACCESS_KEY_ID!;
