@@ -6,8 +6,8 @@ import Options from "../components/options/options";
 // import { getQuestionRamdonWithLimit } from "../lib/actions";
 import { fetchQuestionRamdonWithLimit, fetchSaveIncorrectQuestions } from "../lib/actions";
 // import { saveIncorrectQuestions } from "../lib/actions";
-import QuestionnaireVersionTwo from "../questionnaireVersionTwo/page";
-import Results from "../results/page";
+import QuestionnaireVersionTwo from "../questionnaireVersionTwo/versionTwo";
+import Results from "../results/results";
 
 type Question = {
     id: string;

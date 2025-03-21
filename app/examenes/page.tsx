@@ -4,13 +4,13 @@ import { useState, useEffect } from "react";
 import { RadioGroup } from "@headlessui/react";
 import Options from "../components/options/options";
 // import { getQuestionSiecopolWhitOffset } from "../lib/actions";
-import QuestionnaireVersionTwo from "../questionnaireVersionTwo/page";
-import Results from "../results/page";
+import QuestionnaireVersionTwo from "../questionnaireVersionTwo/versionTwo";
+import Results from "../results/results";
 import { Button } from "../ui/button";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 // import { getTableExams } from "../lib/actions";
 import {fetchTableExams, fetchQuestionSiecopolWhitOffset} from "../lib/actions";
-import QuestionnaireVersionThree from "../questionnaireVersionThree/page";
+import QuestionnaireVersionThree from "../questionnaireVersionThree/versionThree";
 
 type Question = {
     id: string;

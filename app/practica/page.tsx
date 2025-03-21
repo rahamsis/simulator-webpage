@@ -5,8 +5,8 @@ import { RadioGroup } from "@headlessui/react";
 import SelectorOne from "../components/selectors/selectorOne";
 // import { getQuestion } from "../lib/actions";
 import { fetchQuestionByIdTema } from "../lib/actions";
-import QuestionnaireVersionTwo from "../questionnaireVersionTwo/page";
-import Results from "../results/page";
+import QuestionnaireVersionTwo from "../questionnaireVersionTwo/versionTwo";
+import Results from "../results/results";
 
 type Question = {
     id: string;

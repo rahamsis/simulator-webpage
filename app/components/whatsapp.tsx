@@ -3,7 +3,7 @@ import { Dialog } from "@headlessui/react";
 import { Bars3Icon, ChevronDownIcon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import styles from './header.module.css'
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -22,7 +22,7 @@ export default function Whatsapp() {
     // creo una variable que manejara los estados de la burbuja de chat
     const [ejecute, setEjecute] = useState(true);
 
-    const toggleChating = () => {
+    const toggleChating = useCallback(() => {
 
         if (!ejecute) {
             // console.log(miRef.current?.classList )
@@ -42,7 +42,7 @@ export default function Whatsapp() {
         // Invierte el valor de 'ejecute' después de realizar las operaciones
         setEjecute((prevEjecute) => !prevEjecute);
 
-    };
+    },[ejecute]);
 
     const closeChating = () => {
         miRef.current?.classList.remove('translate-x-0', 'opacity-100')

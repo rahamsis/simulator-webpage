@@ -11,11 +11,14 @@ interface ResultsProps {
     score: number;
     questions: Question[];
     selectedAnswers: { [key: string]: string };
-    
     onRestart: () => void;
 }
 
-const Results = ({score, questions, selectedAnswers, onRestart }: ResultsProps) => {
+const Results = ({
+    score,
+    questions,
+    selectedAnswers,
+    onRestart }: ResultsProps) => {
     return (
         <div className="flex flex-col py-20 items-center justify-center min-h-screen">
             <div className="w-full max-w-2xl p-8 bg-white rounded-xl shadow-lg">

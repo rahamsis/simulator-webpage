@@ -14,10 +14,10 @@ interface Question {
 
 interface QuestionnaireProps {
     questions: Question[];
-    currentQuestion: number;
-    setCurrentQuestion: (question: number) => void;
     selectedAnswers: { [key: string]: string };
     setSelectedAnswers: (answers: { [key: string]: string }) => void;
+    currentQuestion: number;
+    setCurrentQuestion: (question: number) => void;
     handleFinish: () => void;
     timer: number;
 }
@@ -32,7 +32,7 @@ const formatTime = (seconds: number) => {
         .padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
 };
 
-const QuestionnaireVersionThree: React.FC<QuestionnaireProps> = ({
+const QuestionnaireVersionThree = ({
     questions,
     selectedAnswers,
     setSelectedAnswers,
@@ -40,7 +40,7 @@ const QuestionnaireVersionThree: React.FC<QuestionnaireProps> = ({
     setCurrentQuestion,
     handleFinish,
     timer,
-}) => {
+}: QuestionnaireProps) => {
     const [answeredQuestions, setAnsweredQuestions] = useState<
         { question: number; letter: string }[]
     >([]);

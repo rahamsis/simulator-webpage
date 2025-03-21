@@ -6,6 +6,7 @@ import { RadioGroup } from "@headlessui/react";
 interface Question {
   id: string;
   question: string;
+  tema: string;
   options: string[];
   correctAnswer: string;
 }
@@ -29,16 +30,16 @@ const formatTime = (seconds: number) => {
   return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
 };
 
-const QuestionnaireVersionOne: React.FC<QuestionnaireProps> = ({
+const QuestionnaireVersionOne = ({
   questions,
-  selectedAnswers,
-  setSelectedAnswers,
   currentQuestion,
   setCurrentQuestion,
-  handleFinish,
-  timeExpired,
+  selectedAnswers,
+  setSelectedAnswers,
   timer,
-}) => {
+  timeExpired,
+  handleFinish
+}: QuestionnaireProps) => {
   const [pageStart, setPageStart] = useState(1);
 
   const handleAnswer = (value: string) => {

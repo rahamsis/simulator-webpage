@@ -1,10 +1,10 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import QuestionnaireVersionTwo from "../questionnaireVersionTwo/page";
+import QuestionnaireVersionTwo from "../questionnaireVersionTwo/versionTwo";
 import Options from "../components/options/options";
 import { fetchIncorrectQuestions, fetchQuantityQuestions } from "../lib/actions";
-import Results from "../results/page";
+import Results from "../results/results";
 
 type Question = {
     id: string;
@@ -25,7 +25,7 @@ function getAvailableOptions(options: number[], num: number): number[] {
 
 
 export default function Fallidas() {
-    const [questions, setQuestions] = useState<Question[]>([]);
+    const [allQuestions, setAllQuestions] = useState<Question[]>([]);
     const [showAlert, setShowAlert] = useState(false);
     const [isFinished, setIsFinished] = useState(false);
     const [score, setScore] = useState(0);
@@ -61,7 +61,7 @@ export default function Fallidas() {
         try {
             // const data = await getQuestionRamdonWithLimit(quantity);
             const data = await fetchIncorrectQuestions(quantity)
-            setQuestions(data);
+            setAllQuestions(data);
         } catch (error) {
             console.error("Error obteniendo las preguntas:", error);
         }
@@ -82,7 +82,7 @@ export default function Fallidas() {
 
         const incorrectIds: string[] = [];
 
-        const correctAnswers = questions.reduce((acc, question, index) => {
+        const correctAnswers = allQuestions.reduce((acc, question, index) => {
             const isCorrect = answers[index + 1] === question.correctAnswer;
 
             if (!isCorrect) {
@@ -108,7 +108,7 @@ export default function Fallidas() {
 
 
     const restartAll = () => {
-        setQuestions([]);
+        setAllQuestions([]);
         setCurrentQuestion(1);
         setAnswers({});
         setIsFinished(false);
@@ -121,7 +121,7 @@ export default function Fallidas() {
     }
 
     if (isFinished) {
-        return <Results score={score} questions={questions} selectedAnswers={answers} onRestart={restartAll} />
+        return <Results score={score} questions={allQuestions} selectedAnswers={answers} onRestart={restartAll} />
     }
 
     return (
@@ -174,7 +174,7 @@ export default function Fallidas() {
 
                 ) : (
                     <QuestionnaireVersionTwo
-                        questions={questions}
+                        questions={allQuestions}
                         selectedAnswers={answers}
                         setSelectedAnswers={setAnswers}
                         currentQuestion={currentQuestion}

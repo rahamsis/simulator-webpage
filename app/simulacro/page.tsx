@@ -6,10 +6,10 @@ import { fetchQuestionSiecopol } from "../lib/actions";
 // import { validatePersonByCipAndDni } from "../lib/actions";
 import { fetchValidatePersonByCipAndDni } from "../lib/actions";
 import Versioner from "../components/versioner/versioner";
-import Version1 from "../questionnaireVersionOne/page";
-import Version2 from "../questionnaireVersionTwo/page";
-import Version3 from "../questionnaireVersionThree/page";
-import Results from "../results/page";
+import Version1 from "../questionnaireVersionOne/versionOne";
+import Version2 from "../questionnaireVersionTwo/versionTwo";
+import Version3 from "../questionnaireVersionThree/versionThree";
+import Results from "../results/results";
 import { useSession, signOut } from "next-auth/react";
 import { set } from "zod";
 
