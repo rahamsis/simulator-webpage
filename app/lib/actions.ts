@@ -69,6 +69,33 @@ export async function createAccount(prevState: {
     // redirect('/login');
 }
 
+// export async function fetchSessionToken(sessionToken: string){
+//     try {
+//         const response = await fetch(`${process.env.APP_BACK_END}/backendApi/questions-by-idtema`, {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 'accept': '/'
+//             },
+//             body: JSON.stringify({ idTema }),
+//             next: { revalidate: 0 }
+//         });
+
+//         const data = await response.json();
+//         return data.map((row: any) => ({
+//             id: row.id,
+//             question: row.question,
+//             options: row.options.split("||"), // Convertir string a array
+//             correctAnswer: row.correctAnswer
+//         }));
+
+//         // return data;
+//     } catch (error) {
+//         console.error('Error al obtener las preguntas:', error);
+//         throw new Error("Error al obtener las preguntas");
+//     }
+// }
+
 export async function fetchQuestionByIdTema(idTema: string) {
     try {
         const response = await fetch(`${process.env.APP_BACK_END}/backendApi/questions-by-idtema`, {
