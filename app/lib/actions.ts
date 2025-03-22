@@ -71,7 +71,7 @@ export async function createAccount(prevState: {
 
 export async function fetchQuestionByIdTema(idTema: string) {
     try {
-        const response = await fetch(`${process.env.APP_BACK_END}/api/questions-by-idtema`, {
+        const response = await fetch(`${process.env.APP_BACK_END}/backendApi/questions-by-idtema`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -126,7 +126,7 @@ export async function fetchQuestionByIdTema(idTema: string) {
 
 export async function fetchTemas() {
     try {
-        const response = await fetch(`${process.env.APP_BACK_END}/api/temas`, {
+        const response = await fetch(`${process.env.APP_BACK_END}/backendApi/temas`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -163,7 +163,7 @@ export async function fetchTemas() {
 
 export async function fetchQuestionRamdonWithLimit(limit: number) {
     try {
-        const response = await fetch(`${process.env.APP_BACK_END}/api/questions-random-with-limit`, {
+        const response = await fetch(`${process.env.APP_BACK_END}/backendApi/questions-random-with-limit`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -264,7 +264,7 @@ export async function fetchQuestionRamdonWithLimit(limit: number) {
 
 export async function fetchQuestionSiecopol(limit: number) {
     try {
-        const response = await fetch(`${process.env.APP_BACK_END}/api/questions-siecopol`, {
+        const response = await fetch(`${process.env.APP_BACK_END}/backendApi/questions-siecopol`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -359,7 +359,7 @@ export async function fetchValidatePersonByCipAndDni(email: any, cip: string, dn
             return false
         }
 
-        const response = await fetch(`${process.env.APP_BACK_END}/api/validate-person-by-cipdni`, {
+        const response = await fetch(`${process.env.APP_BACK_END}/backendApi/validate-person-by-cipdni`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -411,7 +411,7 @@ export async function fetchValidatePersonByCipAndDni(email: any, cip: string, dn
 
 export async function fetchTableExams() {
     try {
-        const response = await fetch(`${process.env.APP_BACK_END}/api/table-exams`, {
+        const response = await fetch(`${process.env.APP_BACK_END}/backendApi/table-exams`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -453,7 +453,7 @@ export async function fetchTableExams() {
 
 export async function fetchQuestionSiecopolWhitOffset(index: number) {
     try {
-        const response = await fetch(`${process.env.APP_BACK_END}/api/questions-siecopol-with-offset`, {
+        const response = await fetch(`${process.env.APP_BACK_END}/backendApi/questions-siecopol-with-offset`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -560,7 +560,7 @@ export async function fetchQuestionSiecopolWhitOffset(index: number) {
 
 export async function fetchSaveIncorrectQuestions(failedQuestions: string[]) {
     try {
-        const response = await fetch(`${process.env.APP_BACK_END}/api/save-incorrect-questions`, {
+        const response = await fetch(`${process.env.APP_BACK_END}/backendApi/save-incorrect-questions`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -581,7 +581,7 @@ export async function fetchSaveIncorrectQuestions(failedQuestions: string[]) {
 
 export async function fetchQuantityQuestions(tableName: string) {
     try {
-        const response = await fetch(`${process.env.APP_BACK_END}/api/quantity-questions`, {
+        const response = await fetch(`${process.env.APP_BACK_END}/backendApi/quantity-questions`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -601,7 +601,7 @@ export async function fetchQuantityQuestions(tableName: string) {
 
 export async function fetchIncorrectQuestions(quantity: number) {
     try {
-        const response = await fetch(`${process.env.APP_BACK_END}/api/incorrect-questions`, {
+        const response = await fetch(`${process.env.APP_BACK_END}/backendApi/incorrect-questions`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

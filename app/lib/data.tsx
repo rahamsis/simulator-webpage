@@ -7,7 +7,7 @@ import connection from './connection';
 
 export const fetchUser = async (email: string, password: string): Promise<any> => {
     try {
-        const response = await fetch(`${process.env.APP_BACK_END}/api/login`, {
+        const response = await fetch(`${process.env.APP_BACK_END}/backendApi/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -31,7 +31,7 @@ export const fetchUser = async (email: string, password: string): Promise<any> =
 
 export const fetchCreateSession = async (userId: string, userDevice: string, userIp: string, sessionToken: string, sessionExpires: Date): Promise<any> => {
     try {
-        const response = await fetch(`${process.env.APP_BACK_END}/api/create-session`, {
+        const response = await fetch(`${process.env.APP_BACK_END}/backendApi/create-session`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ export const fetchCreateSession = async (userId: string, userDevice: string, use
 
 export const fetchActiveSession = async (sessionToken: string): Promise<any> => {
     try {
-        const response = await fetch(`${process.env.APP_BACK_END}/api/active-session`, {
+        const response = await fetch(`${process.env.APP_BACK_END}/backendApi/active-session`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
