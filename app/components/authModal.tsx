@@ -53,14 +53,13 @@ export default function AuthModal({ onClose, onLogin }: AuthModalProps) {
             document.cookie = "next-auth.session-token=; max-age=0; path=/; domain=localhost;";  // Esto elimina la cookie en el navegador
 
 
-            // const response = await signIn("credentials", {
-            //     email: formData.email,
-            //     password: formData.password,
-            //     device,  // Enviamos el dispositivo
-            //     ip,      // Enviamos la IP
-            //     redirect: false, // Evita redirección automática
-            // });
-            const response = await fetchTemas();
+            const response = await signIn("credentials", {
+                email: formData.email,
+                password: formData.password,
+                device,  // Enviamos el dispositivo
+                ip,      // Enviamos la IP
+                redirect: false, // Evita redirección automática
+            });
 
             console.log("SignIn response:", response);
 

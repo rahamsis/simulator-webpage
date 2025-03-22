@@ -43,23 +43,20 @@ export async function createAccount(prevState: {
 
     try {
 
-        const [existUser] = await connection.query<any[]>(`SELECT userId FROM users WHERE email = ?`, [email]);
+        const response = await fetch(`${process.env.APP_BACK_END}/backendApi/create-account`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'accept': '/'
+            },
+            body: JSON.stringify({ username, email, password }),
+            next: { revalidate: 0 }
+        })
 
-        if (existUser.length > 0) {
-            return { message: "El email ya está en uso." };
-        }
+        const data = await response.json();
 
-        const hashedPassword = await bcrypt.hash(password, 10)
+        return data;
 
-        await connection.query(`
-        INSERT INTO users (userId, name, email, password)
-        VALUES (?,?,?,?)
-    `, [
-            uuidv4(),
-            username,
-            email,
-            hashedPassword
-        ]);
     } catch (error: unknown) {
         return {
             message: (error as any).sqlMessage || 'Database Error: Fallo al crear el usuario - createAccount().',
