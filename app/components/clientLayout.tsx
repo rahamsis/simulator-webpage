@@ -39,10 +39,10 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   const { data: session, status } = useSession();
 
   useEffect(() => {
-    console.log("🔍 useEffect ejecutado");
-    console.log("📍 Ruta actual:", pathName);
-    console.log("🔐 Estado de sesión:", status);
-    console.log("🛠️ Datos de sesión:", session);
+    // console.log("🔍 useEffect ejecutado");
+    // console.log("📍 Ruta actual:", pathName);
+    // console.log("🔐 Estado de sesión:", status);
+    // console.log("🛠️ Datos de sesión:", session);
 
     // Si la sesión está autenticada y la ruta es restringida
     // if ( restrictedRoutes.includes(pathName)) {
