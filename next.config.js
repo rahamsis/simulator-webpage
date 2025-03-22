@@ -9,6 +9,11 @@ const nextConfig = {
       type: "javascript/auto",
     });
 
+    // Excluir canvas de Webpack para evitar errores al compilar
+    if (!isServer) {
+      config.externals = [...(config.externals || []), "canvas"];
+    }
+
     return config;
   },
 }
