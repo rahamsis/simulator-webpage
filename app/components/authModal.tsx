@@ -5,6 +5,7 @@ import { Button } from "../ui/button";
 import { createAccount } from '@/app/lib/actions';
 import { KeyIcon, UserCircleIcon, AtSymbolIcon, ExclamationCircleIcon, } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
+import { fetchTemas } from "@/app/lib/actions";
 
 import { signIn, signOut } from "next-auth/react";
 import { set } from "zod";
@@ -52,13 +53,14 @@ export default function AuthModal({ onClose, onLogin }: AuthModalProps) {
             document.cookie = "next-auth.session-token=; max-age=0; path=/; domain=localhost;";  // Esto elimina la cookie en el navegador
 
 
-            const response = await signIn("credentials", {
-                email: formData.email,
-                password: formData.password,
-                device,  // Enviamos el dispositivo
-                ip,      // Enviamos la IP
-                redirect: false, // Evita redirección automática
-            });
+            // const response = await signIn("credentials", {
+            //     email: formData.email,
+            //     password: formData.password,
+            //     device,  // Enviamos el dispositivo
+            //     ip,      // Enviamos la IP
+            //     redirect: false, // Evita redirección automática
+            // });
+            const response = await fetchTemas();
 
             console.log("SignIn response:", response);
 
