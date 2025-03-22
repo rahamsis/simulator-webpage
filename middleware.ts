@@ -10,7 +10,6 @@ export async function middleware(req: NextRequest) {
     try {
         const res = await fetch(`${process.env.NEXTAUTH_URL}/api/session?sessionToken=${token.sessionToken}`);
         const data = await res.json();
-
         if (!data.active) {
             return NextResponse.redirect(new URL("/", req.url));
         }

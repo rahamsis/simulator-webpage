@@ -68,7 +68,6 @@ export const fetchActiveSession = async (sessionToken: string): Promise<any> => 
             }),
             next: { revalidate: 0 }
         });
-        
         const data = await response.json();
         return data;
     } catch (error) {

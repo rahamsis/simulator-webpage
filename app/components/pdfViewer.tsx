@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import { getDocument, PDFDocumentProxy, GlobalWorkerOptions } from "pdfjs-dist";
+import { getDocument, PDFDocumentProxy, GlobalWorkerOptions } from "pdfjs-dist/legacy/build/pdf";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "../ui/pdf/sheet";
 
 
