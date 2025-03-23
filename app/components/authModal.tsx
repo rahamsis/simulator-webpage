@@ -72,7 +72,9 @@ export default function AuthModal({ onClose, onLogin }: AuthModalProps) {
             console.log('Login exitoso!');
             cleanForm();
             onLogin();
-            router.push('/main');
+            setTimeout(() => {
+                router.push('/main');
+            }, 100); // Pequeña espera para evitar renderizaciones conflictivas
 
         } else {
             const form = new FormData();
@@ -90,7 +92,7 @@ export default function AuthModal({ onClose, onLogin }: AuthModalProps) {
                 return;
             }
 
-            if (result?.message) {
+            if (result?.message && result?.message != "Cuenta creada exitosamente") {
                 setIsLoading(false);
                 setMessage(result.message);
                 return;
