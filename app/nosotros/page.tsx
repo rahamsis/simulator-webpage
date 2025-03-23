@@ -249,11 +249,11 @@ export default function Nosotros() {
         <React.Fragment>
             <CommonHero />
 
-            <Gallery />
+            {/* <Gallery /> */}
 
-            <Work />
+            {/* <Work /> */}
 
-            <Members />
+            {/* <Members /> */}
         </React.Fragment>
     );
 }
