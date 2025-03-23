@@ -37,7 +37,7 @@ const authOptions: NextAuthOptions = {
                     const user = await fetchUser(email as string, password as string);
                     if (!user || user?.message) {
                         // return null;
-                        throw new Error(user?.message || "Invalid credentials xd")
+                        throw new Error(user?.message || "Credenciales Invalidas")
                     };
 
                     // Verificar que `device` e `ip` existen
@@ -53,9 +53,9 @@ const authOptions: NextAuthOptions = {
                     return { ...user, sessionToken }; // Pasar el token en el usuario
                 } catch (error) {
                     if (error instanceof Error) {
-                        throw new Error(error.message || "Invalid credentials.");
+                        throw new Error(error.message || "Error. Credenciales Invalidas");
                     } else {
-                        throw new Error("Invalid credentials.");
+                        throw new Error("Error!. Credenciales Invalidas");
                     }
                 }
             },

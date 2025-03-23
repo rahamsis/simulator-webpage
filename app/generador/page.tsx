@@ -1,11 +1,8 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import { RadioGroup } from "@headlessui/react";
 import Options from "../components/options/options";
-// import { getQuestionRamdonWithLimit } from "../lib/actions";
 import { fetchQuestionRamdonWithLimit, fetchSaveIncorrectQuestions } from "../lib/actions";
-// import { saveIncorrectQuestions } from "../lib/actions";
 import QuestionnaireVersionTwo from "../questionnaireVersionTwo/versionTwo";
 import Results from "../results/results";
 
@@ -34,7 +31,6 @@ export default function Generador() {
 
     const getAllQuestions = async (quantity: number) => {
         try {
-            // const data = await getQuestionRamdonWithLimit(quantity);
             const data =  await fetchQuestionRamdonWithLimit(quantity)
             setQuestions(data);
         } catch (error) {
@@ -71,7 +67,6 @@ export default function Generador() {
         setScore(correctAnswers);
         setIncorrectQuestions(incorrectIds);
 
-        // await saveIncorrectQuestions(incorrectIds)
         await fetchSaveIncorrectQuestions(incorrectIds)
     };
 
