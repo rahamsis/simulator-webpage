@@ -40,7 +40,7 @@ function Content() {
                 <div className="flex flex-wrap">
                     <div className="mb-10 text-center md:w-1/2 md:order-2 md:mb-0 md:pt-9">
                         <div className="contact-img relative inline-flex pl-5 pb-5">
-                            <Image src="assets/contact-img.png" alt="" />
+                            <Image src="/assets/contact-img.png" alt="" />
                             <Image className="absolute bottom-0 left-0 -z-[1] h-14 w-14" src="assets/shape-2.svg" alt="" />
                         </div>
                     </div>
