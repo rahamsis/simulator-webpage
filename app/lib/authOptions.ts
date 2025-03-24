@@ -50,7 +50,7 @@ const authOptions: NextAuthOptions = {
 
                     await fetchCreateSession(user.userId, device, ip, sessionToken, expires);
 
-                    return { ...user, sessionToken }; // Pasar el token en el usuario
+                    return { ...user, sessionToken, id: user.userId }; // Pasar el token en el usuario
                 } catch (error) {
                     if (error instanceof Error) {
                         throw new Error(error.message || "Error. Credenciales Invalidas");
@@ -68,19 +68,25 @@ const authOptions: NextAuthOptions = {
         async jwt({ token, user }) {
             if (user) {
                 token.sessionToken = (user as User).sessionToken; // Guardar token en el JWT
+                token.userId = (user as User).id; // Agregar userId al token
             }
 
             const activeSession = token.sessionToken
                 ? await fetchActiveSession(token.sessionToken as string)
                 : null;
-
-            token.activeSession = !!activeSession;
+                
+            token.activeSession = Array.isArray(activeSession)
+                ? activeSession.length > 0
+                : !!activeSession;
 
             return token;
         },
-        async session({ session, token }) {            
+        async session({ session, token }) {
             session.activeSession = token.activeSession as boolean | undefined;
             session.sessionToken = token.sessionToken as string | undefined;
+            // Asegurar que `session.user` existe y agregar `userId`
+            session.user = session.user || {};
+            session.user.userId = token.userId as string | undefined;
             return session;
 
         },

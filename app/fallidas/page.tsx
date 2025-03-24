@@ -3,14 +3,16 @@
 import { useState, useEffect } from "react";
 import QuestionnaireVersionTwo from "../questionnaireVersionTwo/versionTwo";
 import Options from "../components/options/options";
-import { fetchIncorrectQuestions, fetchQuantityQuestions } from "../lib/actions";
+import { fetchIncorrectQuestions, fetchQuantityQuestions, updateIncorrectQuestions } from "../lib/actions";
 import Results from "../results/results";
+import { useSession } from "next-auth/react";
 
 type Question = {
     id: string;
     question: string;
     options: string[];
     correctAnswer: string;
+    intentos: number;
 };
 
 const options = [10, 20, 30, 50, 100];
@@ -25,6 +27,7 @@ function getAvailableOptions(options: number[], num: number): number[] {
 
 
 export default function Fallidas() {
+    const { data: session, status } = useSession();
     const [allQuestions, setAllQuestions] = useState<Question[]>([]);
     const [showAlert, setShowAlert] = useState(false);
     const [isFinished, setIsFinished] = useState(false);
@@ -45,8 +48,12 @@ export default function Fallidas() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await fetchQuantityQuestions('preguntasfallidas');
-                setQuantityFallidas(data);
+                if (session?.user?.userId) {
+                    const data = await fetchQuantityQuestions(session.user.userId, 'preguntasfallidas');
+                    setQuantityFallidas(data);
+                } else {
+                    console.error("User ID is not available Fallidas class");
+                }
             } catch (error) {
                 console.error("Error obteniendo las preguntas:", error);
             } finally {
@@ -60,8 +67,12 @@ export default function Fallidas() {
     const getAllQuestions = async (quantity: number) => {
         try {
             // const data = await getQuestionRamdonWithLimit(quantity);
-            const data = await fetchIncorrectQuestions(quantity)
-            setAllQuestions(data);
+            if (session?.user?.userId) {
+                const data = await fetchIncorrectQuestions(session.user.userId, quantity)
+                setAllQuestions(data);
+            } else {
+                console.error("User ID is not available Fallidas class");
+            }
         } catch (error) {
             console.error("Error obteniendo las preguntas:", error);
         }
@@ -80,12 +91,15 @@ export default function Fallidas() {
     const handleFinish = async () => {
         setIsFinished(true);
 
+        const correctIds: string[] = [];
         const incorrectIds: string[] = [];
 
         const correctAnswers = allQuestions.reduce((acc, question, index) => {
             const isCorrect = answers[index + 1] === question.correctAnswer;
 
-            if (!isCorrect) {
+            if (isCorrect) {
+                correctIds.push(question.id);
+            } else {
                 incorrectIds.push(question.id);
             }
 
@@ -93,10 +107,13 @@ export default function Fallidas() {
         }, 0);
 
         setScore(correctAnswers);
-        setIncorrectQuestions(incorrectIds);
 
-        // await saveIncorrectQuestions(incorrectIds)
-        // await fetchSaveIncorrectQuestions(incorrectIds)
+        if (session?.user?.userId) {
+            await updateIncorrectQuestions(session.user.userId, correctIds, incorrectIds);
+        } else {
+            console.error("User ID is not available Fallidas class");
+        }
+
     };
 
     const handleSelect = (quantity: number) => {
@@ -129,11 +146,11 @@ export default function Fallidas() {
             <div className="mx-auto md:w-5/6 ">
                 {!isPracticeStarted ? (
                     <div className="bg-gray-200 py-5 text-center">
-                        <h2 className="text-xl mt-4 text-slate-700">Realiza una práctica con todas las preguntas según la cantidad que escojas.</h2>
+                        <h2 className="text-xl mt-4 text-slate-900">Realiza una práctica con todas las preguntas según la cantidad que escojas.</h2>
                         {loading ? (
                             <h3>Cargando preguntas fallidas...</h3> // ✅ Muestra un mensaje de carga
                         ) : (
-                            <h3 className="text-base text-slate-600">Total de preguntas fallidas: {quantityFallidas !== null ? quantityFallidas : "0"}</h3> // ✅ Evita mostrar 0 si aún no hay datos
+                            <h3 className="text-base text-slate-800">Total de preguntas fallidas: {quantityFallidas !== null ? quantityFallidas : "0"}</h3> // ✅ Evita mostrar 0 si aún no hay datos
                         )}
                         {/* <Options onQuantitySelect={setQuantitySelect} onStartPractice={handleStartPractice} /> */}
                         <div className="w-full mb-4">
@@ -161,12 +178,15 @@ export default function Fallidas() {
                             {/* Botón para iniciar práctica */}
                             <div className="mx-auto text-center">
                                 <button
-                                disabled={quantityFallidas === 0} // ✅ Deshabilita el botón si no hay preguntas fallidas
+                                    disabled={quantityFallidas === 0} // ✅ Deshabilita el botón si no hay preguntas fallidas
                                     onClick={handleStartPractice}
                                     className={`bg-green-600 text-white rounded-lg px-4 py-3 hover:bg-green-500
                                     ${quantityFallidas === 0 ? "opacity-50 cursor-not-allowed" : ""}`}>
-                                        Iniciar Práctica
-                                        </button>
+                                    Iniciar Práctica
+                                </button>
+                            </div>
+                            <div className="text-slate-900 my-2">
+                                <span className="font-bold text-slate-800">Recuerda:</span> necesitas responder 2 veces una pregunta para eliminarla, si fallas se reinicia tus intento sobre la pregunta
                             </div>
                         </div>
                         {showAlert && <div className="text-red-500">Por favor selecciona una cantidad correcta de preguntas.</div>}

@@ -5,15 +5,18 @@ import Options from "../components/options/options";
 import { fetchQuestionRamdonWithLimit, fetchSaveIncorrectQuestions } from "../lib/actions";
 import QuestionnaireVersionTwo from "../questionnaireVersionTwo/versionTwo";
 import Results from "../results/results";
+import { useSession, signOut } from "next-auth/react";
 
 type Question = {
     id: string;
     question: string;
     options: string[];
     correctAnswer: string;
+    intentos: number;
 };
 
 export default function Generador() {
+    const { data: session, status } = useSession();
     const [questions, setQuestions] = useState<Question[]>([]);
 
     const [currentQuestion, setCurrentQuestion] = useState(1);
@@ -67,7 +70,11 @@ export default function Generador() {
         setScore(correctAnswers);
         setIncorrectQuestions(incorrectIds);
 
-        await fetchSaveIncorrectQuestions(incorrectIds)
+        if (session?.user?.userId) {
+            await fetchSaveIncorrectQuestions(session.user.userId, incorrectIds);
+        } else {
+            console.error("User ID is not available Generador class");
+        }
     };
 
     const restartAll = () => {

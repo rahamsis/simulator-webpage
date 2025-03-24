@@ -44,6 +44,9 @@ const HeaderLanding = () => {
                                         </svg>
                                     </span>
                                 </div>
+                                <div className="text-sm md:text-lg">
+                                    Metodo de estudio
+                                </div>
                             </span>
                         </div>
                     </Link>

@@ -1,16 +1,10 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import { RadioGroup } from "@headlessui/react";
-import Options from "../components/options/options";
-// import { getQuestionSiecopolWhitOffset } from "../lib/actions";
-import QuestionnaireVersionTwo from "../questionnaireVersionTwo/versionTwo";
 import Results from "../results/results";
-import { Button } from "../ui/button";
-import { PlusCircleIcon } from "@heroicons/react/24/outline";
-// import { getTableExams } from "../lib/actions";
-import {fetchTableExams, fetchQuestionSiecopolWhitOffset} from "../lib/actions";
+import { fetchTableExams, fetchQuestionSiecopolWhitOffset, fetchSaveIncorrectQuestions } from "../lib/actions";
 import QuestionnaireVersionThree from "../questionnaireVersionThree/versionThree";
+import { useSession } from "next-auth/react";
 
 type Question = {
     id: string;
@@ -27,10 +21,10 @@ interface Tabla {
 }
 
 export default function Examenes() {
+    const { data: session, status } = useSession();
     const [isExamStarted, setExamStarted] = useState(false)
     const [tablaExam, setTablaExam] = useState<Tabla[]>([])
     const [qantitySelect, setQuantitySelect] = useState<number>(0);
-    // const [showAlert, setShowAlert] = useState(false);
 
     const [questions, setQuestions] = useState<Question[]>([])
     const [answers, setAnswers] = useState<{ [key: number]: string }>({});
@@ -41,19 +35,9 @@ export default function Examenes() {
 
     const [timer, setTimer] = useState(0);
 
-    // const getAllQuestions = async (quantity: number) => {
-    //     try {
-    //         const data = await getQuestionRamdonWithLimit(quantity);
-    //         setQuestions(data);
-    //     } catch (error) {
-    //         console.error("Error obteniendo las preguntas:", error);
-    //     }
-    // }
-
     useEffect(() => {
         async function fetchData() {
             try {
-                // const data = await getTableExams();
                 const data = await fetchTableExams();
                 setTimer(data.length * 75);
                 setTablaExam(data);
@@ -64,7 +48,7 @@ export default function Examenes() {
         fetchData();
     }, []);
 
-    const handleStartPractice = async (index:number) => {
+    const handleStartPractice = async (index: number) => {
         console.log("se dio click")
         if (index === undefined) {
             console.warn("⚠ No se ha seleccionado una cantidad válida");
@@ -72,7 +56,6 @@ export default function Examenes() {
         }
 
         try {
-            // const data = await getQuestionSiecopolWhitOffset(index);
             const data = await fetchQuestionSiecopolWhitOffset(index);
             setQuestions(data);
             setExamStarted(true);
@@ -81,12 +64,28 @@ export default function Examenes() {
         }
     };
 
-    const handleFinish = () => {
+    const handleFinish = async () => {
         setIsFinished(true);
-        const correctAnswers = questions.reduce((acc, question, index) => (
-            acc + (answers[index + 1] === question.correctAnswer ? 1 : 0)
-        ), 0);
+
+        const incorrectIds: string[] = [];
+
+        const correctAnswers = questions.reduce((acc, question, index) => {
+            const isCorrect = answers[index + 1] === question.correctAnswer;
+
+            if (!isCorrect) {
+                incorrectIds.push(question.id);
+            }
+
+            return acc + (isCorrect ? 1 : 0)
+        }, 0);
+
         setScore(correctAnswers);
+
+        if (session?.user?.userId) {
+            await fetchSaveIncorrectQuestions(session.user.userId, incorrectIds);
+        } else {
+            console.error("User ID is not available Practica class");
+        }
     };
 
     useEffect(() => {
@@ -95,7 +94,6 @@ export default function Examenes() {
         const countdown = setInterval(() => {
             setTimer((prev) => {
                 if (prev <= 1) {
-                    // setTimeExpired(true);
                     clearInterval(countdown);
                     return 0;
                 }
@@ -112,7 +110,6 @@ export default function Examenes() {
         setAnswers({});
         setIsFinished(false);
         setScore(0);
-        // setShowAlert(false);     
         setQuantitySelect(0);
         setExamStarted(false);
         setTimer(0);
@@ -135,9 +132,6 @@ export default function Examenes() {
                             <div className="relative items-center mb-4 justify-center">
                                 <h2 className="text-2xl font-bold text-green-700">Examenes no repetidos</h2>
                                 <h2 className="text-base font-bold text-gray-600">Selecciona un examen para empezar</h2>
-                                {/* <Button onClick={addRow} className="flex items-center gap-1">
-                                    <PlusCircleIcon className="h-4 w-4" /> Añadir Fila
-                                </Button> */}
                             </div>
 
                             <div className="border rounded-lg overflow-hidden">
@@ -197,23 +191,6 @@ export default function Examenes() {
                     />
                 )
                 }
-                {/* {!isPracticeStarted ? (
-                    <div className="bg-gray-200 py-5 text-center">
-                        <Options onQuantitySelect={setQuantitySelect} onStartPractice={handleStartPractice} />
-                        {showAlert && <div className="text-red-500">Por favor selecciona una cantidad correcta de preguntas.</div>}
-                    </div>
-
-                ) : (
-                    <QuestionnaireVersionTwo
-                        questions={questions}
-                        selectedAnswers={answers}
-                        setSelectedAnswers={setAnswers}
-                        currentQuestion={currentQuestion}
-                        setCurrentQuestion={setCurrentQuestion}
-                        handleFinish={handleFinish}
-                    />
-                )} */}
-
             </div>
         </div>
     );

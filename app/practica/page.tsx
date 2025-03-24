@@ -1,21 +1,22 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import { RadioGroup } from "@headlessui/react";
 import SelectorOne from "../components/selectors/selectorOne";
-// import { getQuestion } from "../lib/actions";
-import { fetchQuestionByIdTema } from "../lib/actions";
+import { fetchQuestionByIdTema, fetchSaveIncorrectQuestions } from "../lib/actions";
 import QuestionnaireVersionTwo from "../questionnaireVersionTwo/versionTwo";
 import Results from "../results/results";
+import { useSession } from "next-auth/react";
 
 type Question = {
     id: string;
     question: string;
     options: string[];
     correctAnswer: string;
+    intentos: number;
 };
 
 export default function Quiz() {
+    const { data: session, status } = useSession();
     const [questions, setQuestions] = useState<Question[]>([]);
 
     const [currentQuestion, setCurrentQuestion] = useState(1);
@@ -30,9 +31,10 @@ export default function Quiz() {
     const [selectedCheckbox, setSelectedCheckbox] = useState<number>(0);
     const [isPracticeStarted, setIsPracticeStarted] = useState(false);
 
+    // const [incorrectQuestions, setIncorrectQuestions] = useState<String[]>([]);
+
     const getAllQuestions = async (idTema: string) => {
         try {
-            // const data = await getQuestion(idTema);
             const data = await fetchQuestionByIdTema(idTema);
             setQuestions(data);
         } catch (error) {
@@ -49,12 +51,30 @@ export default function Quiz() {
         }
     };
 
-    const handleFinish = () => {
+    const handleFinish = async () => {
         setIsFinished(true);
-        const correctAnswers = questions.reduce((acc, question, index) => (
-            acc + (answers[index + 1] === question.correctAnswer ? 1 : 0)
-        ), 0);
+
+        const incorrectIds: string[] = [];
+
+        const correctAnswers = questions.reduce((acc, question, index) => {
+            const isCorrect = answers[index + 1] === question.correctAnswer;
+
+            if(!isCorrect) {
+                incorrectIds.push(question.id);
+            }
+            
+            return acc + (isCorrect ? 1 : 0);
+        }, 0);
+
+
         setScore(correctAnswers);
+        // setIncorrectQuestions(incorrectIds);
+
+        if (session?.user?.userId) {
+            await fetchSaveIncorrectQuestions(session.user.userId, incorrectIds);
+        } else {
+            console.error("User ID is not available Practica class");
+        }
     };
 
 
@@ -68,6 +88,7 @@ export default function Quiz() {
         setSelectedTheme('');
         setSelectedCheckbox(0);
         setIsPracticeStarted(false);
+        // setIncorrectQuestions([]);
     }
 
     if (isFinished) {

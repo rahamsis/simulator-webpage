@@ -9,7 +9,8 @@ export async function GET(req: Request) {
 
     try {
         const rows = await fetchActiveSession(sessionToken as string)
-        if (!rows) {
+
+        if (!rows || rows.length === 0) {
             return NextResponse.json({ active: false }, { status: 401 });
         }
 

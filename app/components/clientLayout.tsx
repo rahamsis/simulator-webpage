@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Inter } from 'next/font/google';
 import Footer from './footer';
 import HeaderLanding from './header/headerLanding';
@@ -11,8 +11,6 @@ import { useSession, signOut } from 'next-auth/react';
 import Image from "next/image";
 
 const inter = Inter({ subsets: ['latin'] }); // Importa la fuente Inter con soporte para caracteres latinos
-
-// const restrictedRoutes = ["/main","/practica", "/nosotros", "/simulacro"];
 
 function Bubbles() {
   return (
@@ -37,6 +35,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   const pathName = usePathname();
   const isLandingPage = pathName === "/";
   const { data: session, status } = useSession();
+  const hasSignedOut = useRef(false); // Evita múltiples ejecuciones de signOut()
 
   useEffect(() => {
     // console.log("🔍 useEffect ejecutado");

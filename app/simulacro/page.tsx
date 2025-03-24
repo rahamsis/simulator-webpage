@@ -1,9 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-// import { getQuestionSiecopol } from "../lib/actions";
-import { fetchQuestionSiecopol } from "../lib/actions";
-// import { validatePersonByCipAndDni } from "../lib/actions";
+import { fetchQuestionSiecopol, fetchSaveIncorrectQuestions } from "../lib/actions";
 import { fetchValidatePersonByCipAndDni } from "../lib/actions";
 import Versioner from "../components/versioner/versioner";
 import Version1 from "../questionnaireVersionOne/versionOne";
@@ -11,7 +9,6 @@ import Version2 from "../questionnaireVersionTwo/versionTwo";
 import Version3 from "../questionnaireVersionThree/versionThree";
 import Results from "../results/results";
 import { useSession, signOut } from "next-auth/react";
-import { set } from "zod";
 
 interface Question {
   id: string;
@@ -19,6 +16,7 @@ interface Question {
   tema: string;
   options: string[];
   correctAnswer: string;
+  intentos: number;
 }
 
 export default function Quiz() {
@@ -43,11 +41,9 @@ export default function Quiz() {
 
   const getAllQuestionWithLimit = async (limit: number) => {
     try {
-      // const data = await getQuestionSiecopol(limit);
       const data = await fetchQuestionSiecopol(limit);
       setQuestions(data);
       setTimer(data.length * 72); //tiempo oficial
-      // setTimer(data.length * 10);
     } catch (error) {
       console.error("Error obteniendo las preguntas:", error);
     }
@@ -64,12 +60,7 @@ export default function Quiz() {
 
   const handleVerifyPerson = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // const data = await validatePersonByCipAndDni(
-    //   session?.user?.email,
-    //   formData.cip,
-    //   formData.dni
-    // );
+
     const data = await fetchValidatePersonByCipAndDni(
       session?.user?.email,
       formData.cip,
@@ -130,14 +121,28 @@ export default function Quiz() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleFinish = () => {
+  const handleFinish = async () => {
     setIsFinished(true);
-    const correctAnswers = questions.reduce(
-      (acc, question, index) =>
-        acc + (selectedAnswers[index + 1] === question.correctAnswer ? 1 : 0),
-      0
-    );
+
+    const incorrectIds: string[] = [];
+
+    const correctAnswers = questions.reduce((acc, question, index) => {
+      const isCorrect = selectedAnswers[index + 1] === question.correctAnswer;
+
+      if (!isCorrect) {
+        incorrectIds.push(question.id);
+      }
+
+      return acc + (isCorrect ? 1 : 0)
+    }, 0);
+
     setScore(correctAnswers);
+
+    if (session?.user?.userId) {
+      await fetchSaveIncorrectQuestions(session.user.userId, incorrectIds);
+    } else {
+      console.error("User ID is not available Practica class");
+    }
   };
 
   const restartAll = () => {

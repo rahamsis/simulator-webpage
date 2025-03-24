@@ -1,10 +1,4 @@
 
-import mysql, { Connection } from 'mysql2/promise';
-import { v4 as uuidv4 } from 'uuid';
-import { User } from './definitions';
-import bcrypt from "bcryptjs";
-import connection from './connection';
-
 export const fetchUser = async (email: string, password: string): Promise<any> => {
     try {
         const response = await fetch(`${process.env.APP_BACK_END}/backendApi/login`, {
