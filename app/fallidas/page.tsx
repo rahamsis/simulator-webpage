@@ -46,23 +46,24 @@ export default function Fallidas() {
     const [incorrectQuestions, setIncorrectQuestions] = useState<String[]>([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                if (session?.user?.userId) {
-                    const data = await fetchQuantityQuestions(session.user.userId, 'preguntasfallidas');
-                    setQuantityFallidas(data);
-                } else {
-                    console.error("User ID is not available Fallidas class");
-                }
-            } catch (error) {
-                console.error("Error obteniendo las preguntas:", error);
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        fetchData();
+        fetchQuantityFallidas(); 
     }, []);
+
+    const fetchQuantityFallidas = async () => {
+        setLoading(true); // ✅ Muestra el mensaje de carga
+        try {
+            if (session?.user?.userId) {
+                const data = await fetchQuantityQuestions(session.user.userId, 'preguntasfallidas');
+                setQuantityFallidas(data);
+            } else {
+                console.error("User ID is not available Fallidas class");
+            }
+        } catch (error) {
+            console.error("Error obteniendo las preguntas:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const getAllQuestions = async (quantity: number) => {
         try {
@@ -124,7 +125,7 @@ export default function Fallidas() {
     const availableOptions = getAvailableOptions(options, quantityFallidas); // Obtiene las opciones habilitadas
 
 
-    const restartAll = () => {
+    const restartAll = async () => {
         setAllQuestions([]);
         setCurrentQuestion(1);
         setAnswers({});
@@ -135,6 +136,7 @@ export default function Fallidas() {
         setIsPracticeStarted(false);
         setIncorrectQuestions([]);
         setQuantityFallidas(0);
+        await fetchQuantityFallidas()
     }
 
     if (isFinished) {
