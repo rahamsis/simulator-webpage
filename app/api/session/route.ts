@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { fetchActiveSession } from "@/app/lib/data";
 
-export async function GET(req: Request) {
+export default async function GET(req: Request) {
     const url = new URL(req.url);
     const sessionToken = url.searchParams.get("sessionToken");
 
