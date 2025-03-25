@@ -70,6 +70,31 @@ export const fetchActiveSession = async (sessionToken: string): Promise<any> => 
     }
 }
 
+export const saveVerificationToken = async (userId: string, token: string): Promise<any> => {
+    const expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
+
+    try {
+        const response = await fetch(`${process.env.APP_BACK_END}/backendApi/save-verification-token`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'accept': '/'
+            },
+            body: JSON.stringify({
+                userId,
+                token,
+                expires
+            }),
+            next: { revalidate: 0 }
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error al guardar o actualizar veirificacion del token:', error);
+        return null;
+    }
+}
+
 // antigua integracion con mysql
 
 // export async function getUser(email: string, password: string): Promise<User> {

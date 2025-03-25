@@ -1,8 +1,9 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import { NextAuthOptions, Session } from "next-auth";
 // import { getUser, createSession, getActiveSession } from "./data";
-import { fetchUser, fetchCreateSession, fetchActiveSession } from "./data";
+import { fetchUser, fetchCreateSession, fetchActiveSession, saveVerificationToken } from "./data";
 import { v4 as uuidv4 } from 'uuid';
+import { sendVerificationEmail } from './mailer';
 
 type User = {
     id: string;
@@ -33,6 +34,11 @@ const authOptions: NextAuthOptions = {
             authorize: async (credentials: any) => {
                 const { email, password, device, ip } = credentials;
 
+                // Verificar que `device` e `ip` existen
+                if (!device || !ip) {
+                    throw new Error("Device or IP information is missing.");
+                }
+
                 try {
                     const user = await fetchUser(email as string, password as string);
                     if (!user || user?.message) {
@@ -40,12 +46,15 @@ const authOptions: NextAuthOptions = {
                         throw new Error(user?.message || "Credenciales Invalidas")
                     };
 
-                    // Verificar que `device` e `ip` existen
-                    if (!device || !ip) {
-                        throw new Error("Device or IP information is missing.");
+                    if (!user.verified) {
+                        const verificationToken = crypto.randomUUID();
+                        await saveVerificationToken(user.userId, verificationToken);
+                        await sendVerificationEmail(email, verificationToken);
+
+                        throw new Error("Verifica tu correo antes de iniciar sesión.");
                     }
 
-                    const sessionToken = uuidv4(); // Token seguro
+                    const sessionToken = crypto.randomUUID(); // Token seguro
                     const expires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 días
 
                     await fetchCreateSession(user.userId, device, ip, sessionToken, expires);
@@ -67,17 +76,22 @@ const authOptions: NextAuthOptions = {
     callbacks: {
         async jwt({ token, user }) {
             if (user) {
-                token.sessionToken = (user as User).sessionToken; // Guardar token en el JWT
-                token.userId = (user as User).id; // Agregar userId al token
+                token.sessionToken = (user as User).sessionToken || ""; // Guardar token en el JWT
+                token.userId = (user as User).id || ""; // Agregar userId al token
             }
 
-            const activeSession = token.sessionToken
-                ? await fetchActiveSession(token.sessionToken as string)
-                : null;
-                
-            token.activeSession = Array.isArray(activeSession)
-                ? activeSession.length > 0
-                : !!activeSession;
+            try {
+                const activeSession = token.sessionToken
+                    ? await fetchActiveSession(token.sessionToken as string)
+                    : null;
+
+                token.activeSession = Array.isArray(activeSession)
+                    ? activeSession.length > 0
+                    : !!activeSession;
+            } catch (error) {
+                console.error("⚠️ Error al verificar sesión activa:", error);
+                token.activeSession = false
+            }
 
             return token;
         },
