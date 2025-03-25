@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import QuestionnaireVersionTwo from "../questionnaireVersionTwo/versionTwo";
 import Options from "../components/options/options";
 import { fetchIncorrectQuestions, fetchQuantityQuestions, updateIncorrectQuestions } from "../lib/actions";
@@ -45,11 +45,7 @@ export default function Fallidas() {
 
     const [incorrectQuestions, setIncorrectQuestions] = useState<String[]>([]);
 
-    useEffect(() => {
-        fetchQuantityFallidas(); 
-    }, []);
-
-    const fetchQuantityFallidas = async () => {
+    const fetchQuantityFallidas = useCallback(async () => {
         setLoading(true); // ✅ Muestra el mensaje de carga
         try {
             if (session?.user?.userId) {
@@ -63,7 +59,13 @@ export default function Fallidas() {
         } finally {
             setLoading(false);
         }
-    };
+    }, [session?.user?.userId]);
+
+    useEffect(() => {
+        fetchQuantityFallidas();
+    }, [fetchQuantityFallidas]);
+
+
 
     const getAllQuestions = async (quantity: number) => {
         try {
