@@ -95,6 +95,49 @@ export const saveVerificationToken = async (userId: string, token: string): Prom
     }
 }
 
+export const fetchEmailVerification = async (sessionToken: string): Promise<any> => {
+    try {
+        const response = await fetch(`${process.env.APP_BACK_END}/backendApi/email-verification`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'accept': '/'
+            },
+            body: JSON.stringify({
+                sessionToken
+            }),
+            next: { revalidate: 0 }
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error al verificar el email:', error);
+        return null;
+    }
+}
+
+export const updateUserDeleteEmailVerification = async (userId: string, token: string): Promise<any> => {
+    try {
+        const response = await fetch(`${process.env.APP_BACK_END}/backendApi/update-user-verification`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'accept': '/'
+            },
+            body: JSON.stringify({
+                userId,
+                token,
+            }),
+            next: { revalidate: 0 }
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error al actualizar user del token:', error);
+        return null;
+    }
+}
+
 // antigua integracion con mysql
 
 // export async function getUser(email: string, password: string): Promise<User> {
