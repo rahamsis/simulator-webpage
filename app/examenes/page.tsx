@@ -124,7 +124,7 @@ export default function Examenes() {
     }
 
     return (
-        <div className="bg-white flex w-full min-h-[80vh] py-4 md:py-8 ">
+        <div className="flex w-full py-4 md:py-8 ">
             <div className=" mx-auto w-full">
                 {!isExamStarted ? (
                     <div className="mx-auto md:w-5/6 h-auto bg-gray-200 py-5 text-center px-10">

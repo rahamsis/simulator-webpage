@@ -55,7 +55,7 @@ const QuestionnaireVersionTwo: React.FC<QuestionnaireProps> = ({
     };
 
     return (
-        <div className="flex min-h-[80vh] p-4 md:p-8 mt-14 ">
+        <div className="flex min-h-[80vh] p-4 md:p-8">
             <div className="mx-auto md:w-full ">
                 <div className={`flex`}>
                     <div className="w-4/6 ">

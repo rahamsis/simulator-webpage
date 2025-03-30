@@ -68,7 +68,7 @@ const QuestionnaireVersionOne = ({
   };
 
   return (
-    <div className="w-full max-w-5xl p-6 md:p-8 bg-white rounded-xl shadow-lg">
+    <div className="w-full max-w-5xl px-6 md:p-8 bg-white rounded-xl shadow-lg ">
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
         <div className="flex items-center gap-4">

@@ -176,8 +176,8 @@ export default function Quiz() {
 
   return (
     <div
-      className={`flex bg-white w-full flex-col items-center ${!isPracticeStarted && "justify-center"
-        } min-h-screen bg-trans p-4`}
+      className={`flex  w-full flex-col items-center ${!isPracticeStarted && "justify-center"
+        } bg-trans px-4`}
     >
       {!isPracticeStarted ? (
         <div className="mx-auto md:w-5/6 bg-gray-200 py-5 text-center">
@@ -215,7 +215,7 @@ export default function Quiz() {
               handleFinish={handleFinish}
             />
           ) : selectedVersion === 3 && !isVerifiedPerson ? (
-            <form onSubmit={handleVerifyPerson} className="relative w-full  p-4 md:p-8 mt-1">
+            <form onSubmit={handleVerifyPerson} className="relative w-full">
               <div className="bg-[#087bb4] text-center text-white py-5 top-0">
                 <div className="text-2xl font-extrabold">
                   POLICÍA NACIONAL DEL PERÚ

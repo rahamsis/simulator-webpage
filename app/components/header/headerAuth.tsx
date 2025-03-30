@@ -12,34 +12,35 @@ const HeaderAuth = () => {
 
     const pathName = usePathname()
     const [menuOpen, setMenuOpen] = useState(false)
-    const [scrolled, setScrolled] = useState(false)
+    // const [scrolled, setScrolled] = useState(false)
 
     // Toggle menu visibility
     const toggleMenu = () => { setMenuOpen(!menuOpen); };
 
     //controla el scroll para ocultar o mostrar el logo
-    useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 500)
-        }
+    // useEffect(() => {
+    //     const handleScroll = () => {
+    //         setScrolled(window.scrollY > 100)
+    //     }
 
-        window.addEventListener("scroll", handleScroll)
-        return () => window.removeEventListener("scroll", handleScroll)
-    }, [])
+    //     window.addEventListener("scroll", handleScroll)
+    //     return () => window.removeEventListener("scroll", handleScroll)
+    // }, [])
 
     return (
         <React.Fragment>
-            <div className="fixed top-0 left-0 right-0 mx-auto px-4 lg:px-6 h-20 flex items-center justify-between bg-white z-50 ">
-                <nav className={`flex flex-wrap items-center justify-between  px-5 py-6 bg-white fixed top-0 left-0 w-full right-0 `}>
+            <div className="sticky top-0 left-0 right-0 mx-auto px-4 lg:px-6 h-[105px] flex items-center justify-between z-50">
+                <nav className={`flex flex-wrap items-center justify-between  px-5 py-4 bg-white fixed top-0 left-0 w-full right-0`}>
                     {/* <!-- logo --> */}
                     <div className={`order-[0] flex items-center pl-5 md:pl-0 ${menuOpen ? 'items-center mx-auto' : 'block'}`}>
                         <Link className="flex items-center justify-center" href="/cursos">
                             <div className="text-[32px] font-bold text-gray-800 " >
-                                <Image src="/assets/logo.png" height={30} width={60} alt="Logo" priority />
+                                <Image src="/assets/logo.png" height={30} width={60} alt="Logo" style={{ height: 'auto' }} priority />
                             </div>
 
                             <div className="overflow-hidden ml-2 ">
-                                <span className={`font-bold text-2xl md:text-4xl text-green-800 font-sans inline-block transition-transform duration-300 ease-in-out ${scrolled && !menuOpen ? "-translate-x-full" : "translate-x-0"}`} >
+                                {/* <span className={`font-bold text-2xl md:text-4xl text-green-800 font-sans inline-block transition-transform duration-300 ease-in-out ${scrolled && !menuOpen ? "-translate-x-full" : "translate-x-0"}`} > */}
+                                <span className={`font-bold text-2xl md:text-4xl text-green-800 font-sans inline-block transition-transform duration-300 ease-in-out`} >
                                     <div className="flex">PONTE100
                                         <span className=" top-0  text-base">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-r-circle" viewBox="0 0 16 16">
@@ -47,8 +48,8 @@ const HeaderAuth = () => {
                                             </svg>
                                         </span>
                                     </div>
-                                    <div className="text-sm md:text-lg">
-                                        Metodo de estudio
+                                    <div className="text-sm">
+                                        <span className="text-justify md:tracking-[0.2rem] ">MÉTODO DE ESTUDIO</span>
                                     </div>
                                 </span>
                             </div>

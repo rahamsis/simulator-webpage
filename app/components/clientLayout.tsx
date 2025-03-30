@@ -15,9 +15,9 @@ const inter = Inter({ subsets: ['latin'] }); // Importa la fuente Inter con sopo
 function Bubbles() {
   return (
     <>
-      <Image className="floating-bubble-1 absolute right-0 top-24 -z-[1]" src="/assets/bubbles/floating-bubble-1.png" width="103" height="98" alt="" />
-      <Image className="floating-bubble-2 absolute left-0 top-[387px] -z-[1]" src="/assets/bubbles/floating-bubble-2.png" alt="" width="33" height="66" />
-      <Image className="floating-bubble-3 absolute right-0 top-[605px] -z-[1]" src="/assets/bubbles/floating-bubble-3.png" alt="" width="50" height="99" />
+      <Image className="floating-bubble-1 absolute right-0 top-24 -z-[1]" src="/assets/bubbles/floating-bubble-1.png" width="103" height="98" alt="" priority/>
+      <Image className="floating-bubble-2 absolute left-0 top-[387px] -z-[1]" src="/assets/bubbles/floating-bubble-2.png" alt="" width="33" height="66" priority/>
+      <Image className="floating-bubble-3 absolute right-0 top-[605px] -z-[1]" src="/assets/bubbles/floating-bubble-3.png" alt="" width="50" height="99" priority/>
     </>
   );
 }
@@ -46,22 +46,23 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
     // Si la sesión está autenticada y la ruta es restringida
     // if ( restrictedRoutes.includes(pathName)) {
 
-      // Si activeSession es falso o undefined, cerrar sesión
-      // if (session?.activeSession === false || !session) {
-      //   console.log("🚫 Sesión inactiva, cerrando sesión...");
-      //   signOut();
-      // }
+    // Si activeSession es falso o undefined, cerrar sesión
+    // if (session?.activeSession === false || !session) {
+    //   console.log("🚫 Sesión inactiva, cerrando sesión...");
+    //   signOut();
     // }
-  }, [pathName, status, session]);  
+    // }
+  }, [pathName, status, session]);
 
   if (status === "loading") {
     return <LoadingSpinner />;
   }
 
   return (
-    <div className={inter.className}>
-      {isLandingPage ? <HeaderLanding /> : session ? <HeaderAuth /> : <HeaderLanding />}
-      <main className="pt-14">
+    <div className={`flex flex-col min-h-screen ${inter.className}`}>
+      {/* {isLandingPage ? <HeaderLanding /> : session ? <HeaderAuth /> : <HeaderLanding />} */}
+      {session?.activeSession == true ? <HeaderAuth /> : <HeaderLanding />}
+      <main className="flex-1">
         <Bubbles />
         {children}
       </main>

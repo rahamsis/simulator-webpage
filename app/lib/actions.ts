@@ -271,7 +271,7 @@ export async function fetchQuantityQuestions(userId: string, tableName: string) 
                 'Content-Type': 'application/json',
                 'accept': '/'
             },
-            body: JSON.stringify({userId, tableName }),
+            body: JSON.stringify({ userId, tableName }),
             next: { revalidate: 0 }
         });
 
@@ -291,7 +291,7 @@ export async function fetchIncorrectQuestions(userId: string, quantity: number) 
                 'Content-Type': 'application/json',
                 'accept': '/'
             },
-            body: JSON.stringify({userId, quantity }),
+            body: JSON.stringify({ userId, quantity }),
             next: { revalidate: 0 }
         });
 
@@ -329,4 +329,72 @@ export async function updateIncorrectQuestions(userId: string, correctQuestionsI
     } catch (error) {
         console.error('Error al actualizar las preguntas fallidas (updateIncorrectQuestions):', error);
     }
+}
+
+export async function getUserdata(userId: string) {
+    try {
+        const response = await fetch(`${process.env.APP_BACK_END}/backendApi/user-data`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'accept': '/'
+            },
+            body: JSON.stringify({ userId, }),
+            next: { revalidate: 0 }
+        });
+
+        const data = await response.json();
+        return data.map((row: any) => ({
+            userId: row.userId,
+            profile: row.profile,
+            nombre: row.nombre,
+            apellidos: row.apellidos,
+            email: row.email,
+            grupo: row.grupo,
+            grado: row.grado,
+            dni: row.dni,
+            cip: row.cip,
+            fechaNacimiento: row.fechaNacimiento,
+            genero: row.genero,
+            username: row.username,
+            password: row.password,
+            telefono: row.telefono,
+            direccion: row.direccion,
+            ciudad: row.ciudad,
+            codigoPostal: row.codigoPostal,
+            provincia: row.provincia,
+            terminosCondiciones: row.terminosCondiciones
+        }));
+
+    } catch (error) {
+        console.error('Error al traer los datos del usuario (getUserdata):', error);
+    }
+}
+
+export async function updatetUserdata(userId: string, data: any) {
+    try {
+        const bodyData = { userId, ...data }
+
+        const response = await fetch(`${process.env.APP_BACK_END}/backendApi/user-update`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'accept': '/'
+            },
+            body: JSON.stringify(bodyData),
+            next: { revalidate: 0 }
+        });
+
+        const responseData = await response.json();
+        return responseData;
+
+    } catch (error) {
+        console.error('Error al actualizar los datos del usuario (updatetUserdata):', error);
+    }
+}
+
+export async function getSignature(userId: string) {
+    const response = await fetch(`${process.env.APP_BACK_END}/cloudinary/signature?public_id=${userId}`);
+    const data = await response.json();
+    return data;
 }

@@ -13,10 +13,10 @@ export const auth = {
     if (user) {
       // En una aplicación real, verificarías la contraseña de forma segura aquí
       
-      console.log("*")
-      console.log(user.id)
-      console.log("user: " + user.email)
-      console.log("name: " + user.name)
+      // console.log("*")
+      // console.log(user.id)
+      // console.log("user: " + user.email)
+      // console.log("name: " + user.name)
       // console.log("password: " + user.password)
 
       return user

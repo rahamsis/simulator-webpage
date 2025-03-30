@@ -43,7 +43,7 @@ export default function Library() {
   }, []);
 
   return (
-    <div className="container mx-auto p-6 pt-16">
+    <div className="container mx-auto p-6">
       <h1 className="text-2xl md:text-4xl font-bold text-center mb-8">📚 Biblioteca Digital</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {books.map((book, i) => (

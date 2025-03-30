@@ -2,8 +2,6 @@ import Link from "next/link"
 import Image from "next/image";
 
 function Footer3() {
-
-
   return (
     <footer className="bg-gray-800 text-white">
       <div className="container mx-auto py-8 px-4">
@@ -53,8 +51,6 @@ function Footer3() {
       </div>
     </footer>
   );
-
-  <script>docum</script>
 }
 
 function Footer1() {
@@ -256,7 +252,7 @@ function Footer2() {
         <div className="flex flex-wrap mt-0 gx-5 pb-10 pt-[52px]">
           <div className="px-6 w-full mt-12 md:w-1/2 lg:w-1/4">
             <a href="index.html">
-              <Image src="/assets/logo.png" height={20} width={50} alt="Logo" priority />
+              <Image src="/assets/logo.png" height={20} width={50} alt="Logo" style={{ height: 'auto' }} priority />
             </a>
             <p className="mt-6 text-sm text-gray-500">
               Expertos en pulir pisos para devolverles su brillo original. Transformamos

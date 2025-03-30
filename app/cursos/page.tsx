@@ -85,11 +85,11 @@ function Main() {
 
   return (
     <>
-      <section className="pt-3 md:pb-14">
-        <div className="mx-auto px-3 max-w-[1202px]">
-          <div className="flex flex-col min-h-screen">
+      <section className="">
+        <div className="mx-auto px-3">
+          <div className="flex flex-col">
             <main className="flex-grow bg-transparent">
-              <div className="container mx-auto py-12 pd-2 md:px-4">
+              <div className="container mx-auto pd-2 md:px-4">
                 <h1 className="text-2xl md:text-4xl font-bold text-center mb-12 text-green-700">Nuestros Cursos Principales</h1>
 
                 <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)} className="w-full">

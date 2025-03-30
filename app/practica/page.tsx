@@ -97,10 +97,10 @@ export default function Quiz() {
 
 
     return (
-        <div className="flex min-h-[80vh] p-4 md:p-8 mt-14 ">
+        <div className="flex min-h-[80vh] p-4 md:p-8 ">
             <div className="mx-auto md:w-5/6 ">
                 {!isPracticeStarted ? (
-                    <div className="">
+                    <div className="mt-14">
                         <SelectorOne
                             onThemeSelect={setSelectedTheme}
                             onCheckboxSelect={setSelectedCheckbox}

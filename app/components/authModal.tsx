@@ -108,7 +108,11 @@ export default function AuthModal({ onClose, onLogin }: AuthModalProps) {
 
     // Manejo de cambios en los inputs
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+
+        // Eliminar espacios en blanco mientras el usuario escribe
+        const sanitizedValue = value.replace(/\s+/g, "");
+        setFormData({ ...formData, [name]: sanitizedValue });
     };
 
     const cleanForm = () => {
@@ -133,7 +137,7 @@ export default function AuthModal({ onClose, onLogin }: AuthModalProps) {
                     {!isLogin && (
                         <div>
                             <label htmlFor="username" className="block mb-1">
-                                Nombre
+                                Usuario
                             </label>
                             <div className="relative">
                                 <input

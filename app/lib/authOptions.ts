@@ -1,7 +1,7 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import { NextAuthOptions, Session } from "next-auth";
 // import { getUser, createSession, getActiveSession } from "./data";
-import { fetchUser, fetchCreateSession, fetchActiveSession, saveVerificationToken } from "./data";
+import { fetchUserLogin, fetchCreateSession, fetchActiveSession, saveVerificationToken } from "./data";
 import { v4 as uuidv4 } from 'uuid';
 import { sendVerificationEmail } from './mailer';
 
@@ -40,7 +40,7 @@ const authOptions: NextAuthOptions = {
                 }
 
                 try {
-                    const user = await fetchUser(email as string, password as string);
+                    const user = await fetchUserLogin(email as string, password as string);
                     if (!user || user?.message) {
                         // return null;
                         throw new Error(user?.message || "Credenciales Invalidas")
@@ -59,7 +59,7 @@ const authOptions: NextAuthOptions = {
 
                     await fetchCreateSession(user.userId, device, ip, sessionToken, expires);
 
-                    return { ...user, sessionToken, id: user.userId }; // Pasar el token en el usuario
+                    return { ...user, name: user.username, sessionToken, id: user.userId }; // Pasar el token en el usuario
                 } catch (error) {
                     if (error instanceof Error) {
                         throw new Error(error.message || "Error. Credenciales Invalidas");

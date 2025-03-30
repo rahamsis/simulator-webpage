@@ -32,7 +32,7 @@ const HeaderLanding = () => {
                 <div>
                     <Link className="flex items-center justify-center" href="/">
                         <div className="text-[32px] font-bold text-gray-800 " >
-                            <Image src="/assets/logo.png" height={20} width={50} alt="Logo" priority />
+                            <Image src="/assets/logo.png" height={20} width={50} alt="Logo" style={{ height: 'auto' }} priority />
                         </div>
 
                         <div className="overflow-hidden ml-2">
@@ -45,7 +45,7 @@ const HeaderLanding = () => {
                                     </span>
                                 </div>
                                 <div className="text-sm md:text-lg">
-                                    Metodo de estudio
+                                <span className="text-justify md:tracking-[0.2rem] ">Metodo de estudio </span>
                                 </div>
                             </span>
                         </div>

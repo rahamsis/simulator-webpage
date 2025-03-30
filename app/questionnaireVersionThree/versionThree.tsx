@@ -83,7 +83,7 @@ const QuestionnaireVersionThree = ({
     };
 
     return (
-        <div className="relative w-full min-h-[80vh] p-4 md:p-8 mt-1">
+        <div className="relative w-full pb-8 px-4 md:px-8 ">
             <div className="bg-[#087bb4] text-center text-white py-5 top-0 ">
                 <div className="text-2xl font-extrabold">POLICÍA NACIONAL DEL PERÚ</div>
                 <div>Sistema de Evaluación del Conocimiento Policial - SIECOPOL</div>

@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
+  images: {
+    domains: ["res.cloudinary.com"],
+  },
   webpack: (config, { isServer }) => {
     // Configura Webpack para manejar archivos .mjs
     config.module.rules.push({

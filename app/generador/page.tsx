@@ -95,10 +95,10 @@ export default function Generador() {
 
 
     return (
-        <div className="flex min-h-[80vh] p-4 md:p-8 mt-14 ">
-            <div className="mx-auto md:w-5/6 ">
+        <div className="flex p-4 md:p-8">
+            <div className="mx-auto md:w-5/6">
                 {!isPracticeStarted ? (
-                    <div className="bg-gray-200 py-5 text-center">
+                    <div className="bg-gray-200 py-5 text-center mt-14">
                         <h2 className="text-xl mt-4">Realiza una práctica con todas las preguntas según la cantidad que escojas.</h2>
                         <Options onQuantitySelect={setQuantitySelect} onStartPractice={handleStartPractice} />
                         {showAlert && <div className="text-red-500">Por favor selecciona una cantidad correcta de preguntas.</div>}

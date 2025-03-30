@@ -69,7 +69,7 @@ export default function UserMenu() {
             }
           </div>
 
-          <a href="#" className="block px-4 py-2 text-sm md:text-xl text-green-800 hover:bg-green-100 rounded-md transition-all duration-200 ease-in-out">
+          <a href="/register" className="block px-4 py-2 text-sm md:text-xl text-green-800 hover:bg-green-100 rounded-md transition-all duration-200 ease-in-out">
             Modificar perfil
           </a>
           <button
