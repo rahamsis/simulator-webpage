@@ -60,8 +60,8 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
 
   return (
     <div className={`flex flex-col min-h-screen ${inter.className}`}>
-      {/* {isLandingPage ? <HeaderLanding /> : session ? <HeaderAuth /> : <HeaderLanding />} */}
-      {session?.activeSession == true ? <HeaderAuth /> : <HeaderLanding />}
+      {isLandingPage ? <HeaderLanding /> : session ? <HeaderAuth /> : <HeaderLanding />}
+      {/* {session?.activeSession == true ? <HeaderAuth /> : <HeaderLanding />} */}
       <main className="flex-1">
         <Bubbles />
         {children}
