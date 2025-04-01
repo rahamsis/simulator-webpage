@@ -59,7 +59,7 @@ const authOptions: NextAuthOptions = {
 
                     await fetchCreateSession(user.userId, device, ip, sessionToken, expires);
 
-                    return { ...user, name: user.username, sessionToken, id: user.userId }; // Pasar el token en el usuario
+                    return { ...user, name: user.username, image: user.profile, sessionToken, id: user.userId }; // Pasar el token en el usuario
                 } catch (error) {
                     if (error instanceof Error) {
                         throw new Error(error.message || "Error. Credenciales Invalidas");

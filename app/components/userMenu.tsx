@@ -3,6 +3,7 @@
 import { signOut, useSession } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function UserMenu() {
   const { data: session, status } = useSession();
@@ -13,6 +14,8 @@ export default function UserMenu() {
   const menuRef = useRef<HTMLDivElement>(null); // Referencia al menú
 
   const [deviceType, setDeviceType] = useState("");
+
+  const [preview, setPreview] = useState<string | null>(null);
 
   // Cerrar el menú al hacer clic fuera
   useEffect(() => {
@@ -70,21 +73,48 @@ export default function UserMenu() {
         <button onClick={() => setIsOpen(!isOpen)}
           className="flex items-center space-x-2 text-green-800 hover:text-green-600 transition-colors duration-200 ease-in-out"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-person-circle" viewBox="0 0 16 16">
-            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-            <path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
-          </svg>
+          {session!.user!.image?.length != undefined && session!.user!.image?.length > 0 ?
+            <div className="relative w-10 h-10">
+              <Image
+                className="rounded-full object-cover border-2 border-green-700 w-full h-full"
+                src={session!.user!.image}
+                width={150}
+                height={150}
+                alt="Foto de perfil"
+              />
+            </div>
+            :
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-person-circle" viewBox="0 0 16 16">
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+              <path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+            </svg>
+          }
+
         </button>
       </div>
 
 
       {isOpen && (
-        <div className={`absolute ${deviceType === "PC" ? "right-0" : "-right-10" } mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-0`}>
+        <div className={`absolute ${deviceType === "PC" ? "right-0" : "-right-10"} mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-0`}>
           <div className="">
-            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" className="bi bi-person-circle mx-auto" viewBox="0 0 16 16">
-              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-              <path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
-            </svg>
+            {session!.user!.image?.length != undefined && session!.user!.image?.length > 0 ?
+              <div className="relative w-16 h-16 mx-auto">
+                <Image
+                  className="rounded-full object-cover border-2 border-green-700 w-full h-full"
+                  src={session!.user!.image}
+                  width={60}
+                  height={60}
+                  alt="Foto de perfil"
+                />
+              </div>
+              :
+              <div className="relative w-16 h-16 mx-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" className="bi bi-person-circle mx-auto" viewBox="0 0 16 16">
+                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                  <path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                </svg>
+              </div>
+            }
           </div>
           {/* nombre usuario */}
           <div className=" items-center text-center font-bold text-2xl text-green-700">

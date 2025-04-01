@@ -287,7 +287,7 @@ export default function RegistroForm() {
                     ...values,
                 }
 
-                console.log("COMPLETE_FORM_DATA", completeFormData)
+                // console.log("COMPLETE_FORM_DATA", completeFormData)
 
                 setTimeout(() => {
                     updateDataToUser(completeFormData)
@@ -308,7 +308,7 @@ export default function RegistroForm() {
         }
         // Obtener la firma desde el backend
         const signatureData = await getSignature(userId);
-        console.log("SIGNATURED: ", signatureData)
+        // console.log("SIGNATURED: ", signatureData)
         const formData = new FormData();
         formData.append("file", file);
         formData.append("api_key", signatureData.api_key);
@@ -324,7 +324,7 @@ export default function RegistroForm() {
             });
 
             const data = await response.json();
-            console.log("Respuesta de Cloudinary:", );
+            // console.log("Respuesta de Cloudinary:", );
 
             if (!response.ok) {
                 throw new Error(data.error?.message || "Error en la subida de la imagen");
