@@ -21,11 +21,11 @@ function Footer3() {
           <div>
             <h3 className="text-lg font-semibold mb-4">Enlaces Rápidos</h3>
             <ul className="space-y-2">
-              <li>
+              {/* <li>
                 <Link href="/cursos" className="text-gray-400 hover:text-white">
                   Cursos
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link href="/nosotros" className="text-gray-400 hover:text-white">
                   Sobre Nosotros
@@ -42,7 +42,7 @@ function Footer3() {
             <h3 className="text-lg font-semibold mb-4">Contacto</h3>
             <p className="text-gray-400">Email: info@ponte100.com</p>
             <a className="text-gray-400" href="tel:+51962785223">Teléfono: +51 962 785 223</a>
-            <p className="text-gray-400" >juegos xd</p>
+            {/* <p className="text-gray-400" >juegos xd</p> */}
           </div>
         </div>
         <div className="mt-8 pt-8 border-t border-gray-700 text-center text-gray-400">

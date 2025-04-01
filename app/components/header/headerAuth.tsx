@@ -7,25 +7,36 @@ import { usePathname } from "next/navigation";
 
 import UserMenu from "../userMenu";
 
-
 const HeaderAuth = () => {
 
     const pathName = usePathname()
     const [menuOpen, setMenuOpen] = useState(false)
-    // const [scrolled, setScrolled] = useState(false)
+    const [deviceType, setDeviceType] = useState("");
+
+    useEffect(() => {
+        const detectDevice = () => {
+            const width = window.innerWidth;
+            const userAgent = navigator.userAgent.toLowerCase();
+
+            if (/mobile|android|iphone|ipod/i.test(userAgent)) {
+                setDeviceType('celular');
+            } else if (/ipad|tablet/i.test(userAgent) || (width >= 768 && width < 1024)) {
+                setDeviceType('tablet');
+            } else if (width >= 1024 && width < 1440) {
+                setDeviceType('laptop');
+            } else {
+                setDeviceType('PC');
+            }
+        };
+
+        detectDevice();
+
+        window.addEventListener('resize', detectDevice);
+        return () => window.removeEventListener('resize', detectDevice);
+    }, []);
 
     // Toggle menu visibility
     const toggleMenu = () => { setMenuOpen(!menuOpen); };
-
-    //controla el scroll para ocultar o mostrar el logo
-    // useEffect(() => {
-    //     const handleScroll = () => {
-    //         setScrolled(window.scrollY > 100)
-    //     }
-
-    //     window.addEventListener("scroll", handleScroll)
-    //     return () => window.removeEventListener("scroll", handleScroll)
-    // }, [])
 
     return (
         <React.Fragment>
@@ -34,22 +45,33 @@ const HeaderAuth = () => {
                     {/* <!-- logo --> */}
                     <div className={`order-[0] flex items-center pl-5 md:pl-0 ${menuOpen ? 'items-center mx-auto' : 'block'}`}>
                         <Link className="flex items-center justify-center" href="/cursos">
+
                             <div className="text-[32px] font-bold text-gray-800 " >
-                                <Image src="/assets/logo.png" height={30} width={60} alt="Logo" style={{ height: 'auto' }} priority />
+                                {deviceType === "celular" ?
+                                    <Image src="/assets/logo.png" height={20} width={40} alt="Logo" style={{ height: 'auto' }} priority />
+                                    :
+                                    <Image src="/assets/logo.png" height={60} width={60} alt="Logo" style={{ height: 'auto' }} priority />
+                                }
                             </div>
 
                             <div className="overflow-hidden ml-2 ">
                                 {/* <span className={`font-bold text-2xl md:text-4xl text-green-800 font-sans inline-block transition-transform duration-300 ease-in-out ${scrolled && !menuOpen ? "-translate-x-full" : "translate-x-0"}`} > */}
-                                <span className={`font-bold text-2xl md:text-4xl text-green-800 font-sans inline-block transition-transform duration-300 ease-in-out`} >
+                                <span className={`font-bold text-lg md:text-4xl text-green-800 font-sans inline-block transition-transform duration-300 ease-in-out`} >
                                     <div className="flex">PONTE100
                                         <span className=" top-0  text-base">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-r-circle" viewBox="0 0 16 16">
-                                                <path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.5 4.002h3.11c1.71 0 2.741.973 2.741 2.46 0 1.138-.667 1.94-1.495 2.24L11.5 12H9.98L8.52 8.924H6.836V12H5.5zm1.335 1.09v2.777h1.549c.995 0 1.573-.463 1.573-1.36 0-.913-.596-1.417-1.537-1.417z" />
-                                            </svg>
+                                            {deviceType === "celular" ?
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-r-circle" viewBox="0 0 16 16">
+                                                    <path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.5 4.002h3.11c1.71 0 2.741.973 2.741 2.46 0 1.138-.667 1.94-1.495 2.24L11.5 12H9.98L8.52 8.924H6.836V12H5.5zm1.335 1.09v2.777h1.549c.995 0 1.573-.463 1.573-1.36 0-.913-.596-1.417-1.537-1.417z" />
+                                                </svg>
+                                                :
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-r-circle" viewBox="0 0 16 16">
+                                                    <path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.5 4.002h3.11c1.71 0 2.741.973 2.741 2.46 0 1.138-.667 1.94-1.495 2.24L11.5 12H9.98L8.52 8.924H6.836V12H5.5zm1.335 1.09v2.777h1.549c.995 0 1.573-.463 1.573-1.36 0-.913-.596-1.417-1.537-1.417z" />
+                                                </svg>
+                                            }
                                         </span>
                                     </div>
-                                    <div className="text-sm">
-                                        <span className="text-justify md:tracking-[0.2rem] ">MÉTODO DE ESTUDIO</span>
+                                    <div className="leading-[1px] md:leading-[10px]">
+                                        <span className="text-[9.5px] md:text-sm md:tracking-[0.2rem] ">MÉTODO DE ESTUDIO</span>
                                     </div>
                                 </span>
                             </div>
@@ -57,7 +79,7 @@ const HeaderAuth = () => {
                     </div>
 
                     {/* notificaciones, usuario y hamburguesa - moviles */}
-                    <div id="show-button" className={`order-1 flex cursor-pointer items-center lg:order-1 lg:hidden ${menuOpen ? 'hidden' : 'block'}`} >
+                    <div id="show-button" className={`order-1 flex cursor-pointer items-center lg:order-1 ${deviceType === "PC" ? "hidden" : "block"}  ${menuOpen ? 'hidden' : 'block'}`} >
                         {/* icono notificaciones */}
                         <button className="text-gray-600 hover:text-green-800 ">
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-bell" viewBox="0 0 16 16">
@@ -65,7 +87,7 @@ const HeaderAuth = () => {
                             </svg>
                         </button>
                         {/* menu usuario */}
-                        <div className="text-center ml-5 lg:hidden">
+                        <div className="text-center ml-5">
                             <UserMenu />
                         </div>
                         {/* icono hamburguesa  */}
@@ -78,7 +100,7 @@ const HeaderAuth = () => {
                     </div>
 
                     {/* icono cerrar x  */}
-                    <div id="hide-button" className={`order-1 cursor-pointer items-center lg:order-1 lg:hidden ${menuOpen ? 'block' : 'hidden'}`} onClick={toggleMenu}>
+                    <div id="hide-button" className={`order-1 cursor-pointer items-center lg:order-1 ${deviceType === "PC" ? "lg:hidden" : ""} ${menuOpen ? 'block' : 'hidden'}`} onClick={toggleMenu}>
                         <svg className="h-6 fill-current" viewBox="0 0 20 20">
                             <title>Menu Close</title>
                             <polygon points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2" transform="rotate(45 10 10)"></polygon>
@@ -87,7 +109,7 @@ const HeaderAuth = () => {
 
 
                     {/* Menú de navegación */}
-                    <ul id="nav-menu" className={`order-2 w-full flex-[0_0_100%] lg:order-1 lg:flex lg:w-auto lg:flex-auto lg:justify-center lg:space-x-5 ${menuOpen ? 'block' : 'hidden'}`}>
+                    <ul id="nav-menu" className={`order-2 w-full flex-[0_0_100%] ${deviceType === "PC" ? "lg:order-1 lg:w-auto lg:flex-auto lg:justify-center lg:space-x-5 lg:flex " : ""} ${menuOpen ? 'block' : 'hidden'}`}>
                         <li className="text-center">
                             <div className="lg:inline w-72 mx-auto">
                                 <Link href="/main" className={`active block p-3 py-2 text-base text-gray-900 ${pathName === '/main' ? 'border-b-2 border-green-500' : 'opacity-80'}`}
@@ -133,7 +155,7 @@ const HeaderAuth = () => {
                     {/* </nav> */}
 
                     {/* notificaciones y usuario -desktop */}
-                    <div id="show-button" className="order-2  items-center hidden md:flex">
+                    <div id="show-button" className={`order-2  items-center ${deviceType === "PC" ? "flex" : "hidden"}`}>
                         {/* icono notificaciones */}
                         <button className="text-gray-600 hover:text-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-bell" viewBox="0 0 16 16">

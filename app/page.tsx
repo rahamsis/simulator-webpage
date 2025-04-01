@@ -195,7 +195,7 @@ const Main = () => {
                         <div className="flex flex-wrap items-center">
                             <div className="">
                                 <h2 className="text-xl md:text-3xl font-bold tracking-tighter sm:text-4xl text-center mb-8 text-green-700">
-                                    COMO INFLUYE LA NEUROCIENCIA<br /> <span className="text-sm md:text-2xl">EN EL METODO DE ESTUDIO PONTE 100</span>
+                                    COMO INFLUYE LA NEUROCIENCIA<br /> <span className="text-sm md:text-2xl">EN EL MÉTODO DE ESTUDIO PONTE 100</span>
                                 </h2>
                                 <p className="text-sm md:text-xl text-gray-600 text-center mb-10">
                                     El método PONTE 100 es una estrategia de estudio que integra elementos de la neurociencia educativa para optimizar el
@@ -272,7 +272,7 @@ const Main = () => {
                             <div className="">
                                 <h2 className="text-xl md:text-3xl font-bold tracking-tighter sm:text-4xl text-center mb-8 text-green-700">
                                     COMO INFLUYE LA PROGRAMACIÓN NEURO LINGUISTICO – PNL<br />
-                                    <span className="text-sm md:text-2xl">EN EL METODO DE ESTUDIO PONTE 100</span>
+                                    <span className="text-sm md:text-2xl">EN EL MÉTODO DE ESTUDIO PONTE 100</span>
                                 </h2>
                                 <p className="text-sm md:text-xl text-gray-600 text-center mb-10">
                                     El PNL (Programación Neurolingüística) puede influir de manera significativa en el método de estudio &quot;Ponte 100&quot;,

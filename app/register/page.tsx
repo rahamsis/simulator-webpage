@@ -401,15 +401,15 @@ export default function RegistroForm() {
         <div className="mx-auto px-3">
             <div className="flex flex-col">
                 <main className="flex-grow bg-transparent">
-                    <div className="w-1/2 mx-auto px-3 block my-3 md:my-9">
-                        <h1 className="text-2xl md:text-4xl font-bold text-center mb-12 text-green-700">Mi registro Personal</h1>
+                    <div className="w-full lg:w-3/4 mx-auto px-3 block my-3 md:my-9">
+                        <h1 className="text-2xl md:text-4xl font-bold text-center mb-12 text-green-700">Mi Registro Personal</h1>
                         <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)} className="w-full">
                             <TabList className="grid w-full grid-cols-3 bg-gray-200 p-1 border-b-2 border-gray-200 rounded-lg mb-8">
                                 <Tab
                                     className={`p-3 text-sm md:text-xl text-center font-semibold cursor-pointer transition-all duration-200 border-b-4 border-transparent outline-none focus:outline-none rounded-lg ${tabIndex === 0 ? "bg-white text-green-700 font-bold" : "text-gray-600"
                                         }`}
                                 >
-                                    Información Personal
+                                    Mi perfil
                                 </Tab>
                                 <Tab
                                     className={`p-3 text-sm md:text-xl text-center font-semibold cursor-pointer transition-all duration-200 border-b-4 border-transparent outline-none focus:outline-none rounded-lg ${tabIndex === 1 ? "bg-white text-green-700 font-bold" : "text-gray-600"

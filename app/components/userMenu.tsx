@@ -5,12 +5,14 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function UserMenu() {
-  const {data: session, status} = useSession();
+  const { data: session, status } = useSession();
 
   const router = useRouter();
 
   const [isOpen, setIsOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null); // Referencia al menú
+
+  const [deviceType, setDeviceType] = useState("");
 
   // Cerrar el menú al hacer clic fuera
   useEffect(() => {
@@ -40,6 +42,28 @@ export default function UserMenu() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  useEffect(() => {
+    const detectDevice = () => {
+      const width = window.innerWidth;
+      const userAgent = navigator.userAgent.toLowerCase();
+
+      if (/mobile|android|iphone|ipod/i.test(userAgent)) {
+        setDeviceType('celular');
+      } else if (/ipad|tablet/i.test(userAgent) || (width >= 768 && width < 1024)) {
+        setDeviceType('tablet');
+      } else if (width >= 1024 && width < 1440) {
+        setDeviceType('laptop');
+      } else {
+        setDeviceType('PC');
+      }
+    };
+
+    detectDevice();
+
+    window.addEventListener('resize', detectDevice);
+    return () => window.removeEventListener('resize', detectDevice);
+  }, []);
+
   return (
     <div className="relative " ref={menuRef}>
       <div className="flex">
@@ -55,7 +79,7 @@ export default function UserMenu() {
 
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-10">
+        <div className={`absolute ${deviceType === "PC" ? "right-0" : "-right-10" } mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-0`}>
           <div className="">
             <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" className="bi bi-person-circle mx-auto" viewBox="0 0 16 16">
               <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
@@ -65,7 +89,7 @@ export default function UserMenu() {
           {/* nombre usuario */}
           <div className=" items-center text-center font-bold text-2xl text-green-700">
             {
-                status === "authenticated" && session!.user!.name
+              status === "authenticated" && session!.user!.name
             }
           </div>
 
