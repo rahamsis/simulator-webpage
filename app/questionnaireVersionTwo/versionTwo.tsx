@@ -59,7 +59,7 @@ const QuestionnaireVersionTwo: React.FC<QuestionnaireProps> = ({
             <div className="mx-auto md:w-full">
                 <div className={`x:flex`}>
                     <div className="w-full x:w-4/6">
-                        <div className="mx-auto max-w-4xl rounded-lg border p-6 shadow-sm">
+                        <div className="mx-auto max-w-4xl rounded-lg border p-6 shadow-sm bg-white">
                             <div className="flex justify-between items-center">
                                 <h2 className="mb-6 text-sm md:text-xl font-semibold">Pregunta {currentQuestion} de {questions.length}</h2>
                                 {questions[currentQuestion - 1].intentos !== undefined &&
@@ -91,7 +91,7 @@ const QuestionnaireVersionTwo: React.FC<QuestionnaireProps> = ({
                                             {({ checked }) => (
                                                 <div className={`flex items-center rounded-lg border p-4 transition-colors ${checked ? 'bg-green-500 text-white' : 'hover:bg-accent'}`}>
                                                     <span className={`pr-3 h-5 w-5 rounded-full border-2 ${checked ? 'bg-green-500' : 'border-gray-400'}`} />
-                                                    <span className="ml-3 text-xs lg:text-base cursor-default">{optionText}</span>
+                                                    <span className="ml-3 text-xs text-justify lg:text-base cursor-default">{optionText}</span>
                                                 </div>
                                             )}
                                         </RadioGroup.Option>
@@ -127,8 +127,8 @@ const QuestionnaireVersionTwo: React.FC<QuestionnaireProps> = ({
                         </div>
                     </div>
 
-                    <div className="hidden x:block">
-                        <div className="rounded-lg border p-6 shadow-sm">
+                    <div className="hidden ml-2 x:block">
+                        <div className="bg-white rounded-lg border p-6 shadow-sm">
                             <h3 className="mb-6 text-center text-lg font-medium">Balotario</h3>
                             <div className="grid grid-cols-8 gap-4">
                                 {questions.map((_, index) => (

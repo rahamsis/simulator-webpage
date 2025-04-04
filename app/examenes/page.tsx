@@ -127,14 +127,14 @@ export default function Examenes() {
         <div className="flex w-full py-4 md:py-8 ">
             <div className=" mx-auto w-full">
                 {!isExamStarted ? (
-                    <div className="mx-auto md:w-5/6 h-auto bg-gray-200 py-5 text-center px-10">
+                    <div className="mx-auto md:w-5/6 h-auto bg-gray-200 py-5 text-center md:px-10">
                         <div className="container mx-auto pb-10 ">
                             <div className="relative items-center mb-4 justify-center">
                                 <h2 className="text-2xl font-bold text-green-700">Examenes no repetidos</h2>
                                 <h2 className="text-base font-bold text-gray-600">Selecciona un examen para empezar</h2>
                             </div>
 
-                            <div className="border rounded-lg overflow-hidden">
+                            <div className="border rounded-lg overflow- overflow-auto">
                                 <table className="w-full">
                                     <thead className="bg-green-600">
                                         <tr className="">
@@ -144,7 +144,7 @@ export default function Examenes() {
                                             <th className="px-6 py-2 text-center text-base font-medium text-white uppercase tracking-wider">
                                                 Descripción
                                             </th>
-                                            <th className="px-6 py-2 text-center text-base font-medium text-white uppercase tracking-wider">
+                                            <th className="px-6 py-2 text-center text-base font-medium text-white uppercase tracking-wider hidden md:flex">
                                                 Opción
                                             </th>
                                         </tr>
@@ -155,11 +155,15 @@ export default function Examenes() {
                                                 key={row.id}
                                                 className={index % 2 === 0 ? "bg-lime-500/10" : "bg-white"}
                                             >
-                                                <td className="px-6 py-1 whitespace-nowrap text-sm text-left font-medium text-gray-900">
-                                                    {row.titulo}
+                                                <td
+                                                    className="px-3 md:px-6 py-3 md:py-1 whitespace-nowrap text-sm text-left font-medium"
+                                                    onClick={() => { handleStartPractice(index) }}>
+                                                    <span className="bg-green-700 md:bg-transparent text-white md:text-gray-900 rounded-lg md:rounded-none px-3 md:px-0 py-2 md:py-0">
+                                                        {row.titulo}
+                                                    </span>
                                                 </td>
                                                 <td className="px-6 py-1 whitespace-nowrap text-sm text-left text-gray-900">{row.descripcion}</td>
-                                                <td className="px-6 py-1 whitespace-nowrap text-sm flex justify-center text-gray-900">
+                                                <td className="px-6 py-1 whitespace-nowrap text-sm justify-center text-gray-900 hidden md:flex">
                                                     <button
                                                         className="flex gap-2 bg-green-700 text-white px-3 py-2 rounded-lg"
                                                         onClick={() => {

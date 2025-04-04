@@ -36,7 +36,7 @@ export default function Quiz() {
   const [selectedVersion, setSelectedVersion] = useState(0);
   const [selectedLimit, setSelectedLimit] = useState(0);
   const [isPracticeStarted, setIsPracticeStarted] = useState(false);
-  const [isVerifiedPerson, setVerifiedPerson] = useState(false);
+  const [isVerifiedPerson, setVerifiedPerson] = useState(true);
   const [showAlertUser, setShowAlertUser] = useState(false);
 
   const getAllQuestionWithLimit = async (limit: number) => {
@@ -97,6 +97,7 @@ export default function Quiz() {
             if (prev <= 1) {
               setTimeExpired(true);
               clearInterval(countdown);
+              handleFinish();
               return 0;
             }
             return prev - 1;
@@ -175,12 +176,9 @@ export default function Quiz() {
   }
 
   return (
-    <div
-      className={`flex  w-full flex-col items-center ${!isPracticeStarted && "justify-center"
-        } bg-trans px-4`}
-    >
+    <div className={`flex w-full flex-col items-center ${!isPracticeStarted && "justify-center"} bg-transparent`}>
       {!isPracticeStarted ? (
-        <div className="mx-auto md:w-5/6 bg-gray-200 py-5 text-center">
+        <div className=" md:w-5/6 bg-gray-200 mx-4 py-5 text-center my-14">
           <Versioner
             onVersionSelect={setSelectedVersion}
             onCheckboxSelect={setSelectedLimit}
@@ -217,20 +215,20 @@ export default function Quiz() {
           ) : selectedVersion === 3 && !isVerifiedPerson ? (
             <form onSubmit={handleVerifyPerson} className="relative w-full">
               <div className="bg-[#087bb4] text-center text-white py-5 top-0">
-                <div className="text-2xl font-extrabold">
+                <div className="text-lg md:text-2xl font-extrabold">
                   POLICÍA NACIONAL DEL PERÚ
                 </div>
-                <div>
+                <div className="text-xs md:text-base">
                   Sistema de Evaluación del Conocimiento Policial - SIECOPOL
                 </div>
-                <div>Módulo de Examen Virtual</div>
-                <div className="text-xs">
+                <div className="text-xs md:text-base">Módulo de Examen Virtual</div>
+                <div className="text-[9px] md:text-xs">
                   SIMULADOR DEL PROCESO DE SUBOFICIALES DE ARMAS 2025 -
                   PROMOCIÓN 2026
                 </div>
               </div>
               <div className="flex justify-center my-3">
-                <div className="w-6/12">
+                <div className="w-9/12 md:w-6/12">
                   <div className="flex gap-2 my-2">
                     <div className="bg-[#087bb4] w-1/3 flex items-center justify-center border border-blue-500 text-white font-bold">
                       CIP:

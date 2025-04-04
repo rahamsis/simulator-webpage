@@ -161,7 +161,7 @@ export default function Fallidas() {
                             <div className="relative flex flex-col justify-start items-center">
                                 {/* <h2 className="text-xl">Realiza una práctica con todas las preguntas según la cantidad que escojas.</h2> */}
                                 <div className="w-full sticky top-0 z-10 pb-4 text-center">
-                                    <div className="grid grid-cols-5 gap-4 mx-10 my-10">
+                                    <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 mx-10 my-10">
                                         {options.map((option, index) => (
                                             <button
                                                 key={index}

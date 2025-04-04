@@ -68,7 +68,7 @@ const QuestionnaireVersionOne = ({
   };
 
   return (
-    <div className="w-full max-w-5xl px-6 md:p-8 bg-white rounded-xl shadow-lg ">
+    <div className="w-full max-w-6xl px-6 md:p-8 bg-white rounded-xl shadow-lg my-6">
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
         <div className="flex items-center gap-4">
@@ -93,7 +93,7 @@ const QuestionnaireVersionOne = ({
       {/* Question and Progress */}
       <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-8">
         <div className="flex-1">
-          <h2 className="text-sm md:text-xl font-semibold mb-6">{questions[currentQuestion - 1].question}</h2>
+          <h2 className="text-xs md:text-xl font-semibold mb-6 text-justify">{questions[currentQuestion - 1].question}</h2>
           <RadioGroup value={selectedAnswers[currentQuestion] ?? null} onChange={handleAnswer} className="space-y-4">
             {questions[currentQuestion - 1].options.map((option) => {
 
@@ -101,12 +101,12 @@ const QuestionnaireVersionOne = ({
               return (
                 <RadioGroup.Option key={optionId} value={optionId} disabled={timeExpired}>
                   {({ checked }) => (
-                    <div className={`flex text-sm md:text-base items-center rounded-lg border p-4 transition-colors 
+                    <div className={`flex text-xs md:text-base items-center rounded-lg border p-2 md:p-4 transition-colors 
                       ${checked ? 'bg-green-600 text-white' : timeExpired ? '' : 'hover:bg-gray-200'}
                       ${timeExpired ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`
                     }>
                       <span className={`pr-3 h-5 w-5 rounded-full border-2 ${checked ? 'bg-green-600' : 'border-gray-400'}`} />
-                      <span className="ml-3">{optionText}</span>
+                      <span className="ml-3 text-justify">{optionText}</span>
                     </div>
                   )}
                 </RadioGroup.Option>
@@ -153,7 +153,7 @@ const QuestionnaireVersionOne = ({
       </div>
 
       {/* Navigation */}
-      <div className="flex flex-wrap items-center justify-center gap-2 pt-6">
+      <div className="flex flex-wrap items-center justify-center gap-2 pt-2 md:pt-6">
 
         {Array.from({ length: 10 }, (_, i) => pageStart + i).map((num) => (
           num <= questions.length && (
@@ -173,7 +173,7 @@ const QuestionnaireVersionOne = ({
         ))}
 
       </div>
-      <div className="flex flex-wrap items-center justify-center gap-2 pt-6">
+      <div className="flex flex-wrap items-center justify-center gap-2 py-6">
         <button
           onClick={handlePrev}
           disabled={currentQuestion === 1 || timeExpired}

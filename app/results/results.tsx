@@ -20,11 +20,11 @@ const Results = ({
     selectedAnswers,
     onRestart }: ResultsProps) => {
     return (
-        <div className="flex flex-col py-20 items-center justify-center min-h-screen">
-            <div className="w-full max-w-2xl p-8 bg-white rounded-xl shadow-lg">
-                <h2 className="text-2xl font-bold text-center mb-6">Resultados del Cuestionario</h2>
+        <div className="flex flex-col px-2 py-6 items-center justify-center min-h-screen">
+            <div className="w-full md:w-3/4 p-4 md:p-8 bg-white rounded-xl shadow-lg">
+                <h2 className="text-base ext-2xl font-bold text-center mb-3 md:mb-6">Resultados del Cuestionario</h2>
                 <div className="text-center">
-                    <p className="text-4xl font-bold text-primary mb-4">
+                    <p className="text-lg md:text-4xl font-bold text-primary mb-2 md:mb-4">
                         {score} / {questions.length}
                     </p>
                     <p className="text-gray-600">Respuestas correctas</p>

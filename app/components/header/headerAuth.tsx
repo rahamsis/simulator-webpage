@@ -44,7 +44,7 @@ const HeaderAuth = () => {
                 <nav className={`flex flex-wrap items-center justify-between  px-5 py-4 bg-white fixed top-0 left-0 w-full right-0`}>
                     {/* <!-- logo --> */}
                     <div className={`order-[0] flex items-center pl-5 md:pl-0 ${menuOpen ? 'items-center mx-auto' : 'block'}`}>
-                        <Link className="flex items-center justify-center" href="/cursos">
+                        <Link className="flex items-center justify-center" href="/actividades">
 
                             <div className="text-[32px] font-bold text-gray-800 " >
                                 {deviceType === "celular" ?
@@ -120,9 +120,9 @@ const HeaderAuth = () => {
                         </li>
                         <li className="text-center">
                             <div className="lg:inline w-72 mx-auto">
-                                <Link href="/cursos" className={`active block p-3 py-2 text-base text-gray-900 ${pathName === '/cursos' ? 'border-b-2 border-green-500' : 'opacity-80'}`}
+                                <Link href="/actividades" className={`active block p-3 py-2 text-base text-gray-900 ${pathName === '/actividades' ? 'border-b-2 border-green-500' : 'opacity-80'}`}
                                     onClick={toggleMenu}>
-                                    Cursos
+                                    Actividades Académicas
                                 </Link>
                             </div>
                         </li>
