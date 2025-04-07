@@ -252,7 +252,7 @@ export default function AuthModal({ onClose, onLogin }: AuthModalProps) {
                     </p>
                 } */}
 
-                <button onClick={() => cleanForm()} className="mt-4 text-green-700 hover:underline">
+                <button onClick={() => cleanForm()} className="mt-4 text-green-700 hover:underline opacity-50 cursor-not-allowed" disabled>
                     {isLogin ? "¿No tienes cuenta? Regístrate" : "¿Ya tienes cuenta? Inicia sesión"}
                 </button>
                 <button onClick={onClose} className="absolute top-2 right-5 text-gray-500 text-3xl hover:text-gray-700">
