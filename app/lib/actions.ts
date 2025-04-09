@@ -398,3 +398,30 @@ export async function getSignature(userId: string) {
     const data = await response.json();
     return data;
 }
+
+export async function fetchQuestionToTaller(index: number, limit: number, offset: number) {
+    try {
+        const response = await fetch(`${process.env.APP_BACK_END}/backendApi/questions-taller`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'accept': '/'
+            },
+            body: JSON.stringify({ index, limit, offset }),
+            next: { revalidate: 0 }
+        });
+
+        const data = await response.json();
+        return data.map((row: any) => ({
+            id: row.id,
+            question: row.question,
+            tema: row.tema,
+            options: row.options.split("||"), // Convertir string a array
+            correctAnswer: row.correctAnswer
+        }));
+
+    } catch (error) {
+        console.error('Error al obtener las preguntas (fetchQuestionToTaller):', error);
+        throw new Error("Error al obtener las preguntas (fetchQuestionToTaller");
+    }
+}

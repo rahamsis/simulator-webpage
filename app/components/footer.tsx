@@ -41,7 +41,7 @@ function Footer3() {
           <div className="relative">
             <h3 className="text-lg font-semibold mb-4">Contacto</h3>
             <p className="text-gray-400">Email: info@ponte100.com</p>
-            <a className="text-gray-400" href="tel:+51962785223">Teléfono: +51 962 785 223</a>
+            <a className="text-gray-400" href="tel:+51933123949">Teléfono: +51 933 123 949</a>
             {/* <p className="text-gray-400" >juegos xd</p> */}
           </div>
         </div>

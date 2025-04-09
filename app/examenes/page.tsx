@@ -49,7 +49,6 @@ export default function Examenes() {
     }, []);
 
     const handleStartPractice = async (index: number) => {
-        console.log("se dio click")
         if (index === undefined) {
             console.warn("⚠ No se ha seleccionado una cantidad válida");
             return;
