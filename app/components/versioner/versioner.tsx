@@ -55,8 +55,9 @@ function Versioner({ onVersionSelect, onCheckboxSelect, onStartPractice }: Versi
             {/* Checkbox */}
             <div className="pt-5 flex items-center justify-center">
                 <Checkbox
-                    option1={{id:50, name:"50 preguntas"}}
-                    option2={{id:100, name:"100 preguntas"}}
+                    options={[
+                        {id:50, name:"50 preguntas"}, 
+                        {id:100, name:"100 preguntas"}]}
                     onChange={onCheckboxSelect}
                 />
             </div>

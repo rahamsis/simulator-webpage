@@ -8,7 +8,7 @@ interface PrettyRadioProps {
     onChange?: (selectedOption: number) => void
 }
 
-const Checkbox: React.FC<PrettyRadioProps> = ({ options, onChange }) => {
+const CheckboxTaller: React.FC<PrettyRadioProps> = ({ options, onChange }) => {
     const [selectedOption, setSelectedOption] = useState<number | null>(null)
 
     const handleSelect = (optionId: number) => {
@@ -19,7 +19,7 @@ const Checkbox: React.FC<PrettyRadioProps> = ({ options, onChange }) => {
     }
 
     return (
-        <div className="flex-col space-y-4">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-2">
             {options.map(({id, name}) => (
                 <label key={id} className="flex items-center space-x-3 cursor-pointer " onClick={() => handleSelect(id)}>
                     <div
@@ -40,4 +40,4 @@ const Checkbox: React.FC<PrettyRadioProps> = ({ options, onChange }) => {
     )
 }
 
-export default Checkbox
+export default CheckboxTaller

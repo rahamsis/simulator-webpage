@@ -20,11 +20,9 @@ interface Tema {
 
 interface SelectorOneProps {
     onThemeSelect: (theme: string) => void;
-    onCheckboxSelect: (selected: number) => void;
-    onStartPractice: () => void;
 }
 
-function SelectorOne({ onThemeSelect, onCheckboxSelect, onStartPractice }: SelectorOneProps) {
+function SelectorOne({ onThemeSelect }: SelectorOneProps) {
     const [temas, setTemas] = useState<Tema[]>([]);
     const [query, setQuery] = useState("")
     const [result, setResult] = useState<SearchResult | null>(null)
@@ -59,7 +57,7 @@ function SelectorOne({ onThemeSelect, onCheckboxSelect, onStartPractice }: Selec
         }
 
         const normalizedQuery = debouncedQuery.toLowerCase().trim()
-        const filteredTemas = temas.filter((tema) => 
+        const filteredTemas = temas.filter((tema) =>
             tema.tema.toLowerCase().includes(normalizedQuery)
         )
 
@@ -145,18 +143,21 @@ function SelectorOne({ onThemeSelect, onCheckboxSelect, onStartPractice }: Selec
                     <label className="text-base font-medium mb-1 block">
                         Selecciona un tema
                     </label>
-                    <div className="relative ">
-                        <Input
-                            type="text"
-                            placeholder="Ingresa un tema"
-                            value={query}
-                            onChange={handleInputChange}
-                            onFocus={() => setIsFocused(true)}
-                            onBlur={() => setTimeout(() => setIsFocused(false), 200)}
-                            className="w-3/4 h-12 pl-3 pr-10 text-sm rounded-lg focus-visible:ring-offset-0"
-                        />
+                    <div className="flex justify-center">
+                        <div className="w-3/4">
+                            <Input
+                                type="text"
+                                placeholder="Ingresa un tema"
+                                value={query}
+                                onChange={handleInputChange}
+                                onFocus={() => setIsFocused(true)}
+                                onBlur={() => setTimeout(() => setIsFocused(false), 200)}
+                                className="w-full h-12 pl-3 pr-10 text-sm rounded-lg focus-visible:ring-offset-0"
+                            />
+                        </div>
                         {/* Contenedor del icono */}
-                        <div className="absolute right-14 md:right-32 top-1/2 -translate-y-1/2 h-4 w-4">
+                        <div className="absolute right-[14%] top-[67%] -translate-y-1/2 h-6 w-6">
+                            {/* <div className="absolute right-14 md:right-32 top-1/2 -translate-y-1/2 h-4 w-4"> */}
                             <AnimatePresence mode="popLayout">
                                 {query.length > 0 ? (
                                     <motion.div
@@ -220,23 +221,6 @@ function SelectorOne({ onThemeSelect, onCheckboxSelect, onStartPractice }: Selec
                         )}
                     </AnimatePresence>
                 </div>
-            </div>
-
-            {/* Checkbox */}
-            <div className="pt-5 flex items-center justify-center">
-                <Checkbox
-                    option1={{id:50, name:"50 preguntas"}}
-                    option2={{id:100, name:"100 Preguntas"}}
-                    // onChange={(selected) => console.log("Opción seleccionada:", selected)}
-                    onChange={onCheckboxSelect}
-                />
-            </div>
-
-            {/* Botón para iniciar práctica */}
-            <div className="mx-auto pt-10 text-center">
-                <button
-                    onClick={onStartPractice}
-                    className="bg-green-600 text-white rounded-lg px-4 py-3">Iniciar Práctica</button>
             </div>
         </div>
     )

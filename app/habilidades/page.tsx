@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import SelectorOne from "../components/selectors/selectorOne";
-import Checkbox from "@/app/ui/checkbox"
-import { fetchQuestionByIdTema, fetchSaveIncorrectQuestions } from "../lib/actions";
+import CheckboxTaller from "@/app/ui/checkboxTaller"
+import { fetchQuestionHabilidades, fetchSaveIncorrectQuestions } from "../lib/actions";
 import QuestionnaireVersionTwo from "../questionnaireVersionTwo/versionTwo";
 import Results from "../results/results";
 import { useSession } from "next-auth/react";
@@ -17,7 +17,7 @@ type Question = {
     intentos: number;
 };
 
-export default function Quiz() {
+export default function Habilidades() {
     const { data: session, status } = useSession();
     const [questions, setQuestions] = useState<Question[]>([]);
 
@@ -38,7 +38,7 @@ export default function Quiz() {
 
     const getAllQuestions = async (idTema: string, limit: number) => {
         try {
-            const data = await fetchQuestionByIdTema(idTema, limit);
+            const data = await fetchQuestionHabilidades(idTema, limit);
             setQuestions(data);
         } catch (error) {
             console.error("Error obteniendo las preguntas:", error);
@@ -113,10 +113,13 @@ export default function Quiz() {
                             <SelectorOne onThemeSelect={setSelectedTheme} />
                         </div>
                         <div className="flex justify-center">
-                            <Checkbox
+                            <CheckboxTaller
                                 options={[
+                                    { id: 10, name: "10 preguntas" },
+                                    { id: 20, name: "20 Preguntas" },
                                     { id: 50, name: "50 preguntas" },
-                                    { id: 100, name: "100 Preguntas" }
+                                    { id: 100, name: "100 Preguntas" },
+                                    { id: 500, name: "todas las Preguntas" }
                                 ]}
                                 // onChange={(selected) => console.log("Opción seleccionada:", selected)}
                                 onChange={setSelectedCheckbox}

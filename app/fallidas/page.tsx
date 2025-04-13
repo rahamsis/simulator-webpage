@@ -10,6 +10,7 @@ import { useSession } from "next-auth/react";
 type Question = {
     id: string;
     question: string;
+    tema: string;
     options: string[];
     correctAnswer: string;
     intentos: number;

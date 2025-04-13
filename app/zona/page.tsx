@@ -29,9 +29,31 @@ export default function VideoCallPage() {
               <Link href="/talleres">
                 <button
                   className="px-6 py-3 text-white bg-green-600 rounded-lg m-3"
-                  onClick={() => setMeetingStarted(true)}
                 >
                   Iniciar Taller de estudio
+                </button>
+              </Link>
+
+            </div>
+          </div>
+
+
+          <div className="bg-white w-full rounded-lg shadow-md overflow-hidden p-4">
+            <Image
+              src={"/images/habilidades.png"}
+              alt={"habilidades"}
+              width={1000}
+              height={200}
+              className="h-48 w-full object-cover"
+              priority
+            />
+            <div className="text-center p-4 items-center w-full">
+              <h3 className="text-lg font-bold text-green-700"> Control de Habilidades</h3>
+              <Link href="/habilidades">
+                <button
+                  className="px-6 py-3 text-white bg-green-600 rounded-lg m-3"
+                >
+                  Iniciar Control
                 </button>
               </Link>
 

@@ -6,6 +6,7 @@ import { RadioGroup } from "@headlessui/react";
 interface Question {
     id: string;
     question: string;
+    tema: string;
     options: string[];
     correctAnswer: string;
     intentos: number;
@@ -61,13 +62,13 @@ const QuestionnaireVersionTwo: React.FC<QuestionnaireProps> = ({
                     <div className="w-full x:w-4/6">
                         <div className="mx-auto max-w-4xl rounded-lg border p-6 shadow-sm bg-white">
                             <div className="flex justify-between items-center">
-                                <h2 className="mb-6 text-sm md:text-xl font-semibold">Pregunta {currentQuestion} de {questions.length}</h2>
+                                <h2 className="mb-2 text-sm md:text-xl font-semibold">Pregunta {currentQuestion} de {questions.length}</h2>
                                 {questions[currentQuestion - 1].intentos !== undefined &&
                                     <div className="mb-6 text-sm md:text-xl font-semibold flex items-center">
                                         {/* Icono con tooltip */}
                                         <div className="relative cursor-pointer text-green-800 group mx-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-info-circle" viewBox="0 0 16 16">
-                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
                                                 <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
                                             </svg>
                                             <span className="absolute left-1/2 -top-8 -translate-x-1/2 opacity-0 group-hover:opacity-100 group-hover:translate-y-[-4px] 
@@ -76,10 +77,14 @@ const QuestionnaireVersionTwo: React.FC<QuestionnaireProps> = ({
                                             </span>
                                         </div>
                                         <div>
-                                           Intento: {questions[currentQuestion - 1].intentos > 1 ? 1 : 2} de 2 
+                                            Intento: {questions[currentQuestion - 1].intentos > 1 ? 1 : 2} de 2
                                         </div>
                                     </div>
                                 }
+                            </div>
+                            <div className="flex flex-row justify-between">
+                                <h2 className="mb-4 text-sm md:text-xl text-slate-800 font-semibold left-0">Tema: <span className="text-green-800">{questions[currentQuestion - 1].tema}</span></h2>
+                                <h2 className="mb-4 text-sm md:text-xl text-slate-800 font-semibold right-0"> Codigo: <span className="text-green-800">{questions[currentQuestion - 1].id}</span></h2>
                             </div>
                             <h3 className="mb-6 text-xs lg:text-lg text-justify">{questions[currentQuestion - 1].question}</h3>
                             <RadioGroup value={selectedAnswers[currentQuestion] ?? null} onChange={handleAnswer} className="space-y-4">
