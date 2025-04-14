@@ -138,7 +138,7 @@ export default function Talleres() {
         <div className="flex w-full py-4 md:py-8 ">
             <div className=" mx-auto w-full">
                 {!isExamStarted ? (
-                    <div className="mx-auto md:w-5/6 h-auto bg-gray-200 py-5 text-center md:px-10">
+                    <div className="mx-3 md:mx-auto md:w-5/6 h-auto bg-gray-200 py-5 text-center md:px-10">
                         <div className="container mx-auto pb-10 ">
                             <div className="relative items-center mb-4 justify-center">
                                 <h2 className="text-2xl font-bold text-green-700">Talleres</h2>
@@ -148,10 +148,12 @@ export default function Talleres() {
                             <div className="border rounded-lg overflow- overflow-auto">
 
                                 {tablasDivididas.map((chunk, tablaIndex) => (
+                                    <>
+                                    <div className="border-l border-t border-r border-green-400 bg-green-600 py-2 text-white font-bold">TALLER {tablaIndex + 1}</div>
                                     <table key={tablaIndex} className="w-full mb-10 border-collapse table-auto border border-green-400">
                                         <thead className="bg-green-600">
-                                            <tr>
-                                                <th className="px-6 py-2 text-center text-base font-medium text-white uppercase tracking-wider border-2 border-green-400">
+                                            <tr>                                                
+                                                <th className="px-6 py-2 text-center text-base font-medium text-white uppercase tracking-wider border border-green-400">
                                                     TiTULO
                                                 </th>
                                                 <th className="px-6 py-2 text-center text-base font-medium text-white uppercase tracking-wider border border-green-400">
@@ -225,7 +227,7 @@ export default function Talleres() {
                                             ))}
                                         </tbody>
                                     </table>
-
+                                    </>
                                 ))}
                             </div>
                         </div>

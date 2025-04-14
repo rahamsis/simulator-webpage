@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 import SelectorOne from "../components/selectors/selectorOne";
 import CheckboxTaller from "@/app/ui/checkboxTaller"
 import { fetchQuestionHabilidades, fetchSaveIncorrectQuestions } from "../lib/actions";
-import QuestionnaireVersionTwo from "../questionnaireVersionTwo/versionTwo";
 import Results from "../results/results";
 import { useSession } from "next-auth/react";
+import QuestionnaireVersionOne from "../questionnaireVersionOne/versionOne";
 
 type Question = {
     id: string;
@@ -26,6 +26,7 @@ export default function Habilidades() {
 
     const [isFinished, setIsFinished] = useState(false);
     const [score, setScore] = useState(0);
+    const [timeExpired, setTimeExpired] = useState(false);
     const [showAlertTema, setShowAlertTema] = useState(false);
     const [showAlertCheckBox, setShowAlertCheckBox] = useState(false);
 
@@ -34,12 +35,36 @@ export default function Habilidades() {
     const [selectedCheckbox, setSelectedCheckbox] = useState<number>(0);
     const [isPracticeStarted, setIsPracticeStarted] = useState(false);
 
+    const [timer, setTimer] = useState(0);
+
     // const [incorrectQuestions, setIncorrectQuestions] = useState<String[]>([]);
+
+    useEffect(() => {
+        if (!isPracticeStarted || isFinished || timeExpired) return;
+    
+          const countdown = setInterval(() => {
+            setTimer((prev) => {
+              if (prev <= 1) {
+                setTimeExpired(true);
+                clearInterval(countdown);
+                return 0;
+              }
+              return prev - 1;
+            });
+          }, 1000);
+    
+          return () => clearInterval(countdown);
+      }, [
+        isPracticeStarted,
+        isFinished,
+        timeExpired,
+      ]);
 
     const getAllQuestions = async (idTema: string, limit: number) => {
         try {
             const data = await fetchQuestionHabilidades(idTema, limit);
             setQuestions(data);
+            setTimer(data.length * 6);
         } catch (error) {
             console.error("Error obteniendo las preguntas:", error);
         }
@@ -89,6 +114,7 @@ export default function Habilidades() {
         setQuestions([]);
         setCurrentQuestion(1);
         setAnswers({});
+        setTimer(0);
         setIsFinished(false);
         setScore(0);
         setShowAlertTema(false);
@@ -105,8 +131,8 @@ export default function Habilidades() {
 
 
     return (
-        <div className="flex min-h-[80vh] p-4 md:p-8">
-            <div className="mx-auto w-full">
+        <div className="flex min-h-[80vh] py-4 md:p-8">
+            <div className="flex justify-center mx-auto w-full">
                 {!isPracticeStarted ? (
                     <div className="flex flex-col text-center">
                         <div className="mt-14">
@@ -134,13 +160,15 @@ export default function Habilidades() {
                         {showAlertCheckBox && <div className="text-red-500 text-center mt-5">Por favor selecciona una cantidad de preguntas.</div>}
                     </div>
                 ) : (
-                    <QuestionnaireVersionTwo
+                    <QuestionnaireVersionOne
                         questions={questions}
                         selectedAnswers={answers}
                         setSelectedAnswers={setAnswers}
                         currentQuestion={currentQuestion}
                         setCurrentQuestion={setCurrentQuestion}
                         handleFinish={handleFinish}
+                        timer={timer}
+                        timeExpired={timeExpired}
                     />
                 )}
             </div>

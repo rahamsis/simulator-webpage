@@ -56,11 +56,11 @@ const QuestionnaireVersionTwo: React.FC<QuestionnaireProps> = ({
     };
 
     return (
-        <div className="flex min-h-[80vh]">
+        <div className="flex mb-7 px-4 lg:px-0 lg:w-5/6">
             <div className="mx-auto md:w-full">
                 <div className={`x:flex`}>
-                    <div className="w-full x:w-4/6">
-                        <div className="mx-auto max-w-4xl rounded-lg border p-6 shadow-sm bg-white">
+                    <div className="w-full">
+                        <div className="mx-auto w-full rounded-lg border p-6 shadow-sm bg-white">
                             <div className="flex justify-between items-center">
                                 <h2 className="mb-2 text-sm md:text-xl font-semibold">Pregunta {currentQuestion} de {questions.length}</h2>
                                 {questions[currentQuestion - 1].intentos !== undefined &&
@@ -82,8 +82,8 @@ const QuestionnaireVersionTwo: React.FC<QuestionnaireProps> = ({
                                     </div>
                                 }
                             </div>
-                            <div className="flex flex-row justify-between">
-                                <h2 className="mb-4 text-sm md:text-xl text-slate-800 font-semibold left-0">Tema: <span className="text-green-800">{questions[currentQuestion - 1].tema}</span></h2>
+                            <div className="flex flex-col lg:flex-row justify-between">
+                                <h2 className="lg:mb-4 text-sm md:text-xl text-slate-800 font-semibold left-0">Tema: <span className="text-green-800">{questions[currentQuestion - 1].tema}</span></h2>
                                 <h2 className="mb-4 text-sm md:text-xl text-slate-800 font-semibold right-0"> Codigo: <span className="text-green-800">{questions[currentQuestion - 1].id}</span></h2>
                             </div>
                             <h3 className="mb-6 text-xs lg:text-lg text-justify">{questions[currentQuestion - 1].question}</h3>
@@ -132,7 +132,7 @@ const QuestionnaireVersionTwo: React.FC<QuestionnaireProps> = ({
                         </div>
                     </div>
 
-                    <div className="hidden ml-2 x:block">
+                    <div className="hidden ml-2 x:block x:w-[65%]">
                         <div className="bg-white rounded-lg border p-6 shadow-sm">
                             <h3 className="mb-6 text-center text-lg font-medium">Balotario</h3>
                             <div className="grid grid-cols-8 gap-4">

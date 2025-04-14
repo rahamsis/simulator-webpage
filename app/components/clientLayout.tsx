@@ -15,7 +15,7 @@ const inter = Inter({ subsets: ['latin'] }); // Importa la fuente Inter con sopo
 function Bubbles() {
   return (
     <>
-      <Image className="floating-bubble-1 absolute right-0 top-24 -z-[1]" src="/assets/bubbles/floating-bubble-1.png" width="103" height="98" alt="" priority/>
+      <Image className="floating-bubble-1 absolute right-0 top-16 lg:top-24 -z-[1]" src="/assets/bubbles/floating-bubble-1.png" width="103" height="98" alt="" priority/>
       <Image className="floating-bubble-2 absolute left-0 top-[387px] -z-[1]" src="/assets/bubbles/floating-bubble-2.png" alt="" width="33" height="66" priority/>
       <Image className="floating-bubble-3 absolute right-0 top-[605px] -z-[1]" src="/assets/bubbles/floating-bubble-3.png" alt="" width="50" height="99" priority/>
     </>

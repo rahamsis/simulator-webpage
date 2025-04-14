@@ -105,7 +105,7 @@ export default function Quiz() {
 
 
     return (
-        <div className="flex min-h-[80vh] p-4 md:p-8">
+        <div className="flex mt-2 md:p-8">
             <div className="mx-auto w-full">
                 {!isPracticeStarted ? (
                     <div className="flex flex-col text-center">
@@ -131,14 +131,16 @@ export default function Quiz() {
                         {showAlertCheckBox && <div className="text-red-500 text-center mt-5">Por favor selecciona una cantidad de preguntas.</div>}
                     </div>
                 ) : (
-                    <QuestionnaireVersionTwo
-                        questions={questions}
-                        selectedAnswers={answers}
-                        setSelectedAnswers={setAnswers}
-                        currentQuestion={currentQuestion}
-                        setCurrentQuestion={setCurrentQuestion}
-                        handleFinish={handleFinish}
-                    />
+                    <div className="flex w-full justify-center">
+                        <QuestionnaireVersionTwo
+                            questions={questions}
+                            selectedAnswers={answers}
+                            setSelectedAnswers={setAnswers}
+                            currentQuestion={currentQuestion}
+                            setCurrentQuestion={setCurrentQuestion}
+                            handleFinish={handleFinish}
+                        />
+                    </div>
                 )}
             </div>
         </div >

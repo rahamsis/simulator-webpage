@@ -85,7 +85,7 @@ function Main() {
 
   return (
     <>
-      <section className="">
+      <section className="mt-3 md:mt-5">
         <div className="mx-auto px-3">
           <div className="flex flex-col">
             <main className="flex-grow bg-transparent">

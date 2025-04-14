@@ -137,7 +137,7 @@ function SelectorOne({ onThemeSelect }: SelectorOneProps) {
 
     return (
         <div className="w-full my-4">
-            <div className="relative flex flex-col justify-start items-center">
+            <div className="relative flex flex-col justify-start items-center mx-3">
                 <h2 className="text-xl">Realiza una práctica con todas las preguntas del tema que elijas.</h2>
                 <div className="w-full sticky top-0 z-10 pt-4 pb-4 text-center">
                     <label className="text-base font-medium mb-1 block">

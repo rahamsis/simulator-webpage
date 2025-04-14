@@ -25,9 +25,7 @@ export default function Quiz() {
 
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState(1);
-  const [selectedAnswers, setSelectedAnswers] = useState<{
-    [key: number]: string;
-  }>({});
+  const [selectedAnswers, setSelectedAnswers] = useState<{[key: number]: string;}>({});
   const [timer, setTimer] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
   const [score, setScore] = useState(0);
@@ -36,7 +34,7 @@ export default function Quiz() {
   const [selectedVersion, setSelectedVersion] = useState(0);
   const [selectedLimit, setSelectedLimit] = useState(0);
   const [isPracticeStarted, setIsPracticeStarted] = useState(false);
-  const [isVerifiedPerson, setVerifiedPerson] = useState(true);
+  const [isVerifiedPerson, setVerifiedPerson] = useState(false);
   const [showAlertUser, setShowAlertUser] = useState(false);
 
   const getAllQuestionWithLimit = async (limit: number) => {

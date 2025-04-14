@@ -147,10 +147,11 @@ export default function Fallidas() {
     }
 
     return (
-        <div className="flex min-h-[80vh] p-4 md:p-8 mt-14 ">
-            <div className="mx-auto md:w-5/6 ">
-                {!isPracticeStarted ? (
-                    <div className="bg-gray-200 py-5 text-center">
+        <div className="flex lg:p-8 lg:px-2">
+
+            {!isPracticeStarted ? (
+                <div className="mx-auto md:w-5/6 ">
+                    <div className="bg-gray-200 mx-4 px-2 py-5 text-center rounded-md lg:rounded-lg mb-4 lg:mb-0">
                         <h2 className="text-xl mt-4 text-slate-900">Realiza una práctica con todas las preguntas según la cantidad que escojas.</h2>
                         {loading ? (
                             <h3>Cargando preguntas fallidas...</h3> // ✅ Muestra un mensaje de carga
@@ -196,8 +197,9 @@ export default function Fallidas() {
                         </div>
                         {showAlert && <div className="text-red-500">Por favor selecciona una cantidad correcta de preguntas.</div>}
                     </div>
-
-                ) : (
+                </div>
+            ) : (
+                <div className="flex justify-center">
                     <QuestionnaireVersionTwo
                         questions={allQuestions}
                         selectedAnswers={answers}
@@ -206,8 +208,8 @@ export default function Fallidas() {
                         setCurrentQuestion={setCurrentQuestion}
                         handleFinish={handleFinish}
                     />
-                )}
-            </div>
+                </div>
+            )}
         </div>
     );
 }

@@ -141,7 +141,7 @@ const QuestionnaireVersionThree = ({
                                                             {/* Número */}
                                                             <span
                                                                 className={`text-sm ${selectedAnswers[questionNumber]
-                                                                    ? " bg-red-400"
+                                                                    ? " bg-red-400 px-1"
                                                                     : ""
                                                                     }`}
                                                             >

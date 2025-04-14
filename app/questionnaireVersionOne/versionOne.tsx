@@ -68,7 +68,7 @@ const QuestionnaireVersionOne = ({
   };
 
   return (
-    <div className="w-full max-w-6xl px-6 md:p-8 bg-white rounded-xl shadow-lg my-6">
+    <div className="w-5/6 px-6 md:p-8 bg-white rounded-xl shadow-lg md:mt-4 mb-6">
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
         <div className="flex items-center gap-4">
@@ -93,7 +93,17 @@ const QuestionnaireVersionOne = ({
       {/* Question and Progress */}
       <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-8">
         <div className="flex-1">
-          <h2 className="text-xs md:text-xl font-semibold mb-6 text-justify">{questions[currentQuestion - 1].question}</h2>
+          <h2 className="text-xs md:text-xl font-semibold mb-2 md:mb-6 text-justify">{questions[currentQuestion - 1].question}</h2>
+
+          {/* Tema y Código */}
+          <div className="flex flex-col justify-between w-full md:w-52 md:hidden">
+            <h2 className="mb-0 text-xs text-slate-800 font-semibold left-0">Tema:
+              <span className="text-green-800 break-words">{questions[currentQuestion - 1].tema}</span>
+            </h2>
+            <h2 className="mb-4 text-xs text-slate-800 font-semibold right-0"> Codigo:
+              <span className="text-green-800 break-words">{questions[currentQuestion - 1].id}</span>
+            </h2>
+          </div>
           <RadioGroup value={selectedAnswers[currentQuestion] ?? null} onChange={handleAnswer} className="space-y-4">
             {questions[currentQuestion - 1].options.map((option) => {
 
@@ -148,6 +158,15 @@ const QuestionnaireVersionOne = ({
                 {currentQuestion}/{questions.length}
               </span>
             </div>
+          </div>
+
+          <div className="flex flex-col justify-between w-40 md:w-52">
+            <h2 className="mb-4 text-sm md:text-xl text-slate-800 font-semibold left-0">Tema: <br />
+              <span className="text-green-800 break-words">{questions[currentQuestion - 1].tema}</span>
+            </h2>
+            <h2 className="mb-4 text-sm md:text-xl text-slate-800 font-semibold right-0"> Codigo: <br />
+              <span className="text-green-800 break-words">{questions[currentQuestion - 1].id}</span>
+            </h2>
           </div>
         </div>
       </div>

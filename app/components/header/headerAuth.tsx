@@ -40,7 +40,7 @@ const HeaderAuth = () => {
 
     return (
         <React.Fragment>
-            <div className="sticky top-0 left-0 right-0 mx-auto px-4 lg:px-6 h-[105px] flex items-center justify-between z-50">
+            <div className="sticky top-0 left-0 right-0 mx-auto px-4 lg:px-6 h-[80px] md:h-[100px] lg:h-[105px] flex items-center justify-between z-50">
                 <nav className={`flex flex-wrap items-center justify-between  px-5 py-4 bg-white fixed top-0 left-0 w-full right-0`}>
                     {/* <!-- logo --> */}
                     <div className={`order-[0] flex items-center pl-5 md:pl-0 ${menuOpen ? 'items-center mx-auto' : 'block'}`}>
