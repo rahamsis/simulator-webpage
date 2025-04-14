@@ -26,7 +26,7 @@ export const config = {
     runtime: "nodejs",
     matcher: [
         '/main', '/actividades', '/practica', '/generador', '/simulacro', 
-        '/examenes', '/temario', '/libros', '/zona', '/fallidas', '/taller', '/habilidades',
+        '/examenes', '/temario', '/libros', '/zona', '/fallidas', '/talleres', '/habilidades',
         '/register'
     ],
 };
