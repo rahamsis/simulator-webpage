@@ -41,24 +41,24 @@ export default function Habilidades() {
 
     useEffect(() => {
         if (!isPracticeStarted || isFinished || timeExpired) return;
-    
-          const countdown = setInterval(() => {
+
+        const countdown = setInterval(() => {
             setTimer((prev) => {
-              if (prev <= 1) {
-                setTimeExpired(true);
-                clearInterval(countdown);
-                return 0;
-              }
-              return prev - 1;
+                if (prev <= 1) {
+                    setTimeExpired(true);
+                    clearInterval(countdown);
+                    return 0;
+                }
+                return prev - 1;
             });
-          }, 1000);
-    
-          return () => clearInterval(countdown);
-      }, [
+        }, 1000);
+
+        return () => clearInterval(countdown);
+    }, [
         isPracticeStarted,
         isFinished,
         timeExpired,
-      ]);
+    ]);
 
     const getAllQuestions = async (idTema: string, limit: number) => {
         try {
@@ -132,7 +132,7 @@ export default function Habilidades() {
 
     return (
         <div className="flex min-h-[80vh] py-4 md:p-8">
-            <div className="flex justify-center mx-auto w-full">
+            <div className="mx-auto w-full">
                 {!isPracticeStarted ? (
                     <div className="flex flex-col text-center">
                         <div className="mt-14">
@@ -160,16 +160,18 @@ export default function Habilidades() {
                         {showAlertCheckBox && <div className="text-red-500 text-center mt-5">Por favor selecciona una cantidad de preguntas.</div>}
                     </div>
                 ) : (
-                    <QuestionnaireVersionOne
-                        questions={questions}
-                        selectedAnswers={answers}
-                        setSelectedAnswers={setAnswers}
-                        currentQuestion={currentQuestion}
-                        setCurrentQuestion={setCurrentQuestion}
-                        handleFinish={handleFinish}
-                        timer={timer}
-                        timeExpired={timeExpired}
-                    />
+                    <div className="flex w-full justify-center">
+                        <QuestionnaireVersionOne
+                            questions={questions}
+                            selectedAnswers={answers}
+                            setSelectedAnswers={setAnswers}
+                            currentQuestion={currentQuestion}
+                            setCurrentQuestion={setCurrentQuestion}
+                            handleFinish={handleFinish}
+                            timer={timer}
+                            timeExpired={timeExpired}
+                        />
+                    </div>
                 )}
             </div>
         </div >
