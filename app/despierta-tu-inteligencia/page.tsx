@@ -17,6 +17,7 @@ type Question = {
 
 export default function Inteligencia() {
     const [questions, setQuestions] = useState<Question[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const [currentQuestion, setCurrentQuestion] = useState(1);
 
@@ -91,12 +92,15 @@ export default function Inteligencia() {
 
 
     const handleStartPractice = async () => {
-        console.log(selectedTheme)
+        setIsLoading(true);
+
         if (selectedTheme.length === 0) {
             setShowAlertTema(true);
+            setIsLoading(false);
         } else {
             await getAllQuestions(selectedTheme)
             setIsPracticeStarted(true);
+            setIsLoading(false);
         }
     };
 
@@ -109,9 +113,22 @@ export default function Inteligencia() {
                             <SelectorOne onThemeSelect={setSelectedTheme} />
                         </div>
                         <div className="mx-auto pt-10 text-center">
-                            <button
-                                onClick={handleStartPractice}
-                                className="bg-green-600 text-white rounded-lg px-4 py-3">Iniciar </button>
+                            {isLoading ? (
+                                <button className="bg-green-600 text-white rounded-lg px-4 py-3">
+                                    <div className="flex items-center">
+                                        <svg className="animate-spin h-5 w-5 mr-2 text-white" viewBox="0 0 24 24">
+                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l4-4-4-4v4a8 8 0 00-8 8H4z"></path>
+                                        </svg>
+                                        Cargando...
+                                    </div>
+                                </button>
+                            ) : (
+                                <button
+                                    onClick={handleStartPractice}
+                                    className="bg-green-600 text-white rounded-lg px-4 py-3">Iniciar
+                                </button>)}
+
                         </div>
                         {showAlertTema && <div className="text-red-500 text-center mt-5">Por favor selecciona un tema para poder continuar.</div>}
                     </div>
