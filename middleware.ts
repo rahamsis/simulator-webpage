@@ -27,6 +27,6 @@ export const config = {
     matcher: [
         '/main', '/actividades', '/practica', '/generador', '/simulacro', 
         '/examenes', '/temario', '/libros', '/zona', '/fallidas', '/talleres', '/habilidades',
-        '/register'
+        '/despierta-tu-inteligencia','/register'
     ],
 };

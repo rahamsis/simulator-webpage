@@ -56,6 +56,25 @@ export default function VideoCallPage() {
                   </div>
                 </div>
 
+                <div className="bg-white w-full rounded-lg shadow-md overflow-hidden p-4">
+                  <Image
+                    src={"/images/despierta.jpg"}
+                    alt={"despierta"}
+                    width={1000}
+                    height={200}
+                    className="h-48 w-full object-cover"
+                    priority
+                  />
+                  <div className="p-4 text-center">
+                    <h3 className="text-lg font-bold text-green-700">Despierta tu Inteligencia</h3>
+                    <Link
+                      href="/despierta-tu-inteligencia"
+                      className={`inline-block mt-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-500 transition`}>
+                      Iniciar Actividad
+                    </Link>
+                  </div>
+                </div>
+
                 <div className="bg-white w-full rounded-lg shadow-md overflow-hidden">
                   <Image
                     src={"/images/videocall.jpeg"}

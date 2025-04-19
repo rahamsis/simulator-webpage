@@ -56,7 +56,7 @@ const QuestionnaireVersionTwo: React.FC<QuestionnaireProps> = ({
     };
 
     return (
-        <div className="flex mb-7 px-4 lg:px-0 lg:w-5/6">
+        <div className="flex mb-7 px-4 lg:px-0 w-full md:w-11/12">
             <div className="mx-auto md:w-full">
                 <div className={`x:flex`}>
                     <div className="w-full">
@@ -83,10 +83,10 @@ const QuestionnaireVersionTwo: React.FC<QuestionnaireProps> = ({
                                 }
                             </div>
                             <div className="flex flex-col lg:flex-row justify-between">
-                                <h2 className="lg:mb-4 text-sm md:text-xl text-slate-800 font-semibold left-0">Tema: <span className="text-green-800">{questions[currentQuestion - 1].tema}</span></h2>
-                                <h2 className="mb-4 text-sm md:text-xl text-slate-800 font-semibold right-0"> Codigo: <span className="text-green-800">{questions[currentQuestion - 1].id}</span></h2>
+                                <h2 className="lg:mb-4 text-sm md:text-base text-slate-800 font-semibold left-0">Tema: <span className="text-green-800 break-words">{questions[currentQuestion - 1].tema}</span></h2>
+                                <h2 className="mb-4 text-sm md:text-base text-slate-800 font-semibold right-0"> Codigo: <span className="text-green-800 break-words">{questions[currentQuestion - 1].id}</span></h2>
                             </div>
-                            <h3 className="mb-6 text-xs lg:text-lg text-justify">{questions[currentQuestion - 1].question}</h3>
+                            <h3 className="text-[10px] leading-[12px] md:text-sm 2xl:text-base font-semibold mb-2 md:mb-6 text-justify">{questions[currentQuestion - 1].question}</h3>
                             <RadioGroup value={selectedAnswers[currentQuestion] ?? null} onChange={handleAnswer} className="space-y-4">
                                 {questions[currentQuestion - 1].options.map((option, index) => {
 
@@ -94,9 +94,10 @@ const QuestionnaireVersionTwo: React.FC<QuestionnaireProps> = ({
                                     return (
                                         <RadioGroup.Option key={optionId} value={optionId}>
                                             {({ checked }) => (
-                                                <div className={`flex items-center rounded-lg border p-4 transition-colors ${checked ? 'bg-green-500 text-white' : 'hover:bg-accent'}`}>
+                                                <div className={`flex text-[8px] leading-[12px] md:text-xs items-center rounded-lg border p-2 transition-colors 
+                                                ${checked ? 'bg-green-500 text-white' : 'hover:bg-accent'}`}>
                                                     <span className={`pr-3 h-5 w-5 rounded-full border-2 ${checked ? 'bg-green-500' : 'border-gray-400'}`} />
-                                                    <span className="ml-3 text-xs text-justify lg:text-base cursor-default">{optionText}</span>
+                                                    <span className="ml-3 text-xs text-justify  cursor-default">{optionText}</span>
                                                 </div>
                                             )}
                                         </RadioGroup.Option>
@@ -132,7 +133,7 @@ const QuestionnaireVersionTwo: React.FC<QuestionnaireProps> = ({
                         </div>
                     </div>
 
-                    <div className="hidden ml-2 x:block x:w-[65%]">
+                    <div className="hidden ml-2 x:block x:w-[70%] 2xl:w-[40%]">
                         <div className="bg-white rounded-lg border p-6 shadow-sm">
                             <h3 className="mb-6 text-center text-lg font-medium">Balotario</h3>
                             <div className="grid grid-cols-8 gap-4">

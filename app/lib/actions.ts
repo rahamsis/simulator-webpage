@@ -87,6 +87,35 @@ export async function fetchQuestionHabilidades(idTema: string, limit: number) {
     }
 }
 
+export async function fetchQuestionAndAnswer(idTema: string) {
+    try {
+        const response = await fetch(`${process.env.APP_BACK_END}/backendApi/questions-and-answer`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'accept': '/'
+            },
+            body: JSON.stringify({ idTema }),
+            next: { revalidate: 0 }
+        });
+
+        const data = await response.json();
+        return data.map((row: any) => ({
+            id: row.id,
+            question: row.question,
+            idTema: idTema,
+            tema: row.tema,
+            claves: row.claves,
+            correctAnswer: row.correctAnswer
+        }));
+
+        // return data;
+    } catch (error) {
+        console.error('Error al obtener las preguntas y respuestas:', error);
+        throw new Error("Error al obtener las preguntas y respuestas");
+    }
+}
+
 export async function fetchQuestionByIdTema(idTema: string, limit: number) {
     try {
         const response = await fetch(`${process.env.APP_BACK_END}/backendApi/questions-by-idtema`, {
@@ -455,3 +484,5 @@ export async function fetchQuestionToTaller(index: number, limit: number, offset
         throw new Error("Error al obtener las preguntas (fetchQuestionToTaller");
     }
 }
+
+
