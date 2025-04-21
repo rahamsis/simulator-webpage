@@ -33,6 +33,8 @@ export default function Fallidas() {
     const [showAlert, setShowAlert] = useState(false);
     const [isFinished, setIsFinished] = useState(false);
     const [score, setScore] = useState(0);
+    const [startTimer, setStartTimer] = useState(0);
+    const [timer, setTimer] = useState(0);
     const [quantityFallidas, setQuantityFallidas] = useState(0);
     const [loading, setLoading] = useState(true);
 
@@ -44,7 +46,30 @@ export default function Fallidas() {
     const [isPracticeStarted, setIsPracticeStarted] = useState(false);
     const [selectedButton, setSelectedButton] = useState<number | null>(null);
 
-    const [incorrectQuestions, setIncorrectQuestions] = useState<String[]>([]);
+    const [timeExpired, setTimeExpired] = useState(false);
+
+    // const [incorrectQuestions, setIncorrectQuestions] = useState<String[]>([]);
+
+    useEffect(() => {
+        if (!isPracticeStarted || isFinished || timeExpired) return;
+
+        const countdown = setInterval(() => {
+            setTimer((prev) => {
+                if (prev <= 1) {
+                    setTimeExpired(true);
+                    clearInterval(countdown);
+                    return 0;
+                }
+                return prev - 1;
+            });
+        }, 1000);
+
+        return () => clearInterval(countdown);
+    }, [
+        isPracticeStarted,
+        isFinished,
+        timeExpired,
+    ]);
 
     const fetchQuantityFallidas = useCallback(async () => {
         setLoading(true); // ✅ Muestra el mensaje de carga
@@ -74,6 +99,10 @@ export default function Fallidas() {
             if (session?.user?.userId) {
                 const data = await fetchIncorrectQuestions(session.user.userId, quantity)
                 setAllQuestions(data);
+                setStartTimer(data.length * 72);
+                setTimer(data.length * 72); //tiempo oficial
+                
+                
             } else {
                 console.error("User ID is not available Fallidas class");
             }
@@ -137,17 +166,26 @@ export default function Fallidas() {
         setShowAlert(false);
         setQuantitySelect(0);
         setIsPracticeStarted(false);
-        setIncorrectQuestions([]);
+        // setIncorrectQuestions([]);
         setQuantityFallidas(0);
+        setStartTimer(0);
+        setTimer(0);
         await fetchQuantityFallidas()
     }
 
     if (isFinished) {
-        return <Results score={score} questions={allQuestions} selectedAnswers={answers} onRestart={restartAll} />
+        return (
+        <Results 
+        score={score} 
+        questions={allQuestions} 
+        selectedAnswers={answers}
+        startTimer={startTimer}
+        timer={timer}
+        onRestart={restartAll} />);
     }
 
     return (
-        <div className="flex lg:p-8 lg:px-2">
+        <div className="lg:p-8 lg:px-2">
 
             {!isPracticeStarted ? (
                 <div className="mx-auto md:w-5/6 ">
@@ -207,6 +245,8 @@ export default function Fallidas() {
                         currentQuestion={currentQuestion}
                         setCurrentQuestion={setCurrentQuestion}
                         handleFinish={handleFinish}
+                        timer={timer}
+                        timeExpired={timeExpired}
                     />
                 </div>
             )}

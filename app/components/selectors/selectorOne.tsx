@@ -152,7 +152,7 @@ function SelectorOne({ onThemeSelect }: SelectorOneProps) {
                                 onChange={handleInputChange}
                                 onFocus={() => setIsFocused(true)}
                                 onBlur={() => setTimeout(() => setIsFocused(false), 200)}
-                                className="w-full h-12 pl-3 pr-10 text-sm rounded-lg focus-visible:ring-offset-0"
+                                className="w-full h-12 pl-3 pr-10 text-base rounded-lg focus-visible:ring-offset-0"
                             />
                         </div>
                         {/* Contenedor del icono */}

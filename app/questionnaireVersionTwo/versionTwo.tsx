@@ -18,14 +18,26 @@ interface QuestionnaireProps {
     setCurrentQuestion: (question: number) => void;
     selectedAnswers: { [key: string]: string };
     setSelectedAnswers: (answers: { [key: string]: string }) => void;
+    timer: number;
+    timeExpired: boolean;
     handleFinish: () => void;
 }
+
+const formatTime = (seconds: number) => {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+
+    return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+};
 
 const QuestionnaireVersionTwo: React.FC<QuestionnaireProps> = ({
     questions,
     selectedAnswers,
     setSelectedAnswers,
     currentQuestion,
+    timer,
+    timeExpired,
     setCurrentQuestion,
     handleFinish,
 }) => {
@@ -56,15 +68,34 @@ const QuestionnaireVersionTwo: React.FC<QuestionnaireProps> = ({
     };
 
     return (
-        <div className="flex mb-7 px-4 lg:px-0 w-full md:w-11/12">
+        <div className="flex my-7 px-4 lg:px-0 w-full">
             <div className="mx-auto md:w-full">
                 <div className={`x:flex`}>
                     <div className="w-full">
                         <div className="mx-auto w-full rounded-lg border p-6 shadow-sm bg-white">
-                            <div className="flex justify-between items-center">
-                                <h2 className="mb-2 text-sm md:text-xl font-semibold">Pregunta {currentQuestion} de {questions.length}</h2>
+                            {/* Timer - si hay intentos muestro el timer arriba; para no descuadrar */}
+                            {/* {questions[currentQuestion - 1].intentos !== undefined && */}
+                            <div className={`w-full text-center mb-4 ${questions[currentQuestion - 1].intentos !== undefined ? 'md:hidden' : 'hidden'}`}>
+                                <div className={`text-2xl font-semibold ${timeExpired ? "text-red-500" : ""}`}>
+                                    {formatTime(timer)}
+                                </div>
+                            </div>
+                            {/* // } */}
+
+                            <div className="flex justify-between items-center mb-4">
+                                {/* Titulo Pregunta */}
+                                <h2 className="text-sm md:text-xl font-semibold">Pregunta {currentQuestion} de {questions.length}</h2>
+
+                                {/* Timer - si no hay intentos muestro el timer a la derecha (para no descuadrar) */}
+                                <div className={`${questions[currentQuestion - 1].intentos !== undefined ? 'hidden' : ''} md:flex`}>
+                                    <div className={`text-2xl font-semibold ${timeExpired ? "text-red-500" : ""}`}>
+                                        {formatTime(timer)}
+                                    </div>
+                                </div>
+
+                                {/* Intentos */}
                                 {questions[currentQuestion - 1].intentos !== undefined &&
-                                    <div className="mb-6 text-sm md:text-xl font-semibold flex items-center">
+                                    <div className="text-sm md:text-xl font-semibold flex justify-center items-center">
                                         {/* Icono con tooltip */}
                                         <div className="relative cursor-pointer text-green-800 group mx-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-info-circle" viewBox="0 0 16 16">
@@ -76,7 +107,7 @@ const QuestionnaireVersionTwo: React.FC<QuestionnaireProps> = ({
                                                 intentos para eliminar pregunta fallida
                                             </span>
                                         </div>
-                                        <div>
+                                        <div className="">
                                             Intento: {questions[currentQuestion - 1].intentos > 1 ? 1 : 2} de 2
                                         </div>
                                     </div>
@@ -118,7 +149,10 @@ const QuestionnaireVersionTwo: React.FC<QuestionnaireProps> = ({
                                     <button
                                         className={`bg-green-600 py-3 px-3 rounded-xl text-white ${selectedAnswers[currentQuestion] !== null && "hover:bg-green-500"}`}
                                         onClick={handleFinish}
-                                        disabled={selectedAnswers[currentQuestion] === undefined}>Finalizar</button>
+                                        // disabled={selectedAnswers[currentQuestion] === undefined}
+                                    >
+                                        Finalizar
+                                    </button>
                                 ) : (
                                     <button
                                         onClick={handleNext}
@@ -133,7 +167,7 @@ const QuestionnaireVersionTwo: React.FC<QuestionnaireProps> = ({
                         </div>
                     </div>
 
-                    <div className="hidden ml-2 x:block x:w-[70%] 2xl:w-[40%]">
+                    <div className="hidden ml-2 x:block x:w-[58%] 2xl:w-[33%]">
                         <div className="bg-white rounded-lg border p-6 shadow-sm">
                             <h3 className="mb-6 text-center text-lg font-medium">Balotario</h3>
                             <div className="grid grid-cols-8 gap-4">

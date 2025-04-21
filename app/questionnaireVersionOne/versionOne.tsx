@@ -50,7 +50,8 @@ const QuestionnaireVersionOne = ({
   };
 
   const handleNext = () => {
-    if (currentQuestion < questions.length && !timeExpired && selectedAnswers[currentQuestion] !== undefined) {
+    if (currentQuestion < questions.length && !timeExpired) {
+      // if (currentQuestion < questions.length && !timeExpired && selectedAnswers[currentQuestion] !== undefined) {
       setCurrentQuestion(currentQuestion + 1);
       if (currentQuestion % 10 === 0) {
         setPageStart((prev) => prev + 10);
@@ -94,13 +95,15 @@ const QuestionnaireVersionOne = ({
               <div
                 className={`h-full ${timeExpired ? "bg-red-500" : "bg-green-600"}`}
                 style={{
-                  width: `${(currentQuestion / questions.length) * 100}%`,
+                  // width: `${(currentQuestion / questions.length) * 100}%`, //esto marca el porcentaje del numero de pregunta en el que se esta
+                  width: `${(Object.keys(selectedAnswers).length / questions.length) * 100}%`, //esto marca el porcentaje de las que se han respondido
                   transition: "width 0.3s ease"
                 }}
               />
               {/* Texto encima de la barra */}
               <div className="absolute inset-0 flex items-center justify-center text-sm font-semibold text-white">
-                {currentQuestion}/{questions.length}
+                {/* {currentQuestion}/{questions.length} */}
+                {Object.keys(selectedAnswers).length}/{questions.length}
               </div>
             </div>
           </div>
@@ -181,13 +184,14 @@ const QuestionnaireVersionOne = ({
                 cx="50"
                 cy="50"
                 strokeDasharray={264}
-                strokeDashoffset={264 - (264 * currentQuestion) / questions.length}
+                strokeDashoffset={264 - (264 * Object.keys(selectedAnswers).length) / questions.length}
                 transform="rotate(-90 50 50)"
               />
             </svg>
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
               <span className="font-semibold">
-                {currentQuestion}/{questions.length}
+                {/* {currentQuestion}/{questions.length} */}
+                {Object.keys(selectedAnswers).length}/{questions.length}
               </span>
             </div>
           </div>
@@ -211,7 +215,7 @@ const QuestionnaireVersionOne = ({
             <button
               key={num}
               onClick={() => setCurrentQuestion(num)}
-              disabled={selectedAnswers[num] === undefined && selectedAnswers[num - 1] === undefined}
+              // disabled={selectedAnswers[num] === undefined && selectedAnswers[num - 1] === undefined}
               className={`border-2 px-3 py-1 rounded-lg 
                       ${currentQuestion === num && selectedAnswers[num] === undefined ? "border-slate-950 text-black" : ""} 
                       ${selectedAnswers[num] !== undefined ? "bg-green-600 text-white" : ""}
@@ -235,9 +239,11 @@ const QuestionnaireVersionOne = ({
 
         <button
           onClick={handleNext}
-          disabled={currentQuestion === questions.length || timeExpired || selectedAnswers[currentQuestion] === undefined}
+          disabled={currentQuestion === questions.length || timeExpired}
+          // disabled={currentQuestion === questions.length || timeExpired || selectedAnswers[currentQuestion] === undefined}
           className={`border-2 px-4 py-2 rounded-xl 
-          ${currentQuestion === questions.length || timeExpired || selectedAnswers[currentQuestion] === undefined
+          ${currentQuestion === questions.length || timeExpired
+            // ${currentQuestion === questions.length || timeExpired || selectedAnswers[currentQuestion] === undefined
               ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
         >
           Siguiente

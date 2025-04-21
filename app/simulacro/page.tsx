@@ -25,7 +25,8 @@ export default function Quiz() {
 
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState(1);
-  const [selectedAnswers, setSelectedAnswers] = useState<{[key: number]: string;}>({});
+  const [selectedAnswers, setSelectedAnswers] = useState<{ [key: number]: string; }>({});
+  const [startTimer, setStartTimer] = useState(0);
   const [timer, setTimer] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
   const [score, setScore] = useState(0);
@@ -41,6 +42,7 @@ export default function Quiz() {
     try {
       const data = await fetchQuestionSiecopol(limit);
       setQuestions(data);
+      setStartTimer(data.length * 72);
       setTimer(data.length * 72); //tiempo oficial
     } catch (error) {
       console.error("Error obteniendo las preguntas:", error);
@@ -148,6 +150,7 @@ export default function Quiz() {
     setQuestions([]);
     setCurrentQuestion(1);
     setSelectedAnswers({});
+    setStartTimer(0);
     setTimer(0);
     setIsFinished(false);
     setScore(0);
@@ -168,6 +171,8 @@ export default function Quiz() {
         score={score}
         questions={questions}
         selectedAnswers={selectedAnswers}
+        startTimer={startTimer}
+        timer={timer}
         onRestart={restartAll}
       />
     );
@@ -209,6 +214,8 @@ export default function Quiz() {
               currentQuestion={currentQuestion}
               setCurrentQuestion={setCurrentQuestion}
               handleFinish={handleFinish}
+              timer={timer}
+              timeExpired={timeExpired}
             />
           ) : selectedVersion === 3 && !isVerifiedPerson ? (
             <form onSubmit={handleVerifyPerson} className="relative w-full">
@@ -240,7 +247,7 @@ export default function Quiz() {
                       className="w-full px-2 py-1 border rounded pl-10 outline-none"
                       inputMode="numeric"
                       pattern="[0-9]*"
-                      maxLength={6}
+                      maxLength={8}
                       onInput={(e) => {
                         (e.target as HTMLInputElement).value = (
                           e.target as HTMLInputElement

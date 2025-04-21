@@ -15,8 +15,8 @@ interface VersionerProps {
 }
 
 const options: Version[] = [
-    {idVersion: 1,  description: "Version con contador"},
-    {idVersion: 2, description: "Version sin contador"},
+    {idVersion: 1,  description: "Version sin Balotario"},
+    {idVersion: 2, description: "Version con Balotario"},
     {idVersion: 3, description: "Version SIECOPOL - PNP"}
 ]
 
