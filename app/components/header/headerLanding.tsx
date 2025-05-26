@@ -7,11 +7,14 @@ import React, { useEffect, useState } from "react";
 import AuthModal from "../authModal";
 import { useCallback } from "react";
 
+import { usePathname } from "next/navigation";
+
 
 const HeaderLanding = () => {
     const [scrolled, setScrolled] = useState(false)
     const [showAuthModal, setShowAuthModal] = useState(false)
     const [deviceType, setDeviceType] = useState("");
+    const pathName = usePathname()
 
     const handleScroll = useCallback(() => {
         setScrolled(window.scrollY > 500);
@@ -51,8 +54,8 @@ const HeaderLanding = () => {
 
     return (
         <React.Fragment>
-            <div className="fixed top-0 left-0 right-0 mx-auto px-4 lg:px-6 h-20 flex items-center justify-between bg-white z-50">
-                <div>
+            <div className="sticky top-0 left-0 right-0 px-4 lg:px-6 h-20 flex items-center justify-between bg-white z-50 shadow-lg">
+                <div className="lg:ml-24">
                     <Link className="flex items-center justify-center" href="/">
                         <div className="text-[32px] font-bold text-gray-800 " >
                             {deviceType === "celular" ?
@@ -84,16 +87,44 @@ const HeaderLanding = () => {
                         </div>
                     </Link>
                 </div>
-                <div>
+
+                <ul id="nav-menu" className={`order-2 w-full lg:order-1 lg:w-auto lg:flex-auto lg:justify-end lg:pr-10 lg:space-x-5 lg:flex hidden`}>
+                    <li className="text-center">
+                        <div className="lg:inline w-72 mx-auto">
+                            <Link href="/" className={` block p-3 py-2 text-base font-bold ${pathName === '/' ? 'text-button' : 'text-primary'}`}
+                                >
+                                Inicio
+                            </Link>
+                        </div>
+                    </li>
+                    <li className="text-center">
+                        <div className="lg:inline w-72 mx-auto">
+                            <Link href="/nosotros" className={` block p-3 py-2 text-base  font-bold ${pathName === '/nosotros' ? 'text-button' : 'text-primary'}`}
+                               >
+                                Sobre nosotros
+                            </Link>
+                        </div>
+                    </li>
+                    <li className="text-center">
+                        <div className="lg:inline w-72 mx-auto">
+                            <Link href="/contactanos" className={`block p-3 py-2 text-base font-bold ${pathName === '/contactanos' ? 'text-button' : 'text-primary'}`}
+                                >
+                                Contacto
+                            </Link>
+                        </div>
+                    </li>
+                </ul>
+
+                <div className="flex order-2 lg:mr-24">
                     {/* Botón para desktop */}
                     <button onClick={() => setShowAuthModal(true)}
-                        className="hidden md:block bg-green-700 text-xs md:text-base text-center text-white px-4 py-2 rounded hover:bg-green-600 transition-colors duration-300">
-                        Registrarse / Iniciar sesión
+                        className="hidden md:block bg-button text-xs md:text-base text-center text-white px-7 py-2 rounded-lg transition-colors duration-300">
+                        Ingresar
                     </button>
                     {/* Botón para móviles */}
                     <button onClick={() => setShowAuthModal(true)}
-                        className="md:hidden bg-green-700 text-xs md:text-base text-center text-white px-4 py-2 rounded hover:bg-green-600 transition-colors duration-300">
-                        Registrarse /<br /> Iniciar sesión
+                        className="md:hidden bg-button text-base md:text-base text-center text-white px-5 py-3 rounded-lg transition-colors duration-300">
+                        Ingresar
                     </button>
                 </div>
                 {showAuthModal && <AuthModal onClose={() => setShowAuthModal(false)} onLogin={handleLogin} />}

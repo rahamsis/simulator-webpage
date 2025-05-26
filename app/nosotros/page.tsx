@@ -4,243 +4,188 @@ import Image from "next/image";
 
 function CommonHero() {
     return (
-        <section className="page-hero py-16 bg-white/50 px-5">
-            <div className="mx-auto px-3 max-w-[1202px]">
-                <div className="text-center">
-                    <ul className="breadcrumb inline-flex h-8 items-center justify-center space-x-2 rounded-3xl bg-theme-light px-4 py-2">
-                        <li className="leading-none text-dark border">
-                            <div className="inline-flex items-center text-center align-middle text-primary">
-                                <svg className="mr-1.5 -mt-1" width="15" height="15" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M13.1769 15.0588H10.3533V9.41178H5.64744V15.0588H2.82391V6.58825H1.88274V16H14.118V6.58825H13.1769V15.0588ZM6.58862 15.0588V10.353H9.41215V15.0588H6.58862ZM15.8084 6.09225L15.2512 6.85178L8.00038 1.52472L0.749559 6.8499L0.192383 6.09131L8.00038 0.357666L15.8084 6.09225Z" fill="black"></path>
-                                </svg>
-                                <Link href="/actividades" className="text-sm leading-none text-orange-600 font-medium">Inicio</Link>
-                            </div>
-                        </li>
-                        <li className="leading-none text-dark border">
-                            <Link className="text-sm leading-none" href="/contactanos">/ Contactanos</Link>
-                        </li>
-                    </ul>
-                </div>
-                <div className="page-hero-content mx-auto max-w-[768px] text-center">
-                    <h1 className="mb-5 mt-8 font-serif text-5xl font-bold leading-tight text-gray-900">Ponte 100</h1>
-                    <p className="text-justify">
-                    El método de estudio PONTE 100™©, aprobado con RESOLUCIÓN N°3094-2023/DDA-INDECOPI del 20DIC2023, REGISTRO DE PROPIEDAD INDUSTRIAL CERTIFICADO 
-                    N°00154860, RESOLUCIÓN N°009022-2024/DSD-INDECOPI del  26MAR2024; es una estrategia educativa y de desarrollo personal que se centra en ayudar a 
-                    las personas a alcanzar sus metas y objetivos a través de la autoevaluación, la motivación y la acción, empleando técnicas de estudio para 
-                    mejorar la memoria y la retención de información a través de la creación de asociación de palabras en preguntas y respuestas, estas palabras 
-                    deben ser significativas y fáciles de visualizar. Este método es efectivo porque apela a la imaginación y a la creatividad, facilitando que tu 
-                    cerebro recuerde la información de manera más efectiva. Este método se adapta según tus necesidades y preferencias que estés intentando 
-                    recordar.
-                    </p>
-                    <div className="mt-11 justify-center sm:flex">
-                        <Link className="h-[52px] px-8 py-2 text-sm leading-9 cursor-pointer rounded-[50px] text-center font-medium text-white bg-gradient-to-t from-[#d4ecef] to-[#00a5be] m-3 block sm:inline-block" href="/contactanos">Cotiza con nosotros</Link>
-                        <a className="h-[52px] px-8 text-sm leading-9 relative rounded-[50px] border border-cyan-500 bg-transparent py-[7px] text-center capitalize text-gray-900 font-medium m-3 block min-w-[160px] sm:inline-block" href="/blog">Nuestro blog</a>
+        <div className="flex flex-col bg-white">
+            <div className="">
+                <div className="mt-6 mx-5 lg:mx-28 text-center">
+                    <div className="mx-auto px-3 max-w-full my-10 md:my-20">
+                        <h1 className="mb-5 mt-8 text-2xl lg:text-4xl font-bold leading-tight text-button">Sobre PONTE 100</h1>
+                        <p className="text-justify text-primary">
+                            El método de estudio PONTE 100® es una estrategia educativa diseñada para ayudar a las personas a alcanzar sus metas y objetivos.
+                            A través de la autoevaluación y la motivación, este método emplea técnicas de estudio que mejoran la memoria y la retención de la información.
+                            Utiliza la asociación de palabras en preguntas y respuestas de manera significativa y fácil de visualizar, facilitando así el proceso de aprendizaje.
+                            Este método esta registrado en INDECOPI, está protegido por derechos de autor mediante RESOLUCIÓN N°3094-2023/DDA-INDECOPI, del 20DIC23. También cuenta
+                            con un registro de signos distintivos, certificado con el registro N°00154860, y la resolución N°009022-2024/DSD-INDECOPI, del 26MAR2024.
+                        </p>
                     </div>
                 </div>
             </div>
-        </section>
-    );
-}
-
-function Gallery() {
-    return (
-        <section className="py-16">
-            <div className="mx-auto px-3 max-w-[1202px]">
-                <div className="flex flex-wrap justify-center text-center">
-                    <div className="w-[66.67%]">
-                        <h2 className="text-3xl lg:text-[2.41rem] font-serif font-bold leading-tight text-gray-900">Empezamos un simple objetivo: Hacer de tu piso mas reluciente</h2>
-                    </div>
-                </div>
-                <div className="flex flex-wrap mt-2.5">
-                    <div className="md:w-1/2 px-4">
-                        <div className="relative mt-8">
-                            <Image className="w-full object-cover" width="480" height="328" src="assets/nosotros/img1.png" alt="" />
-                        </div>
-                        <div className="relative mt-8">
-                            <Image className="w-full object-cover" width="480" height="274" src="assets/nosotros/img2.png" alt="" />
-                            <Image className="absolute -bottom-5 -left-5 -z-[1] h-16 w-16" src="assets/shape-2.png" alt="" />
-                        </div>
-                    </div>
-                    <div className="md:w-1/2 px-4">
-                        <div className="relative mt-8">
-                            <Image className="w-full object-cover" width="480" height="540" src="assets/nosotros/img3.png" alt="" />
-                            <Image className="absolute -bottom-4 -right-5 -z-[1] h-16 w-16" src="assets/shape.png" alt="" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        </div>
     );
 }
 
 function Work() {
     return (
-        <section className="py-16">
-            <div className="mx-auto px-3 max-w-[1202px]">
-                <div className="lg:flex lg:flex-wrap items-center justify-between">
-                    <div className=" md:w-[41.67%]">
-                        <h2 className="text-center md:text-left text-[30px] lg:text-[2.41rem] font-bold font-serif leading-tight">
-                            Nuestros 6 puntos claves <br />
-                            de nuestra empresa
-                        </h2>
-                    </div>
-                    <div className="mt-6 text-center md:w-1/4 md:mt-0 md:text-right">
-                        <a className="inline-block h-[52px] px-8 py-3 text-sm leading-9 cursor-pointer rounded-[50px] text-center font-medium text-white bg-gradient-to-t from-[#d4ecef] to-[#00a5be]" href="#">Visita Nuestro Blog</a>
-                    </div>
-                </div>
-                <div className="flex flex-wrap mt-14">
-                    <div className="px-4 mb-8 sm:w-1/20 lg:w-[33.33%]">
-                        <div className="rounded-xl bg-white p-6 shadow-lg lg:p-8">
-                            <div className="gradient-number relative inline-block">
-                                <span className="bg-clip-text font-sans text-4xl font-bold leading-none text-transparent bg-gradient-to-t from-start to-end absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">01</span>
-                                <Image src="assets/gradient-number-bg.png" height={90} width={90} alt="" />
+        <div className="flex flex-col bg-white">
+            <div>
+                <div className="mx-5 lg:mx-28 text-center">
+                    <div className="mx-auto px-3 max-w-full">
+                        <div>
+                            <div className="bg-button rounded-2xl">
+                                <div className="flex flex-col-reverse lg:flex-row items-center justify-center">
+                                    <div className="x:w-1/2 w-full text-left px-10 py-5">
+                                        <h2 className="text-white font-bold text-lg x:text-3xl">
+                                            "Impulsamos el aprendizaje con neurociencia para que todos puedan alcanzar su máximo potencial."
+                                        </h2>
+                                        <div className=" text-white px-6 py-3 mt-6 rounded-lg">
+                                            <a
+                                                href="#contactanos"
+                                                className="border-2 border-white text-white px-6 py-3 mt-6 rounded-lg inline-block"
+                                            >
+                                                Contáctanos
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div className="x:w-1/2 w-full">
+                                        <div
+                                            className="w-full h-[200px] md:h-[320px] lg:h-[230px] xl:h-[400px] bg-cover bg-center rounded-t-2xl lg:rounded-t-none lg:rounded-br-2xl lg:rounded-tr-2xl"
+                                            style={{ backgroundImage: `url('/images/nosotros/equipo.png')` }}
+                                        ></div>
+
+                                    </div>
+                                </div>
                             </div>
-                            <h4 className="my-6 text-2xl font-bold leading-tight text-gray-900">Experiencia</h4>
-                            <p className="text-gray-500">
-                                Contamos con una sólida experiencia en este campo. La pericia técnica y el conocimiento profundo del proceso de pulido son esenciales para lograr resultados de alta calidad en nuestro servicio.
-                            </p>
-                        </div>
-                    </div>
-                    <div className="px-4 mb-8 sm:w-1/20 lg:w-[33.33%]">
-                        <div className="rounded-xl bg-white p-6 shadow-lg lg:p-8">
-                            <div className="gradient-number relative inline-block">
-                                <span className="bg-clip-text font-sans text-4xl font-bold leading-none text-transparent bg-gradient-to-t from-start to-end absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">02</span>
-                                <Image src="assets/gradient-number-bg.png" height={90} width={90} alt="" />
-                            </div>
-                            <h4 className="my-6 text-2xl font-bold leading-tight text-gray-900">Equipamento</h4>
-                            <p className="text-gray-500">
-                                Adoptamos tecnología y herramientas modernas para garantizar un pulido eficiente y de alta precisión e invertimos en equipos avanzados demostrando un compromiso con la excelencia en sus servicios.
-                            </p>
-                        </div>
-                    </div>
-                    <div className="px-4 mb-8 sm:w-1/20 lg:w-[33.33%]">
-                        <div className="rounded-xl bg-white p-6 shadow-lg lg:p-8">
-                            <div className="gradient-number relative inline-block">
-                                <span className="bg-clip-text font-sans text-4xl font-bold leading-none text-transparent bg-gradient-to-t from-start to-end absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">03</span>
-                                <Image src="assets/gradient-number-bg.png" height={90} width={90} alt="" />
-                            </div>
-                            <h4 className="my-6 text-2xl font-bold leading-tight text-gray-900">Innovacion</h4>
-                            <p className="text-gray-500">
-                                Ofrecemos una gama completa de servicios relacionados, como sellado, abrillantado y restauración de pisos de granito,etc proporcionando soluciones integrales para el mantenimiento de superficies de piedra.
-                            </p>
-                        </div>
-                    </div>
-                    <div className="px-4 mb-8 sm:w-1/20 lg:w-[33.33%]">
-                        <div className="rounded-xl bg-white p-6 shadow-lg lg:p-8">
-                            <div className="gradient-number relative inline-block">
-                                <span className="bg-clip-text font-sans text-4xl font-bold leading-none text-transparent bg-gradient-to-t from-start to-end absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">04</span>
-                                <Image src="assets/gradient-number-bg.png" height={90} width={90} alt="" />
-                            </div>
-                            <h4 className="my-6 text-2xl font-bold leading-tight text-gray-900">Excelencia</h4>
-                            <p className="text-gray-500">
-                                Utilizamos productos de calidad en el proceso de pulido y acabado. Seleccionamos cuidadosamente los productos que a futuro demuestran un compromiso con resultados duraderos y una buena satisfacción del cliente en el servicio.
-                            </p>
-                        </div>
-                    </div>
-                    <div className="px-4 mb-8 sm:w-1/20 lg:w-[33.33%]">
-                        <div className="rounded-xl bg-white p-6 shadow-lg lg:p-8">
-                            <div className="gradient-number relative inline-block">
-                                <span className="bg-clip-text font-sans text-4xl font-bold leading-none text-transparent bg-gradient-to-t from-start to-end absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">05</span>
-                                <Image src="assets/gradient-number-bg.png" height={90} width={90} alt="" />
-                            </div>
-                            <h4 className="my-6 text-2xl font-bold leading-tight text-gray-900">Buen Servicio</h4>
-                            <p className="text-gray-500">
-                                Brindamos un excelente servicio al cliente , desde la consulta inicial hasta la finalización del proyecto. Oimos las necesidades específicas del cliente y brindamos soluciones personalizadas creando reputación y lealtad del cliente.
-                            </p>
-                        </div>
-                    </div>
-                    <div className="px-4 mb-8 sm:w-1/20 lg:w-[33.33%]">
-                        <div className="rounded-xl bg-white p-6 shadow-lg lg:p-8">
-                            <div className="gradient-number relative inline-block">
-                                <span className="bg-clip-text font-sans text-4xl font-bold leading-none text-transparent bg-gradient-to-t from-start to-end absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">06</span>
-                                <Image src="assets/gradient-number-bg.png" height={90} width={90} alt="" />
-                            </div>
-                            <h4 className="my-6 text-2xl font-bold leading-tight text-gray-900">Responsbilidad</h4>
-                            <p className="text-gray-500">
-                            Cuidamos el medio ambiente adoptando de prácticas sostenibles, como el uso de productos ecológicos y la minimización de residuos, puede ser un diferenciador clave en la elección de los clientes conscientes del medio ambiente.
-                            </p>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    );
+}
+
+function PostWork() {
+    const arrayUno = [
+        {
+            char: "P",
+            title: "Planeación",
+            concept: "Planea tu sesión con objetivos claros. Organiza tu tiempo de forma efectiva para lograr más con menos esfuerzo.",
+        },
+        {
+            char: "O",
+            title: "Organización",
+            concept: "Organiza tu material con esquemas y herramientas visuales que te ayuden a entender y recordar mejor.",
+        },
+        {
+            char: "N",
+            title: "Neuro Aprendizaje",
+            concept: "Aplica principios de neurociencia: alterna temas, practica lo aprendido y reduce el estrés para aprender mejor.",
+        },
+        {
+            char: "T",
+            title: "Tecnología",
+            concept: "Aprovecha las herramientas tecnologicas y recursos digitales para practicar y repasar.",
+        },
+        {
+            char: "E",
+            title: "Evalúate",
+            concept: "Evalúa continuamente tu progreso con autoevaluaciones y pruebas para mejorar y ajustar tu estudio.",
+        },
+        {
+            char: "100",
+            title: "100%",
+            concept: "Da tu 100% en cada sesión con constancia y motivación para alcanzar tus objetivos.",
+        },
+    ]
+    return (
+        <div className="flex flex-col bg-gray5 -mt-40 pt-40">
+            <div>
+                <div className="mx-5 lg:mx-28 text-center">
+                    <div className="mx-auto px-3 max-w-full">
+                        <div>
+                            <div className="py-16">
+                                <div className="text-xl lg:text-4xl font-bold text-secondary pb-10">
+                                    ¿Por qué PONTE 100?
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-6 gap-8">
+                                    {arrayUno.map((object, i) => (
+                                        <div key={i} className="flex flex-col items-center text-center">
+                                            <div className="w-16 h-16 bg-secondary text-terciary rounded-full flex items-center justify-center mb-4 text-2xl font-bold">
+                                                {object.char}
+                                            </div>
+                                            <h3 className="text-base font-bold mb-2 text-button">{object.title}</h3>
+                                            <p className="text-gray2 text-center">{object.concept}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 }
 
 function Members() {
+    const arrayMembers = [
+        {
+            profile: "/images/avatar-1.png",
+            testimonio: "Bachiller en Ingeniería de Sistemas, desarrollador de software, administrador de redes, ciberseguridad, analista de datos y consultor tecnológico, con experiencia en el sector privado.",
+            nombre: "Rahamsis, Correa Gamarra"
+        },
+        {
+            profile: "/images/avatar-2.png",
+            testimonio: "Licenciado en Eduación y administración, creador del método de estudio Ponte 100, docente calificado en formación continua, con amplia experiencia en el sector educativo policial.",
+            nombre: "Guillermo, Vasquez  Manco"
+        },
+        {
+            profile: "/images/avatar-3.png",
+            testimonio: "Licenciado en Comunicaciones e Imagen Empresarial, creador de contenidos digitales y redes sociales con experiencia en marketing digital, en el sector público y privado.",
+            nombre: "Miguel, Vasquez Peña"
+        }
+    ]
     return (
-        <section className="py-16">
-            <div className="mx-auto px-3 max-w-[1202px]">
-                <div className="flex flex-wrap">
-                    <div className="mx-auto text-center lg:w-1/2">
-                        <h2 className="text-[30px] lg:text-[2.41rem] font-serif font-bold leading-tight text-gray-900">Este es nuestro equipo de trabajo</h2>
-                        <p className="mt-4 text-gray-500">
-                            Personas decdicadas al servicio brindado con alta experiencia en el rubro
-                        </p>
-                    </div>
-                </div>
-                <div className="lg:flex lg:flex-wrap mt-12 justify-center">
-                    <div className="lg:w-[83.34%]">
-                        <div className="lg:flex lg:flex-wrap">
-                            <div className="mb-6 flex flex-col px-6 text-center sm:w-1/2 lg:w-[33.33%] sm:items-center">
-                                <div className="member-avatar inline-flex justify-center">
-                                    <Image className="rounded-full h-28 w-28" src="assets/users/user-1.png" alt="" />
+        <div className="flex flex-col bg-white pb-9 lg:pb-16">
+            <div>
+                <div className="mx-5 lg:mx-28 text-center">
+                    <div className="mx-auto px-3 max-w-full">
+                        <div>
+                            <div className="py-16">
+                                <div className="text-xl lg:text-4xl font-bold text-button pb-10">
+                                    Conoce al equipo detrás del método PONTE 100®
                                 </div>
-                                <div className="mt-6 w-full flex-1 rounded-xl bg-white py-8 px-4 shadow-lg">
-                                    <h5 className="font-sans text-xl font-bold leading-tight text-gray-900">Eleanor Pena</h5>
-                                    <p className="mt-1.5 text-gray-500">Co-founder &amp; COO</p>
+                                <div className="pb-14 mx-auto">
+                                    <p className="text-primary mx-20 text-lg lg:text-xl font-medium">
+                                        Somos un equipo multidisciplinario en Ponte 100, comprometido con transformar la educación usando neurociencia, motivación y
+                                        estrategias efectivas de aprendizaje.
+                                    </p>
                                 </div>
-                            </div>
-                            <div className="mb-6 flex flex-col px-6 text-center sm:w-1/2 lg:w-[33.33%] sm:items-center">
-                                <div className="member-avatar inline-flex justify-center">
-                                    <Image className="rounded-full h-28 w-28" src="assets/users/user-2.png" alt="" />
-                                </div>
-                                <div className="mt-6 w-full flex-1 rounded-xl bg-white py-8 px-4 shadow-lg">
-                                    <h5 className="font-sans text-xl font-bold leading-tight text-gray-900">Savannah Nguyen</h5>
-                                    <p className="mt-1.5 text-gray-500">Head of Infrastructure</p>
-                                </div>
-                            </div>
-                            <div className="mb-6 flex flex-col px-6 text-center sm:w-1/2 lg:w-[33.33%] sm:items-center">
-                                <div className="member-avatar inline-flex justify-center">
-                                    <Image className="rounded-full h-28 w-28" src="assets/users/user-3.png" alt="" />
-                                </div>
-                                <div className="mt-6 w-full flex-1 rounded-xl bg-white py-8 px-4 shadow-lg">
-                                    <h5 className="font-sans text-xl font-bold leading-tight text-gray-900">Courtney Henry</h5>
-                                    <p className="mt-1.5 text-gray-500">Head of Brand Marketing</p>
-                                </div>
-                            </div>
-                            <div className="mb-6 flex flex-col px-6 text-center sm:w-1/2 lg:w-[33.33%] sm:items-center">
-                                <div className="member-avatar inline-flex justify-center">
-                                    <Image className="rounded-full h-28 w-28" src="assets/users/user-4.png" alt="" />
-                                </div>
-                                <div className="mt-6 w-full flex-1 rounded-xl bg-white py-8 px-4 shadow-lg">
-                                    <h5 className="font-sans text-xl font-bold leading-tight text-gray-900">Floyd Miles</h5>
-                                    <p className="mt-1.5 text-gray-500">Head of Infrastructure</p>
-                                </div>
-                            </div>
-                            <div className="mb-6 flex flex-col px-6 text-center sm:w-1/2 lg:w-[33.33%] sm:items-center">
-                                <div className="member-avatar inline-flex justify-center">
-                                    <Image className="rounded-full h-28 w-28" src="assets/users/user-5.png" alt="" />
-                                </div>
-                                <div className="mt-6 w-full flex-1 rounded-xl bg-white py-8 px-4 shadow-lg">
-                                    <h5 className="font-sans text-xl font-bold leading-tight text-gray-900">Robert Fox</h5>
-                                    <p className="mt-1.5 text-gray-500">Head of Product Design</p>
-                                </div>
-                            </div>
-                            <div className="mb-6 flex flex-col px-6 text-center sm:w-1/2 lg:w-[33.33%] sm:items-center">
-                                <div className="member-avatar inline-flex justify-center">
-                                    <Image className="rounded-full h-28 w-28" src="assets/users/user-6.png" alt="" />
-                                </div>
-                                <div className="mt-6 w-full flex-1 rounded-xl bg-white py-8 px-4 shadow-lg">
-                                    <h5 className="font-sans text-xl font-bold leading-tight text-gray-900">Darrell Steward</h5>
-                                    <p className="mt-1.5 text-gray-500">Head of People &amp; HR</p>
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                    {arrayMembers.map((object, i) => (
+                                        <div key={i} className="flex flex-col items-center text-center bg-white p-4 rounded-2xl shadow-lg">
+                                            <div>
+                                                <Image
+                                                    src={object.profile}
+                                                    alt="Avatar"
+                                                    width={200}
+                                                    height={100}
+                                                    className="transition-opacity duration-1000 ease-in-out"
+                                                />
+                                            </div>
+                                            <div className="py-8 text-primary font-medium">
+                                                {object.testimonio}
+                                            </div>
+                                            <div className="text-primary font-bold">
+                                                {object.nombre}
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     );
 }
 
@@ -248,12 +193,9 @@ export default function Nosotros() {
     return (
         <React.Fragment>
             <CommonHero />
-
-            {/* <Gallery /> */}
-
-            {/* <Work /> */}
-
-            {/* <Members /> */}
+            <Work />
+            <PostWork />
+            <Members />
         </React.Fragment>
     );
 }

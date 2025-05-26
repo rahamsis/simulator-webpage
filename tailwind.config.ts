@@ -8,31 +8,39 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundColor:{
+      backgroundColor: {
         'theme-light/50': 'rgb(229 229 229 / 0.5)',
         'nav-dropdown': 'rgb(254 96 25 / 0.05)',
         'theme-light': 'rgb(229 229 229 / 1)',
         'btn-featured-post': '#E1FAF8',
-        chat: '#FAFAFA'
+        chat: '#FAFAFA',
+        postbanner: "#F9F9FF"
       },
       backgroundImage: {
-        'arrowDown': "url('/assets/descarga.svg')"
+        'equipo': "url('/images/nosotros/equipo.png')"
       },
       backgroundSize: {
         '1-5': '1.5rem 1.5rem',
       },
       colors: {
-        primary: "#00040f",
-        secondary: "#00f6ff",
+        primary: "#092C4C",
+        secondary: "#01816E",
+        terciary: "#DBE64C",
+        lightgreen: "#75C568",
+        gray5: "#F6F8ED",
+        gray2: "#333333",
+        button2: "#1A9C51",
+        button: "#10439C",
         whatsapp: '#0df053',
-        start: '#d4ecef', 
-        end: '#00a5be'
+        start: '#d4ecef',
+        end: '#00a5be',
+
       },
       fontFamily: {
         poppins: ["Roboto", "sans-serif"],
         primaSans: ["sans-serif"],
       },
-      borderColor:{
+      borderColor: {
         'primary/50': "rgb(254 96 25 / 0.5)"
       },
       fontWeight: {
@@ -57,7 +65,7 @@ const config: Config = {
       lineHeight: {
         '1': '1',
       },
-    }, 
+    },
     screens: {
       "xxs": "280px",
       "xs": "320px",

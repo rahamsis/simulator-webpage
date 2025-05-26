@@ -3,36 +3,43 @@ import Image from "next/image";
 
 function Footer3() {
   return (
-    <footer className="bg-gray-800 text-white">
-      <div className="container mx-auto py-8 px-4">
+    <footer className="bg-black text-white">
+      <div className="container mx-auto py-12 px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="text-lg font-semibold mb-4">
-              <div className="flex text-2xl">PONTE100
-                <span className=" top-0  text-base">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-r-circle" viewBox="0 0 16 16">
-                    <path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.5 4.002h3.11c1.71 0 2.741.973 2.741 2.46 0 1.138-.667 1.94-1.495 2.24L11.5 12H9.98L8.52 8.924H6.836V12H5.5zm1.335 1.09v2.777h1.549c.995 0 1.573-.463 1.573-1.36 0-.913-.596-1.417-1.537-1.417z" />
-                  </svg>
-                </span>
+            <div>
+              <h3 className="text-lg font-semibold">
+                <div className="flex text-2xl">PONTE100
+                  <span className=" top-0  text-base">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-r-circle" viewBox="0 0 16 16">
+                      <path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.5 4.002h3.11c1.71 0 2.741.973 2.741 2.46 0 1.138-.667 1.94-1.495 2.24L11.5 12H9.98L8.52 8.924H6.836V12H5.5zm1.335 1.09v2.777h1.549c.995 0 1.573-.463 1.573-1.36 0-.913-.596-1.417-1.537-1.417z" />
+                    </svg>
+                  </span>
+                </div>
+              </h3>
+              <p className="text-white text-xs">MÉTODO DE ESTUDIO</p>
+            </div>
+            <div>
+              <div className="pt-6 text-white hidden md:block">
+                <p>&copy; {new Date().getFullYear()} Ponte100. Todos los derechos reservados.</p>
               </div>
-            </h3>
-            <p className="text-gray-400">Educación de calidad para todos.</p>
+            </div>
           </div>
           <div>
-            <h3 className="text-lg font-semibold mb-4">Enlaces Rápidos</h3>
+            <h3 className="text-lg font-semibold mb-4">Product</h3>
             <ul className="space-y-2">
               {/* <li>
-                <Link href="/actividades" className="text-gray-400 hover:text-white">
+                <Link href="/actividades" className="text-white hover:text-white">
                   Actividades Académicas
                 </Link>
               </li> */}
               <li>
-                <Link href="/nosotros" className="text-gray-400 hover:text-white">
+                <Link href="/nosotros" className="text-white hover:text-white">
                   Sobre Nosotros
                 </Link>
               </li>
               <li>
-                <Link href="/contactanos" className="text-gray-400 hover:text-white">
+                <Link href="/contactanos" className="text-white hover:text-white">
                   Contacto
                 </Link>
               </li>
@@ -40,12 +47,12 @@ function Footer3() {
           </div>
           <div className="relative">
             <h3 className="text-lg font-semibold mb-4">Contacto</h3>
-            <p className="text-gray-400">Email: info@ponte100.com</p>
-            <a className="text-gray-400" href="tel:+51933123949">Teléfono: +51 933 123 949</a>
-            {/* <p className="text-gray-400" >juegos xd</p> */}
+            <p className="text-white">Email: info@ponte100.com</p>
+            <a className="text-white" href="tel:+51933123949">Teléfono: +51 933 123 949</a>
+            {/* <p className="text-white" >juegos xd</p> */}
           </div>
         </div>
-        <div className="mt-8 pt-8 border-t border-gray-700 text-center text-gray-400">
+        <div className="mt-8 pt-8 border-t border-gray-700 text-center text-white lg:hidden">
           <p>&copy; {new Date().getFullYear()} Ponte100. Todos los derechos reservados.</p>
         </div>
       </div>

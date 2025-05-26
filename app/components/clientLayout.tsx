@@ -63,7 +63,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
       {isLandingPage ? <HeaderLanding /> : session ? <HeaderAuth /> : <HeaderLanding />}
       {/* {session?.activeSession == true ? <HeaderAuth /> : <HeaderLanding />} */}
       <main className="flex-1">
-        <Bubbles />
+        {/* <Bubbles /> */}
         {children}
       </main>
       <Footer />

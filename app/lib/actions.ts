@@ -1,6 +1,7 @@
 'use server';
 
-import { z } from 'zod';
+import { number, string, z } from 'zod';
+
 export async function createAccount(prevState: {
     errors?: {
         username?: string[];
@@ -485,4 +486,25 @@ export async function fetchQuestionToTaller(index: number, limit: number, offset
     }
 }
 
+export async function getFormToken(amount: number, orderId: string) {
+    try {
+        console.log('Creating payment intent with amount:', amount, 'and orderId:', orderId);
+        const response = await fetch(`${process.env.APP_BACK_END}/payment/form-token`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ amount, orderId }),
+        });
+
+        if (!response.ok) throw new Error('No se pudo obtener el form token');
+
+        const data = await response.json();
+        console.log('Payment Intent:', data);
+        return data;
+
+    } catch (error) {
+        console.error('Error al crear el pago (createPaymentIntent):', error);
+    }
+}
 
