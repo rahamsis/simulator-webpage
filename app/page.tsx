@@ -136,7 +136,7 @@ const Main = () => {
         }, 7000)
 
         return () => clearInterval(interval)
-    }, [])
+    }, [nextSlide])
     // Fin de la seccion del carrusel de usuarios
 
     // Inicio del carrusel de ceremonias

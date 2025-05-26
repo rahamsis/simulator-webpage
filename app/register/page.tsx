@@ -229,7 +229,7 @@ export default function RegistroForm() {
             addressForm.setValue("codigoPostal", userData.codigoPostal || "");
             addressForm.setValue("provincia", userData.provincia || "");
         }
-    }, [userData, personalForm, credentialsForm]);
+    }, [userData, personalForm, credentialsForm, addressForm]);
 
     // Manejar la selección de imagen
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -394,7 +394,7 @@ export default function RegistroForm() {
     }
 
     // Mostrar un spinner o mensaje de carga mientras se obtienen los datos
-    if (loading) return <p className="text-center text-gray-500 pt-10">Cargando ...</p>;;
+    if (loading) return <p className="text-center text-gray-500 pt-10">Cargando ...</p>
 
     return (
         // hacerlo vicible al inicio y despues ocultarlo

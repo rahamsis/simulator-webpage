@@ -34,7 +34,7 @@ function Work() {
                                 <div className="flex flex-col-reverse lg:flex-row items-center justify-center">
                                     <div className="x:w-1/2 w-full text-left px-10 py-5">
                                         <h2 className="text-white font-bold text-lg x:text-3xl">
-                                            "Impulsamos el aprendizaje con neurociencia para que todos puedan alcanzar su máximo potencial."
+                                            &quot;Impulsamos el aprendizaje con neurociencia para que todos puedan alcanzar su máximo potencial.&quot;
                                         </h2>
                                         <div className=" text-white px-6 py-3 mt-6 rounded-lg">
                                             <a
