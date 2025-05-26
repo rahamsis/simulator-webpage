@@ -101,6 +101,9 @@ const Main = () => {
         },
         {
             imagen: "/images/ceremonia/imagen5.png"
+        },
+        {
+            imagen: "/images/ceremonia/imagen6.png"
         }
     ]
 
@@ -132,11 +135,11 @@ const Main = () => {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            nextSlide()
+            setCurrentIndexUser((prevIndex) => (prevIndex + 1) % arrayUsers.length)
         }, 7000)
 
         return () => clearInterval(interval)
-    }, [nextSlide])
+    }, [])
     // Fin de la seccion del carrusel de usuarios
 
     // Inicio del carrusel de ceremonias
@@ -272,7 +275,7 @@ const Main = () => {
                                             className={`transition-opacity duration-700 absolute top-0 left-0 w-full ${i === current ? 'opacity-100 relative' : 'opacity-0'
                                                 }`}
                                         >
-                                            <div className="flex flex-col bg-white rounded-xl items-start p-6 mx-4 text-left shadow-lg">
+                                            <div className="flex flex-col bg-white rounded-xl items-start p-6 mx-4 text-left shadow-lg h-80">
                                                 <div className="rounded-lg">
                                                     <Image
                                                         src={object.imagen}
@@ -511,7 +514,6 @@ const Main = () => {
                             {/* Carrusel */}
                             <div className="flex flex-col lg:flex-col pt-16 mx-4 relative w-full items-center">
                                 <div className="w-full flex flex-col-reverse lg:flex-row justify-center items-center">
-
                                     <div className="pt-5 lg:hidden">
                                         <p className="text-white font-bold">
                                             {arrayUsers[currentIndexUser].name}
@@ -533,7 +535,7 @@ const Main = () => {
                                     <div className="w-full lg:w-3/4 md:pl-8">
                                         <div className="relative">
                                             <div className="space-y-4 text-center">
-                                                <p className="text-sm lg:text-xl text-white text-justify transition-all duration-1000 ease-in-out">
+                                                <p className="text-sm lg:text-xl text-white text-justify transition-all duration-1000 ease-in-out h-32 lg:h-full">
                                                     {arrayUsers[currentIndexUser].message}
                                                 </p>
                                             </div>
@@ -545,9 +547,10 @@ const Main = () => {
                                         </div>
                                     </div>
                                 </div>
+
                                 <div className="w-full">
-                                    <div className="w-1/4">
-                                    </div>
+                                    <div className="w-1/4"></div>
+
                                     {/* Avatares fijos con opacidad */}
                                     <div className="hidden w-3/4 float-right lg:block">
                                         <div className="grid grid-cols-5 gap-6 pt-10 justify-center">
@@ -558,14 +561,14 @@ const Main = () => {
                                                         alt={object.name}
                                                         width={60}
                                                         height={60}
-                                                        className={`rounded-full transition-opacity duration-500 ${i === currentIndexUser ? 'opacity-100' : 'opacity-30'
+                                                        className={`rounded-full transition-opacity duration-500 ${i === currentIndexUser ? "opacity-100" : "opacity-30"
                                                             }`}
                                                     />
                                                     <p
-                                                        className={`text-sm text-white mt-2 ${i === currentIndexUser ? 'font-bold' : 'opacity-50'
+                                                        className={`text-sm text-white mt-2 ${i === currentIndexUser ? "font-bold" : "opacity-50"
                                                             }`}
                                                     >
-                                                        {object.name.split(',')[0]}
+                                                        {object.name.split(",")[0]}
                                                     </p>
                                                 </div>
                                             ))}
@@ -598,6 +601,7 @@ const Main = () => {
                     </div>
                 </section>
 
+                {/* Ceremonia de ascenso */}
                 <section className="bg-white">
                     <div className="py-10 md:mx-28 max-w-full">
                         <div>
@@ -624,8 +628,8 @@ const Main = () => {
                                 <Image
                                     src={item.imagen}
                                     alt={`Imagen ${index + 1}`}
-                                    width={800}
-                                    height={500}
+                                    width={300}
+                                    height={200}
                                     className="w-full h-auto object-cover"
                                 />
                             </div>
