@@ -486,25 +486,61 @@ export async function fetchQuestionToTaller(index: number, limit: number, offset
     }
 }
 
-export async function getFormToken(amount: number, orderId: string) {
+interface FormDataToPay {
+    nombre: string;
+    apellidos: string;
+    email: string;
+    telefono: string;
+    identityType: string;
+    identityCode: string;
+    direccion: string;
+    provincia: string;
+    codigoPostal: string;
+    departamento: string;
+    nombreProducto: string;
+    precio: number;
+}
+
+export async function getFormToken(formData: FormDataToPay, token: string) {
     try {
-        console.log('Creating payment intent with amount:', amount, 'and orderId:', orderId);
-        const response = await fetch(`${process.env.APP_BACK_END}/payment/form-token`, {
-            method: 'POST',
+        console.log('Creating payment intent with amount:');
+        const totalEnCentimos = formData.precio * 100;
+        // Enviar al backend para crear el cargo con el token
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/culqi/charge`, {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json"
             },
-            body: JSON.stringify({ amount, orderId }),
+            body: JSON.stringify({
+                token: token,
+                email: formData.email,
+                amount: totalEnCentimos,
+                producto: formData.nombreProducto,
+                cliente: {
+                    nombre: formData.nombre,
+                    apellidos: formData.apellidos,
+                    telefono: formData.telefono,
+                    direccion: formData.direccion,
+                    departamento: formData.departamento,
+                    provincia: formData.provincia,
+                    codigoPostal: formData.codigoPostal,
+                    identityType: formData.identityType,
+                    identityCode: formData.identityCode
+                }
+            })
         });
 
-        if (!response.ok) throw new Error('No se pudo obtener el form token');
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error('Error en el backend:', errorData);
+            throw new Error('No se pudo procesar el cargo con Culqi');
+        }
 
         const data = await response.json();
-        console.log('Payment Intent:', data);
+        console.log('Respuesta del servidor:', data);
         return data;
 
     } catch (error) {
         console.error('Error al crear el pago (createPaymentIntent):', error);
     }
 }
-

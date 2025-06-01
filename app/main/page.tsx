@@ -1,12 +1,6 @@
 'use client'
 
-import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
-import { Tab, TabPanel, TabList, Tabs } from "react-tabs";
-
 function Principal() {
-    const [tabIndex, setTabIndex] = useState(0);
 
     return (
         <>

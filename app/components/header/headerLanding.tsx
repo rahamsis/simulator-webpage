@@ -66,7 +66,8 @@ const HeaderLanding = () => {
                         </div>
 
                         <div className="overflow-hidden ml-2">
-                            <span className={` font-bold text-2xl md:text-4xl text-green-800 font-sans inline-block transition-transform duration-300 ease-in-out ${scrolled ? "-translate-x-full" : "translate-x-0"}`}>
+                            {/* <span className={` font-bold text-2xl md:text-4xl text-green-800 font-sans inline-block transition-transform duration-300 ease-in-out ${scrolled ? "-translate-x-full" : "translate-x-0"}`}> */}
+                            <span className={` font-bold text-2xl md:text-4xl text-green-800 font-sans inline-block transition-transform duration-300 ease-in-out`}>
                                 <div className="flex">PONTE100
                                     <span className=" top-0  text-base">
                                         {deviceType === "celular" ?

@@ -1,6 +1,7 @@
 'use client'
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 const Main = () => {
 
@@ -107,6 +108,39 @@ const Main = () => {
         }
     ]
 
+    const fases = [
+        {
+            numero: "1",
+            titulo: "Reconocimiento",
+            descripcion: "Lee con atención cada pregunta e identifica las palabras clave. Este paso ayudará a concentrarte.",
+            imagen: "/images/fases/fase1.png"
+        },
+        {
+            numero: "2",
+            titulo: "Registro",
+            descripcion: "Subraya con un lápiz y comienza el patrón visual.",
+            imagen: "/images/fases/fase2.png"
+        },
+        {
+            numero: "3",
+            titulo: "Grabación",
+            descripcion: "Después de 5 minutos, el estudiante debe marcar con resaltador amarillo y fortalecer la memoria.",
+            imagen: "/images/fases/fase3.png"
+        },
+        {
+            numero: "4",
+            titulo: "Sincrograbación",
+            descripcion: "Después de 5 minutos, el estudiante debe marcar con un resaltador verde para reafirma conexiones neuronales.",
+            imagen: "/images/fases/fase4.png"
+        },
+        {
+            numero: "5",
+            titulo: "Comprobación",
+            descripcion: "Mide tu aprendizaje con el simulador",
+            imagen: "/images/fases/fase5.png"
+        }
+    ]
+
     // Inicio del carrusel de fundamentos cientificos
     const [current, setCurrent] = useState(0);
     const total = arrayFundamento.length;
@@ -142,6 +176,24 @@ const Main = () => {
     }, [])
     // Fin de la seccion del carrusel de usuarios
 
+    // Inicio de las fases del método
+    const [faseActive, setFaseActive] = useState(0)
+
+    const nextFase = () => {
+        setFaseActive((prevIndex) => (prevIndex + 1) % fases.length);
+    }
+
+    const prevFase = () => {
+        setFaseActive((prevIndex) =>
+            prevIndex === 0 ? fases.length - 1 : prevIndex - 1
+        )
+    }
+
+    const pushFase = (index: number) => {
+         setFaseActive(index);   
+    }
+    // Fin de las fases del método
+
     // Inicio del carrusel de ceremonias
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -174,8 +226,8 @@ const Main = () => {
                                 <Image
                                     src="/images/home_principal.png"
                                     alt="Landing page builder illustration"
-                                    width={510}
-                                    height={277}
+                                    width={800}
+                                    height={800}
                                     className=""
                                     priority // 🔥 Esto optimiza la carga de la image
                                 />
@@ -221,8 +273,9 @@ const Main = () => {
                                 <Image
                                     src="/images/home_principal.png?height=720&width=1280"
                                     alt="Landing page builder illustration"
-                                    width={1280}
+                                    width={1500}
                                     height={720}
+                                    quality={90}
                                     className=""
                                     priority // 🔥 Esto optimiza la carga de la image
                                 />
@@ -332,9 +385,10 @@ const Main = () => {
                                     <Image
                                         src="/images/actividades1.png"
                                         alt="actividades"
-                                        width={500}
-                                        height={500}
-                                        className="" />
+                                        width={1000}
+                                        height={800}
+                                        quality={90}
+                                        className="w-full h-auto object-contain" />
                                 </div>
                                 <div>
                                     <div className="pt-4">
@@ -350,40 +404,15 @@ const Main = () => {
                             </div>
                             <div className="bg-white p-8 rounded-2xl shadow-md">
                                 <div className="bg-gray5 p-4 mb-4 rounded-3xl">
-                                    <div className="grid grid-cols-2 gap-4">
-                                        {arrayActividades.map((actividad, i) => (
-                                            <div key={i} className="bg-white rounded-lg items-start">
-                                                <div className="p-2">
-                                                    <Image
-                                                        src={actividad.imagen}
-                                                        alt={actividad.titulo}
-                                                        width={25}
-                                                        height={25}
-                                                        className=""
-                                                    ></Image>
-                                                </div>
-                                                <div className="text-left px-2 ">
-                                                    <h3 className="text-[8px] font-semibold">{actividad.titulo}</h3>
-
-                                                </div>
-                                                <div className="flex space-x-4 bg-cover bg-center px-2 ">
-                                                    <div className="flex-grow bg-gray-200 my-1 rounded-full h-1 overflow-hidden">
-                                                        <div
-                                                            className="bg-lightgreen h-full rounded-full transition-all"
-                                                            style={{ width: `${actividad.progress}%` }}
-                                                        ></div>
-                                                    </div>
-                                                </div>
-                                                <div className="flex flex-row justify-between items-center px-2 pb-2">
-                                                    <div className="text-[8px] text-black font-bold">progreso</div>
-                                                    <span className="text-[8px] font-bold">{actividad.progress}%</span>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-
+                                    <Image
+                                        src="/images/actividades3.png"
+                                        alt="actividades"
+                                        width={1000}
+                                        height={800}
+                                        quality={90}
+                                        className="w-full h-1/6 object-contain" />
                                 </div>
-                                <div>
+                                <div className="">
                                     <div className="pt-4">
                                         <label className="bg-secondary px-5 py-2 rounded-3xl text-white">Progreso</label>
                                     </div>
@@ -399,8 +428,9 @@ const Main = () => {
                                     <Image
                                         src="/images/actividades2.png"
                                         alt="actividades"
-                                        width={500}
-                                        height={500}
+                                        width={1000}
+                                        height={800}
+                                        quality={90}
                                         className="" />
                                 </div>
                                 <div>
@@ -416,14 +446,14 @@ const Main = () => {
                             </div>
                             <div className="bg-white p-8 rounded-2xl shadow-md">
                                 <div className="flex flex-row bg-postbanner p-4 mb-4 rounded-3xl">
-                                    <div className="w-2/5 mr-4">
+                                    {/* <div className="w-2/5 mr-4">
                                         {
                                             Array.from({ length: 4 }).map((_, index) => (
                                                 <div key={index} className="flex flex-row bg-white my-2 rounded-lg shadow-md">
                                                     <div className="flex justify-center py-5 text-button px-2">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-file-earmark-pdf-fill" viewBox="0 0 16 16">
                                                             <path d="M5.523 12.424q.21-.124.459-.238a8 8 0 0 1-.45.606c-.28.337-.498.516-.635.572l-.035.012a.3.3 0 0 1-.026-.044c-.056-.11-.054-.216.04-.36.106-.165.319-.354.647-.548m2.455-1.647q-.178.037-.356.078a21 21 0 0 0 .5-1.05 12 12 0 0 0 .51.858q-.326.048-.654.114m2.525.939a4 4 0 0 1-.435-.41q.344.007.612.054c.317.057.466.147.518.209a.1.1 0 0 1 .026.064.44.44 0 0 1-.06.2.3.3 0 0 1-.094.124.1.1 0 0 1-.069.015c-.09-.003-.258-.066-.498-.256M8.278 6.97c-.04.244-.108.524-.2.829a5 5 0 0 1-.089-.346c-.076-.353-.087-.63-.046-.822.038-.177.11-.248.196-.283a.5.5 0 0 1 .145-.04c.013.03.028.092.032.198q.008.183-.038.465z" />
-                                                            <path fill-rule="evenodd" d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2m5.5 1.5v2a1 1 0 0 0 1 1h2zM4.165 13.668c.09.18.23.343.438.419.207.075.412.04.58-.03.318-.13.635-.436.926-.786.333-.401.683-.927 1.021-1.51a11.7 11.7 0 0 1 1.997-.406c.3.383.61.713.91.95.28.22.603.403.934.417a.86.86 0 0 0 .51-.138c.155-.101.27-.247.354-.416.09-.181.145-.37.138-.563a.84.84 0 0 0-.2-.518c-.226-.27-.596-.4-.96-.465a5.8 5.8 0 0 0-1.335-.05 11 11 0 0 1-.98-1.686c.25-.66.437-1.284.52-1.794.036-.218.055-.426.048-.614a1.24 1.24 0 0 0-.127-.538.7.7 0 0 0-.477-.365c-.202-.043-.41 0-.601.077-.377.15-.576.47-.651.823-.073.34-.04.736.046 1.136.088.406.238.848.43 1.295a20 20 0 0 1-1.062 2.227 7.7 7.7 0 0 0-1.482.645c-.37.22-.699.48-.897.787-.21.326-.275.714-.08 1.103" />
+                                                            <path fillRule="evenodd" d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2m5.5 1.5v2a1 1 0 0 0 1 1h2zM4.165 13.668c.09.18.23.343.438.419.207.075.412.04.58-.03.318-.13.635-.436.926-.786.333-.401.683-.927 1.021-1.51a11.7 11.7 0 0 1 1.997-.406c.3.383.61.713.91.95.28.22.603.403.934.417a.86.86 0 0 0 .51-.138c.155-.101.27-.247.354-.416.09-.181.145-.37.138-.563a.84.84 0 0 0-.2-.518c-.226-.27-.596-.4-.96-.465a5.8 5.8 0 0 0-1.335-.05 11 11 0 0 1-.98-1.686c.25-.66.437-1.284.52-1.794.036-.218.055-.426.048-.614a1.24 1.24 0 0 0-.127-.538.7.7 0 0 0-.477-.365c-.202-.043-.41 0-.601.077-.377.15-.576.47-.651.823-.073.34-.04.736.046 1.136.088.406.238.848.43 1.295a20 20 0 0 1-1.062 2.227 7.7 7.7 0 0 0-1.482.645c-.37.22-.699.48-.897.787-.21.326-.275.714-.08 1.103" />
                                                         </svg>
                                                     </div>
                                                     <div className="py-2 px-2 w-full">
@@ -455,7 +485,14 @@ const Main = () => {
                                                 ))
                                             }
                                         </div>
-                                    </div>
+                                    </div> */}
+                                    <Image
+                                        src="/images/actividades4.png"
+                                        alt="actividades"
+                                        width={1000}
+                                        height={800}
+                                        quality={90}
+                                        className="" />
                                 </div>
                                 <div>
                                     <div className="pt-4">
@@ -472,6 +509,71 @@ const Main = () => {
                     </div>
                 </section>
 
+                {/* Fases del metodo */}
+                <section className="bg-white">
+                    <div className="flex flex-row">
+                        <div className="w-full lg:w-1/2 bg-white">
+                            <div className="m-8 lg:m-16">
+                                <h2 className="text-xl lg:text-[40px] md:leading-10 2xl:text-4xl font-bold tracking-tight text-button mb-4 lg:mb-10">Fases del método se estudio</h2>
+                                {
+                                    fases.map((object, i) => (
+                                        <div key={i} className="flex flex-row my-4 text-left items-center">
+                                            <button
+                                            onClick={() => pushFase(i)} 
+                                            className={`${faseActive == i ? "bg-secondary text-terciary" : "bg-gray4 text-gray3"} flex items-center justify-center
+                                                min-w-[40px] min-h-[40px] w-10 h-10 rounded-full font-semibold text-xl aspect-square`}>
+                                                {object.numero}
+                                            </button>
+                                            <div className="ml-4">
+                                                <div className={`${faseActive == i ? "text-secondary" : "text-gray3"} font-bold`}>
+                                                    {object.titulo}
+                                                </div>
+                                                <div className={`${faseActive == i ? "text-primary" : "text-gray3"}`}>
+                                                    {object.descripcion}
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    ))
+                                }
+                            </div>
+                        </div>
+                        <div className="w-1/2 bg-postbanner items-center justify-center hidden lg:block">
+                            <div className="flex flex-col items-center justify-center gap-6 p-8 h-full ">
+                                <div className="h-3/4 content-center">
+                                    <Image
+                                        src={fases[faseActive].imagen}
+                                        alt="Fase 1"
+                                        width={300}
+                                        height={150}
+                                        quality={90}
+                                        className="object-contain"
+                                    />
+                                </div>
+
+                                <div className="flex space-x-4">
+                                    <button
+                                        onClick={prevFase}
+                                        aria-label="Anterior"
+                                        className={`rounded-full ${faseActive == 0 ? "bg-white text-gray3" : "bg-button text-white"} p-3 hover:bg-button-hover focus:outline-none`}
+                                    >
+                                        <ArrowLeft />
+                                    </button>
+                                    <button
+                                        onClick={nextFase}
+                                        aria-label="Siguiente"
+                                        className={`rounded-full ${faseActive == 4 ? "bg-white text-gray3" : "bg-button text-white"} p-3 hover:bg-button-hover focus:outline-none `}
+                                    >
+                                        <ArrowRight />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
                 <section className="bg-button relative">
 
                     {/* Flechas para desktop */}
@@ -481,7 +583,7 @@ const Main = () => {
                         className="absolute left-2 lg:left-10 top-1/2 transform -translate-y-1/2 z-10 hidden lg:block text-white text-3xl px-3 py-2 bg-white/20 w-14 h-14 rounded-full hover:bg-white/40 transition"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-arrow-left" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+                            <path fillRule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
                         </svg>
                     </button>
 
@@ -491,7 +593,7 @@ const Main = () => {
                         className="absolute right-2 lg:right-10 top-1/2 transform -translate-y-1/2 z-10 hidden lg:block text-white text-3xl px-3 py-2 bg-white/20 w-14 h-14 rounded-full hover:bg-white/40 transition"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-arrow-right" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                            <path fillRule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
                         </svg>
                     </button>
 

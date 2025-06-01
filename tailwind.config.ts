@@ -29,6 +29,8 @@ const config: Config = {
         lightgreen: "#75C568",
         gray5: "#F6F8ED",
         gray2: "#333333",
+        gray3: "#9696B3",
+        gray4: "#F3F4F5",
         button2: "#1A9C51",
         button: "#10439C",
         whatsapp: '#0df053',
@@ -78,6 +80,8 @@ const config: Config = {
       "2xl": "1536px",
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar-hide') // npm install tailwind-scrollbar-hide
+  ],
 }
 export default config
